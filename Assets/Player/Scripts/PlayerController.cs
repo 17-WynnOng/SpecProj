@@ -5,22 +5,35 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
+    [Header("Player Config")]
     [SerializeField] private float moveSpeed = 5f;
     [SerializeField] private float mouseSensitivity;
     [SerializeField] private Transform cameraHolder;
     [SerializeField] private float verticalClampAngle = 80f;
+    [SerializeField] private float jumpHeight = 2f;
+
+    [Header("Gravity")]
+    [SerializeField] private float gravity = -9.81f;
+    [SerializeField] private Transform groundCheck; // small empty GameObject at player feet
+    [SerializeField] private float groundDistance = 0.4f;
+    [SerializeField] private LayerMask groundMask;
 
     private PlayerInput playerInput;
     private CharacterController characterController;
 
-    //Movement
     private Vector2 moveInput;
     private InputAction moveAction;
+    private InputAction jumpAction;
 
     //Camera
     private InputAction lookAction;
     private Vector2 mouseDelta;
     private float verticalRotation = 0f;
+
+    //Gravity
+    private Vector3 velocity;
+    private bool isGrounded;
+
 
     // Start is called before the first frame update
     void Awake()
@@ -30,13 +43,16 @@ public class PlayerController : MonoBehaviour
 
         moveAction = playerInput.actions["Movement"];
         lookAction = playerInput.actions["Look"];
+        jumpAction = playerInput.actions["Jump"];
     }
 
     // Update is called once per frame
     void Update()
     {
+        Gravity();
         HandleLook();
         HandleMove();
+        HandleJump();
 
         moveInput = moveAction.ReadValue<Vector2>();
         Vector3 move = transform.right * moveInput.x + transform.forward * moveInput.y;
@@ -65,5 +81,28 @@ public class PlayerController : MonoBehaviour
         moveInput = moveAction.ReadValue<Vector2>();
         Vector3 move = transform.right * moveInput.x + transform.forward * moveInput.y;
         characterController.Move(move * moveSpeed * Time.deltaTime);
+    }
+
+    public void Gravity()
+    {
+        velocity.y += gravity * Time.deltaTime;
+
+        characterController.Move(velocity * Time.deltaTime);
+    }
+
+    public void HandleJump()
+    {
+        // Check if grounded
+        isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+
+        if (isGrounded && velocity.y < 0f)
+        {
+            velocity.y = -2f;
+        }
+
+        if (isGrounded && jumpAction.WasPressedThisFrame())
+        {
+            velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+        }
     }
 }
