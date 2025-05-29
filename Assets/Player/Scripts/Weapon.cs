@@ -12,8 +12,8 @@ public abstract class Weapon : MonoBehaviour
 
     protected void PerformRaycast()
     {
-        Ray ray = playerCamera.ViewportPointToRay(
-        new Vector3(0.5f, 0.5f, 0.0f));
+        Ray ray = playerCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0.0f));
+
         if (Physics.Raycast(ray, out RaycastHit hit, weaponData.range,
         weaponData.hitLayers))
         {

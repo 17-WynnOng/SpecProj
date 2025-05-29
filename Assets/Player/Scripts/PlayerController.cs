@@ -18,12 +18,17 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float groundDistance = 0.4f;
     [SerializeField] private LayerMask groundMask;
 
+    [Header("Held Weapon")]
+    [SerializeField] private Weapon heldWeapon;
+
     private PlayerInput playerInput;
     private CharacterController characterController;
 
+    //Input Actions
     private Vector2 moveInput;
     private InputAction moveAction;
     private InputAction jumpAction;
+    private InputAction lmbAction;
 
     //Camera
     private InputAction lookAction;
@@ -38,12 +43,15 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
+        Cursor.lockState = CursorLockMode.Locked;
+
         characterController = GetComponent<CharacterController>();
         playerInput = GetComponent<PlayerInput>();
 
         moveAction = playerInput.actions["Movement"];
         lookAction = playerInput.actions["Look"];
         jumpAction = playerInput.actions["Jump"];
+        lmbAction = playerInput.actions["LeftMouse"];
     }
 
     // Update is called once per frame
@@ -53,6 +61,7 @@ public class PlayerController : MonoBehaviour
         HandleLook();
         HandleMove();
         HandleJump();
+        HandleShoot();
 
         moveInput = moveAction.ReadValue<Vector2>();
         Vector3 move = transform.right * moveInput.x + transform.forward * moveInput.y;
@@ -103,6 +112,14 @@ public class PlayerController : MonoBehaviour
         if (isGrounded && jumpAction.WasPressedThisFrame())
         {
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+        }
+    }
+
+    public void HandleShoot()
+    {
+        if (lmbAction.IsPressed())
+        {
+            heldWeapon.Shoot();
         }
     }
 }
