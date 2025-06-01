@@ -18,8 +18,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float groundDistance = 0.4f;
     [SerializeField] private LayerMask groundMask;
 
-    [Header("Held Weapon")]
-    [SerializeField] private Weapon heldWeapon;
+    [Header("PlayerLoadout (Important)")]
+    [SerializeField] private PlayerLoadout playerLoadout;
 
     private PlayerInput playerInput;
     private CharacterController characterController;
@@ -43,8 +43,6 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        Cursor.lockState = CursorLockMode.Locked;
-
         characterController = GetComponent<CharacterController>();
         playerInput = GetComponent<PlayerInput>();
 
@@ -117,9 +115,10 @@ public class PlayerController : MonoBehaviour
 
     public void HandleShoot()
     {
-        if (lmbAction.IsPressed())
+        if (lmbAction.IsPressed() && playerLoadout.heldWeapon != null)
         {
-            heldWeapon.Shoot();
+            playerLoadout.heldWeapon.Shoot();
         }
+
     }
 }

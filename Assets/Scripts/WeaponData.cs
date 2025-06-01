@@ -5,6 +5,7 @@ using UnityEngine;
 public class WeaponData : ScriptableObject
 {
     public string weaponName;
+    public GameObject weaponPrefab;
     public float damage = 10f;
     public float range = 100f;
     public float fireRate = 0.1f;

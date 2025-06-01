@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: AssaultRifle
   m_EditorClassIdentifier: 
   weaponName: AR
+  weaponPrefab: {fileID: 4082824778660106895, guid: 33744929a806ac644a70ed1ec5a124c0, type: 3}
   damage: 10
   range: 100
   fireRate: 0.2

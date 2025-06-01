@@ -7,6 +7,11 @@ public abstract class Weapon : MonoBehaviour
     [SerializeField] private Camera playerCamera;
     [SerializeField] protected WeaponData weaponData;
     protected float nextFireTime = 0f;
+    public void Initialize(WeaponData data, Camera cam)
+    {
+        weaponData = data;
+        playerCamera = cam;
+    }
 
     public abstract void Shoot();
 
