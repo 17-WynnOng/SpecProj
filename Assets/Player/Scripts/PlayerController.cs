@@ -5,12 +5,13 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    [Header("Player Config")]
+    [Header("Player Config (Important)")]
     [SerializeField] private float moveSpeed = 5f;
     [SerializeField] private float mouseSensitivity;
     [SerializeField] private Transform cameraHolder;
     [SerializeField] private float verticalClampAngle = 80f;
     [SerializeField] private float jumpHeight = 2f;
+    [SerializeField] private Camera playerCamera;
 
     [Header("Gravity")]
     [SerializeField] private float gravity = -9.81f;
@@ -25,6 +26,10 @@ public class PlayerController : MonoBehaviour
     [Header("PlayerLoadout (Important)")]
     [SerializeField] private PlayerLoadout playerLoadout;
 
+    [Header("PlayerBuild(Important)")]
+    [SerializeField] private PlayerBuild playerBuildMode;
+
+
     private PlayerInput playerInput;
     private CharacterController characterController;
 
@@ -34,6 +39,7 @@ public class PlayerController : MonoBehaviour
     private InputAction jumpAction;
     private InputAction lmbAction;
     private InputAction mouseWheelAction;
+    private InputAction buildAction;
 
     //Camera
     private InputAction lookAction;
@@ -58,6 +64,7 @@ public class PlayerController : MonoBehaviour
         jumpAction = playerInput.actions["Jump"];
         lmbAction = playerInput.actions["LeftMouse"];
         mouseWheelAction = playerInput.actions["MouseWheel"];
+        buildAction = playerInput.actions["Build"];
     }
 
     // Update is called once per frame
@@ -65,13 +72,23 @@ public class PlayerController : MonoBehaviour
     {
         if (!controlsEnabled)
             return;
+        HandleBuildModeToggle();
 
+        // Always allow movement/look/jump
         Gravity();
         HandleLook();
         HandleMove();
         HandleJump();
-        HandleShoot();
+
+        // Weapon switching should probably still work, even in build mode
         HandleScrollSwitch();
+
+        // Only fire when *not* in build mode
+        HandleShoot();
+
+        // Still let the player place turrets when in build mode
+        if (playerBuildMode.buildMode)
+            HandleBuildMode();
 
         moveInput = moveAction.ReadValue<Vector2>();
         Vector3 move = transform.right * moveInput.x + transform.forward * moveInput.y;
@@ -127,7 +144,12 @@ public class PlayerController : MonoBehaviour
 
     private void HandleShoot()
     {
-        if (playerLoadout.heldWeapon == null) return;
+        // don’t ever shoot if we’re in build mode
+        if (playerBuildMode.buildMode)
+            return;
+
+        if (playerLoadout.heldWeapon == null)
+            return;
 
         switch (playerLoadout.heldWeapon.weaponData.fireMode)
         {
@@ -145,19 +167,33 @@ public class PlayerController : MonoBehaviour
 
     private void HandleScrollSwitch()
     {
-        if (Time.time < nextScrollTime) return;
+        // don’t scroll if we’re still on cooldown
+        if (Time.time < nextScrollTime)
+            return;
 
+        // read the wheel once
         float scrollY = mouseWheelAction.ReadValue<Vector2>().y;
+        if (scrollY == 0f)
+            return;
 
-        if (scrollY > 0f)
+        // advance the cooldown
+        nextScrollTime = Time.time + scrollCooldown;
+
+        if (!playerBuildMode.buildMode)
         {
-            playerLoadout.SwitchToNextWeapon();
-            nextScrollTime = Time.time + scrollCooldown;
+            // normal weapon switching
+            if (scrollY > 0f)
+                playerLoadout.SwitchToNextWeapon();
+            else
+                playerLoadout.SwitchToPreviousWeapon();
         }
-        else if (scrollY < 0f)
+        else
         {
-            playerLoadout.SwitchToPreviousWeapon();
-            nextScrollTime = Time.time + scrollCooldown;
+            // in build mode, switch which sentry you’ll place
+            if (scrollY > 0f)
+                playerLoadout.SwitchToNextSentry();
+            else
+                playerLoadout.SwitchToPreviousSentry();
         }
     }
 
@@ -165,5 +201,25 @@ public class PlayerController : MonoBehaviour
     {
         controlsEnabled = toggle;
         GameManager.Instance.allowSpawning = toggle;
+    }
+
+    private void HandleBuildModeToggle()
+    {
+        if (buildAction.WasPressedThisFrame())
+        {
+            playerBuildMode.TryBuildToggle(playerLoadout);
+        }
+    }
+
+    private void HandleBuildMode()
+    {
+        if (playerCamera != null)
+        {
+            // On left click, place the turret
+            if (lmbAction.WasPressedThisFrame())
+            {
+                playerBuildMode.TryPlaceSentry(playerCamera, playerLoadout);
+            }
+        }
     }
 }

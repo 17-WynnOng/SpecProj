@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,16 +11,14 @@ public class PlayerLoadout : MonoBehaviour
     public Weapon heldWeapon;
 
     [SerializeField] private Weapon[] equippedWeapons = new Weapon[2];
-    private int currentWeaponIndex = 0;
+    [HideInInspector] public int currentWeaponIndex = 0;
 
     [Header("Held Sentry")]
-    public Weapon heldSentry;
+    public WeaponData heldSentry;
 
     [Tooltip("Prefabs for the two sentry types")]
-    [SerializeField] private WeaponData[] equippedSentries;
-    private int currentSentryIndex = 0; // which sentry prefab is selected
-
-    [HideInInspector] public bool buildMode = false;
+    [SerializeField] public WeaponData[] equippedSentries;
+    [HideInInspector] public int currentSentryIndex = 0; // which sentry prefab is selected
 
     public void LoadPlayerLoadout()
     {
@@ -31,8 +29,8 @@ public class PlayerLoadout : MonoBehaviour
         EquipWeapon(0, primary);
         EquipWeapon(1, secondary);
 
-
         SwitchToWeapon(0); // Start with primary
+        SwitchToSentry(0);
     }
 
     private void EquipWeapon(int slot, WeaponData data)
@@ -49,49 +47,76 @@ public class PlayerLoadout : MonoBehaviour
 
         currentWeaponIndex = index;
         heldWeapon = equippedWeapons[currentWeaponIndex];
-    }
-
-    public void SwitchToSentry(int index)
-    {
-        currentWeaponIndex = index;
-        heldWeapon = equippedWeapons[currentWeaponIndex];
+        UIManager.Instance.gunTxt.text = "Gun: " + heldWeapon.weaponData.weaponName;
     }
 
     public void SwitchToNextWeapon()
     {
-        int nextIndex = (currentWeaponIndex + 1) % equippedWeapons.Length;
-        SwitchToWeapon(nextIndex);
+        int length = equippedWeapons.Length;
+        // Look at each slot after the current
+        for (int offset = 1; offset < length; offset++)
+        {
+            int index = (currentWeaponIndex + offset) % length;
+            if (equippedWeapons[index] != null)
+            {
+                SwitchToWeapon(index);
+                return;
+            }
+        }
+        // no non-null weapon found → do nothing
     }
-
     public void SwitchToPreviousWeapon()
     {
-        int prevIndex = (currentWeaponIndex - 1 + equippedWeapons.Length) % equippedWeapons.Length;
-        SwitchToWeapon(prevIndex);
+        int length = equippedWeapons.Length;
+        // Look backwards from the current
+        for (int offset = 1; offset < length; offset++)
+        {
+            int index = (currentWeaponIndex - offset + length) % length;
+            if (equippedWeapons[index] != null)
+            {
+                SwitchToWeapon(index);
+                return;
+            }
+        }
+        // no non-null weapon found → do nothing
     }
 
-    public void ToggleBuildMode()
+    public void SwitchToSentry(int index)
     {
-        buildMode = !buildMode;
-        // optionally: swap UI, cursor, disable shooting/movement, etc.
+        currentSentryIndex = index;
+        heldSentry = equippedSentries[currentSentryIndex];
+        UIManager.Instance.buildStatusTxt.text = "Turret: " + heldSentry.weaponName;
     }
 
     public void SwitchToNextSentry()
     {
-        int nextIndex = (currentSentryIndex + 1) % equippedSentries.Length;
-        SwitchToWeapon(nextIndex);
+        int length = equippedSentries.Length;
+        // Look at each slot after the current
+        for (int offset = 1; offset < length; offset++)
+        {
+            int index = (currentSentryIndex + offset) % length;
+            if (equippedSentries[index] != null)
+            {
+                SwitchToSentry(index);
+                return;
+            }
+        }
+        // no non-null weapon found → do nothing
     }
 
     public void SwitchToPreviousSentry()
     {
-        int prevIndex = (currentSentryIndex - 1 + equippedSentries.Length) % equippedSentries.Length;
-        SwitchToWeapon(prevIndex);
-    }
-
-    public void PlaceSentry(Vector3 position, Quaternion rotation)
-    {
-        if (currentSentryIndex < 0 || currentSentryIndex >= equippedSentries.Length)
-            return;
-
-        Instantiate(equippedSentries[currentSentryIndex].weaponPrefab, position, rotation);
+        int length = equippedSentries.Length;
+        // Look backwards from the current
+        for (int offset = 1; offset < length; offset++)
+        {
+            int index = (currentSentryIndex - offset + length) % length;
+            if (equippedSentries[index] != null)
+            {
+                SwitchToSentry(index);
+                return;
+            }
+        }
+        // no non-null weapon found → do nothing
     }
 }

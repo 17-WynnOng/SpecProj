@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: SniperSentry
   m_EditorClassIdentifier: 
   weaponName: Sniper Sentry
-  weaponPrefab: {fileID: 6528960764385774299, guid: cbbb0fbff609e9141b3b5fa8dc63e666, type: 3}
-  damage: 10
+  weaponPrefab: {fileID: 6528960764385774299, guid: 6e43e32399605c44ea3900c07d7c3bdd, type: 3}
+  damage: 50
   range: 100
-  fireRate: 0.3
+  fireRate: 5
   hitLayers:
     serializedVersion: 2
     m_Bits: 4294967295

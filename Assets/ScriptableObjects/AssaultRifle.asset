@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04d236e04ec798343825ef2ede8ce581, type: 3}
   m_Name: AssaultRifle
   m_EditorClassIdentifier: 
-  weaponName: AR
+  weaponName: Assault Rifle
   weaponPrefab: {fileID: 4082824778660106895, guid: 33744929a806ac644a70ed1ec5a124c0, type: 3}
-  damage: 20
+  damage: 15
   range: 100
-  fireRate: 0.15
+  fireRate: 0.2
   hitLayers:
     serializedVersion: 2
     m_Bits: 4294967295
