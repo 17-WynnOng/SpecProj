@@ -23,16 +23,32 @@ public class LoadoutUI : MonoBehaviour
 
     public void ConfirmLoadout()
     {
-        LoadoutManager.Instance.SetLoadout(selectedPrimary, selectedSecondary);
-
-        // Find the player's WeaponInventory
-        PlayerLoadout weaponInventory = FindObjectOfType<PlayerLoadout>();
-        if (weaponInventory != null)
+        if (selectedPrimary != null && selectedSecondary != null)
         {
-            weaponInventory.LoadPlayerLoadout();
-        }
+            LoadoutManager.Instance.SetLoadout(selectedPrimary, selectedSecondary);
+                
+            // Find the player's WeaponInventory
+            PlayerLoadout weaponInventory = FindObjectOfType<PlayerLoadout>();
+            PlayerController playerController = FindObjectOfType<PlayerController>();
 
-        // Optionally hide UI
-        gameObject.SetActive(false);
+            if (weaponInventory != null)
+            {
+                weaponInventory.LoadPlayerLoadout();
+            }
+
+            if (playerController != null)
+            {
+                playerController.EnableControls(true);
+            }
+
+            Cursor.lockState = CursorLockMode.Locked;
+
+            // Optionally hide UI
+            gameObject.SetActive(false);
+        }
+        else
+        {
+            Debug.Log("Unable to deploy without full loadout");
+        }
     }
 }

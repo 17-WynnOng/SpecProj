@@ -18,6 +18,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float groundDistance = 0.4f;
     [SerializeField] private LayerMask groundMask;
 
+    [Header("Scrollwheel Cooldown")]
+    [SerializeField] private float scrollCooldown = 0.2f;
+    private float nextScrollTime = 0f;
+
     [Header("PlayerLoadout (Important)")]
     [SerializeField] private PlayerLoadout playerLoadout;
 
@@ -29,6 +33,7 @@ public class PlayerController : MonoBehaviour
     private InputAction moveAction;
     private InputAction jumpAction;
     private InputAction lmbAction;
+    private InputAction mouseWheelAction;
 
     //Camera
     private InputAction lookAction;
@@ -38,6 +43,8 @@ public class PlayerController : MonoBehaviour
     //Gravity
     private Vector3 velocity;
     private bool isGrounded;
+
+    private bool controlsEnabled = false;
 
 
     // Start is called before the first frame update
@@ -50,23 +57,28 @@ public class PlayerController : MonoBehaviour
         lookAction = playerInput.actions["Look"];
         jumpAction = playerInput.actions["Jump"];
         lmbAction = playerInput.actions["LeftMouse"];
+        mouseWheelAction = playerInput.actions["MouseWheel"];
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (!controlsEnabled)
+            return;
+
         Gravity();
         HandleLook();
         HandleMove();
         HandleJump();
         HandleShoot();
+        HandleScrollSwitch();
 
         moveInput = moveAction.ReadValue<Vector2>();
         Vector3 move = transform.right * moveInput.x + transform.forward * moveInput.y;
         characterController.Move(move * moveSpeed * Time.deltaTime);
     }
-
-    public void HandleLook()
+    
+    private void HandleLook()
     {
         mouseDelta = lookAction.ReadValue<Vector2>();
 
@@ -83,21 +95,21 @@ public class PlayerController : MonoBehaviour
         cameraHolder.localRotation = Quaternion.Euler(verticalRotation, 0f, 0f);
     }
 
-    public void HandleMove()
+    private void HandleMove()
     {
         moveInput = moveAction.ReadValue<Vector2>();
         Vector3 move = transform.right * moveInput.x + transform.forward * moveInput.y;
         characterController.Move(move * moveSpeed * Time.deltaTime);
     }
 
-    public void Gravity()
+    private void Gravity()
     {
         velocity.y += gravity * Time.deltaTime;
 
         characterController.Move(velocity * Time.deltaTime);
     }
 
-    public void HandleJump()
+    private void HandleJump()
     {
         // Check if grounded
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
@@ -113,12 +125,36 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void HandleShoot()
+    private void HandleShoot()
     {
         if (lmbAction.IsPressed() && playerLoadout.heldWeapon != null)
         {
             playerLoadout.heldWeapon.Shoot();
         }
 
+    }
+
+    private void HandleScrollSwitch()
+    {
+        if (Time.time < nextScrollTime) return;
+
+        float scrollY = mouseWheelAction.ReadValue<Vector2>().y;
+
+        if (scrollY > 0f)
+        {
+            playerLoadout.SwitchToNextWeapon();
+            nextScrollTime = Time.time + scrollCooldown;
+        }
+        else if (scrollY < 0f)
+        {
+            playerLoadout.SwitchToPreviousWeapon();
+            nextScrollTime = Time.time + scrollCooldown;
+        }
+    }
+
+    public void EnableControls(bool toggle)
+    {
+        controlsEnabled = toggle;
+        GameManager.Instance.allowSpawning = toggle;
     }
 }

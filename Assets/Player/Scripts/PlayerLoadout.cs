@@ -39,4 +39,16 @@ public class PlayerLoadout : MonoBehaviour
         currentWeaponIndex = index;
         heldWeapon = equippedWeapons[currentWeaponIndex];
     }
+
+    public void SwitchToNextWeapon()
+    {
+        int nextIndex = (currentWeaponIndex + 1) % equippedWeapons.Length;
+        SwitchToWeapon(nextIndex);
+    }
+
+    public void SwitchToPreviousWeapon()
+    {
+        int prevIndex = (currentWeaponIndex - 1 + equippedWeapons.Length) % equippedWeapons.Length;
+        SwitchToWeapon(prevIndex);
+    }
 }
