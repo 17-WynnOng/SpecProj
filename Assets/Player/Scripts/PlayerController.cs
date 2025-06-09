@@ -127,11 +127,20 @@ public class PlayerController : MonoBehaviour
 
     private void HandleShoot()
     {
-        if (lmbAction.IsPressed() && playerLoadout.heldWeapon != null)
-        {
-            playerLoadout.heldWeapon.Shoot();
-        }
+        if (playerLoadout.heldWeapon == null) return;
 
+        switch (playerLoadout.heldWeapon.weaponData.fireMode)
+        {
+            case FireMode.FullAuto:
+                if (lmbAction.IsPressed())
+                    playerLoadout.heldWeapon.Shoot();
+                break;
+
+            case FireMode.SemiAuto:
+                if (lmbAction.WasPressedThisFrame())
+                    playerLoadout.heldWeapon.Shoot();
+                break;
+        }
     }
 
     private void HandleScrollSwitch()

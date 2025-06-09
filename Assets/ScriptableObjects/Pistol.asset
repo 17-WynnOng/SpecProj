@@ -16,7 +16,8 @@ MonoBehaviour:
   weaponPrefab: {fileID: 5093368982277136714, guid: 4f0cb521814854548ac9dd77cbeb39e7, type: 3}
   damage: 10
   range: 100
-  fireRate: 1
+  fireRate: 0.2
   hitLayers:
     serializedVersion: 2
     m_Bits: 4294967295
+  fireMode: 0

@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 8666442191840693035}
   - component: {fileID: 4924685342350207057}
   - component: {fileID: 6834034109973271346}
+  - component: {fileID: 5407813778234832678}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -142,3 +143,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waypoints: []
+--- !u!114 &5407813778234832678
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7241409482216587773}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba7dd3d55d96fbb4486229cd727db802, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
+  objectRenderer: {fileID: 8444461967855325867}
+  damageColor: {r: 0, g: 0, b: 1, a: 1}
+  damageEffectDuration: 0.2
