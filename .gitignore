@@ -1,18 +1,67 @@
-# Unity folders
+# =============== #
+# Unity generated #
+# =============== #
+
 [Ll]ibrary/
 [Tt]emp/
 [Oo]bj/
 [Bb]uild/
-[Uu]ser[Ss]ettings/
+[Bb]uilds/
+[Ll]ogs/
+MemoryCaptures/
+UserSettings/
 
-# Visual Studio / Rider
-.vs/
-*.csproj
-*.sln
-*.suo
+# Uncomment if you have the Asset Store tools plugin
+# [Aa]ssets/AssetStoreTools*
+
+# ===================================== #
+# VisualStudio / MonoDevelop / Rider IDE #
+# ===================================== #
+
+ExportedObj/
+.consulo/
+/*.csproj
+/*.unityproj
+/*.sln
+/*.suo
+*.tmp
 *.user
 *.userprefs
+*.pidb
+*.booproj
+*.pidb.meta
 
-# OS files
+# =========================== #
+# Unity crash report files    #
+# =========================== #
+
+sysinfo.txt
+
+# =========================== #
+# Builds and packages         #
+# =========================== #
+
+*.apk
+*.aab
+*.unitypackage
+
+# =================================== #
+# Crashlytics generated files (if any) #
+# =================================== #
+
+fabric.properties
+crashlytics.properties
+google-services.json
+firebase*.json
+
+# =========================== #
+# OS generated files          #
+# =========================== #
+
 .DS_Store
+._*
+.Spotlight-V100
+.Trashes
 Thumbs.db
+desktop.ini
+
