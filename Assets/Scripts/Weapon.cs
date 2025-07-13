@@ -8,10 +8,15 @@ public abstract class Weapon : MonoBehaviour
     [SerializeField] public WeaponData weaponData;
     protected float nextFireTime = 0f;
 
+    public int currentMag;
+    public int currentReserve;
+
     public void Initialize(WeaponData data, Camera cam = null)
     {
         weaponData = data;
         playerCamera = cam;  // null for turret
+        currentMag = weaponData.magazineSize;
+        currentReserve = weaponData.maxAmmo;
     }
 
     // hook for subclasses or setup code to define origin+direction

@@ -1,12 +1,19 @@
-    using UnityEngine;
+using System.Runtime.CompilerServices;
+using UnityEngine;
 public class RaycastWeapon : Weapon
 {
     public override void Shoot()
     {
-        if (Time.time >= nextFireTime)
+        if (currentMag > 0)
         {
-            nextFireTime = Time.time + weaponData.fireRate;
-            PerformRaycast();
+            if (Time.time >= nextFireTime)
+            {
+                nextFireTime = Time.time + weaponData.fireRate;
+                PerformRaycast();
+
+                currentMag--;
+                UIManager.Instance.ammoTxt.text = currentMag + "/" + currentReserve;
+            }
         }
     }
 }

@@ -9,6 +9,7 @@ public class UIManager : MonoBehaviour
 
     public TMP_Text gunTxt;
     public TMP_Text buildStatusTxt;
+    public TMP_Text ammoTxt;
 
     private void Awake()
     {
