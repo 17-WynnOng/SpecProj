@@ -14,12 +14,15 @@ public class WeaponData : ScriptableObject
     public float damage = 10f;
     public float range = 100f;
     public float fireRate = 0.1f;
+
+    [Header("Weapon")]
     public int magazineSize;
     public int maxAmmo;
-    public LayerMask hitLayers; // Layers the weapon can hit
+    public int reloadTime;
 
     [Header("Firing Mode")]
     public FireMode fireMode;
 
+    public LayerMask hitLayers; // Layers the weapon can hit
 }
 

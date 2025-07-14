@@ -20,12 +20,14 @@ public class LoadoutUI : MonoBehaviour
     {
         selectedPrimary = weapon;
         Debug.Log("Primary Selected: " + weapon.weaponName);
+        UIManager.Instance.selectedPrimaryTxt.text = weapon.weaponName;
     }
 
     public void SelectSecondary(WeaponData weapon)
     {
         selectedSecondary = weapon;
         Debug.Log("Secondary Selected: " + weapon.weaponName);
+        UIManager.Instance.selectedSecondaryTxt.text = weapon.weaponName;
     }
 
     public void SelectSentries(WeaponData weapon)
@@ -37,6 +39,7 @@ public class LoadoutUI : MonoBehaviour
             {
                 selectedSentries[i] = weapon;
                 Debug.Log($"Added to slot {i}: {weapon.weaponName}");
+                UIManager.Instance.UpdateSentryList(selectedSentries);
                 return;
             }
         }
@@ -48,6 +51,7 @@ public class LoadoutUI : MonoBehaviour
         // now put the new weapon in the first slot
         selectedSentries[0] = weapon;
         Debug.Log($"Slots full → pushed down and placed new in slot 0: {weapon.weaponName}");
+        UIManager.Instance.UpdateSentryList(selectedSentries);
     }
 
     public void ConfirmLoadout()

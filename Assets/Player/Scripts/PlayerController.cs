@@ -40,6 +40,7 @@ public class PlayerController : MonoBehaviour
     private InputAction lmbAction;
     private InputAction mouseWheelAction;
     private InputAction buildAction;
+    private InputAction reloadAction;
 
     //Camera
     private InputAction lookAction;
@@ -65,6 +66,8 @@ public class PlayerController : MonoBehaviour
         lmbAction = playerInput.actions["LeftMouse"];
         mouseWheelAction = playerInput.actions["MouseWheel"];
         buildAction = playerInput.actions["Build"];
+        reloadAction = playerInput.actions["Reload"];
+
     }
 
     // Update is called once per frame
@@ -85,6 +88,7 @@ public class PlayerController : MonoBehaviour
 
         // Only fire when *not* in build mode
         HandleShoot();
+        HandleReload();
 
         // Still let the player place turrets when in build mode
         if (playerBuildMode.buildMode)
@@ -145,7 +149,7 @@ public class PlayerController : MonoBehaviour
     private void HandleShoot()
     {
         // don’t ever shoot if we’re in build mode
-        if (playerBuildMode.buildMode)
+        if (playerBuildMode.buildMode || playerLoadout.heldWeapon.isReloading)
             return;
 
         if (playerLoadout.heldWeapon == null)
@@ -162,6 +166,14 @@ public class PlayerController : MonoBehaviour
                 if (lmbAction.WasPressedThisFrame())
                     playerLoadout.heldWeapon.Shoot();
                 break;
+        }
+    }
+
+    private void HandleReload()
+    {
+        if (reloadAction.WasPressedThisFrame())
+        {
+            playerLoadout.heldWeapon.Reload();
         }
     }
 

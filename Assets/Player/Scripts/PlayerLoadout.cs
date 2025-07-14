@@ -49,6 +49,7 @@ public class PlayerLoadout : MonoBehaviour
         heldWeapon = equippedWeapons[currentWeaponIndex];
         UIManager.Instance.gunTxt.text = "Gun: " + heldWeapon.weaponData.weaponName;
         UIManager.Instance.ammoTxt.text = heldWeapon.currentMag + "/" + heldWeapon.currentReserve;
+        heldWeapon.isReloading = false;
     }
 
     public void SwitchToNextWeapon()

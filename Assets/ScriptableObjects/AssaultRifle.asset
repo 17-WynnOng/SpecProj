@@ -19,7 +19,8 @@ MonoBehaviour:
   fireRate: 0.2
   magazineSize: 30
   maxAmmo: 120
+  reloadTime: 1
+  fireMode: 1
   hitLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  fireMode: 1

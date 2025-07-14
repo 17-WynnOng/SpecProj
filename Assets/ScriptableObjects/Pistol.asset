@@ -17,7 +17,10 @@ MonoBehaviour:
   damage: 10
   range: 100
   fireRate: 0.2
+  magazineSize: 17
+  maxAmmo: 85
+  reloadTime: 1
+  fireMode: 0
   hitLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  fireMode: 0

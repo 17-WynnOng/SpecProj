@@ -14,9 +14,9 @@ GameObject:
   - component: {fileID: 8666442191840693035}
   - component: {fileID: 4924685342350207057}
   - component: {fileID: 5407813778234832678}
-  - component: {fileID: -7531661507196517995}
+  - component: {fileID: -6465610584132349321}
   m_Layer: 9
-  m_Name: Enemy
+  m_Name: Enemy 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -65,7 +65,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: e8397aded753cbf4f8b0bbb034068449, type: 2}
+  - {fileID: 2100000, guid: bf08081bc33145649854fd40257cef5e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -146,7 +146,7 @@ MonoBehaviour:
   objectRenderer: {fileID: 8444461967855325867}
   damageColor: {r: 0, g: 0, b: 1, a: 1}
   damageEffectDuration: 0.2
---- !u!114 &-7531661507196517995
+--- !u!114 &-6465610584132349321
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -155,8 +155,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 7241409482216587773}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 23393e64c5142b34393922f0ebb66737, type: 3}
+  m_Script: {fileID: 11500000, guid: 5b254b6b0f2769247b696486e848c333, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   path: []
+  player: {fileID: 0}
+  viewRadius: 10
+  viewAngle: 120
+  playerMask:
+    serializedVersion: 2
+    m_Bits: 1024
+  obstacleMask:
+    serializedVersion: 2
+    m_Bits: 2048
   tolerance: 0.3
+  isChasing: 0

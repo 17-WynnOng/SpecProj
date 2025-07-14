@@ -10,6 +10,7 @@ public abstract class Weapon : MonoBehaviour
 
     public int currentMag;
     public int currentReserve;
+    public bool isReloading = false;
 
     public void Initialize(WeaponData data, Camera cam = null)
     {
@@ -27,6 +28,29 @@ public abstract class Weapon : MonoBehaviour
     }
 
     public abstract void Shoot();
+
+    public void Reload()
+    {
+        if (isReloading || currentMag == weaponData.magazineSize || currentReserve == 0)
+            return;
+
+        StartCoroutine(ReloadRoutine());
+    }
+
+    private IEnumerator ReloadRoutine()
+    {
+        isReloading = true;
+        yield return new WaitForSeconds(weaponData.reloadTime);
+
+        int needed = weaponData.magazineSize - currentMag;
+        int toLoad = Mathf.Min(needed, currentReserve);
+        currentMag += toLoad;
+        currentReserve -= toLoad;
+
+        UIManager.Instance.ammoTxt.text = currentMag + "/" + currentReserve;
+
+        isReloading = false;
+    }
 
     public void PerformRaycast()
     {
