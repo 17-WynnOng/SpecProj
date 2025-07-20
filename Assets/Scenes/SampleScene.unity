@@ -2298,8 +2298,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 124.49, y: -31.2}
-  m_SizeDelta: {x: 10.784, y: 50}
+  m_AnchoredPosition: {x: -0.000019073, y: 0.00029179}
+  m_SizeDelta: {x: 185.625, y: 101.65}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &205024461
 MonoBehaviour:
@@ -2384,7 +2384,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -248.82692, y: -56.69684, z: 0, w: 0}
+  m_margin: {x: 0.10159302, y: 0.50737, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -2680,7 +2680,7 @@ GameObject:
   - component: {fileID: 325982903}
   - component: {fileID: 325982902}
   m_Layer: 5
-  m_Name: Image
+  m_Name: Crosshair
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2840,7 +2840,7 @@ GameObject:
   - component: {fileID: 429226482}
   - component: {fileID: 429226481}
   m_Layer: 5
-  m_Name: Panel (1)
+  m_Name: AmmoPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2863,8 +2863,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 357.77972, y: -360.94714}
-  m_SizeDelta: {x: -1660.235, y: -977.544}
+  m_AnchoredPosition: {x: 594, y: -366.6}
+  m_SizeDelta: {x: -1731.377, y: -977.544}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &429226481
 MonoBehaviour:
@@ -3954,7 +3954,7 @@ GameObject:
   - component: {fileID: 890876839}
   - component: {fileID: 890876838}
   m_Layer: 11
-  m_Name: Cube
+  m_Name: Test Obstacle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6877,8 +6877,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 124.21216, y: -82}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: 0.344, y: -53.5}
+  m_SizeDelta: {x: 447.732, y: 107}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1938224129
 MonoBehaviour:
@@ -6900,7 +6900,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Turret: '
+  m_text: Turret
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -6934,7 +6934,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 1
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -6963,7 +6963,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -248.82692, y: -56.69684, z: 0, w: 0}
+  m_margin: {x: 0.6628189, y: -0.43235588, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -7109,7 +7109,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Gun:'
+  m_text: Weapon
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -7143,7 +7143,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 1
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -7172,7 +7172,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -248.82692, y: -56.69684, z: 0, w: 0}
+  m_margin: {x: 0.6801224, y: 0.116584785, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -7202,8 +7202,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 124.21216, y: 33}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: 93.493, y: 58.294}
+  m_SizeDelta: {x: 261.438, y: 100.587}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &2104446769
 GameObject:

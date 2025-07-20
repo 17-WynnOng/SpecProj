@@ -47,7 +47,7 @@ public class PlayerLoadout : MonoBehaviour
 
         currentWeaponIndex = index;
         heldWeapon = equippedWeapons[currentWeaponIndex];
-        UIManager.Instance.gunTxt.text = "Gun: " + heldWeapon.weaponData.weaponName;
+        UIManager.Instance.gunTxt.text = heldWeapon.weaponData.weaponName;
         UIManager.Instance.ammoTxt.text = heldWeapon.currentMag + "/" + heldWeapon.currentReserve;
         heldWeapon.isReloading = false;
     }
@@ -90,7 +90,7 @@ public class PlayerLoadout : MonoBehaviour
 
         if (heldSentry != null)
         {
-            UIManager.Instance.buildStatusTxt.text = "Turret: " + heldSentry.weaponName;
+            UIManager.Instance.buildStatusTxt.text = heldSentry.weaponName;
         }
     }
 

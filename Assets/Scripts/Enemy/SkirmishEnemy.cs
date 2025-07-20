@@ -125,12 +125,6 @@ public class SkirmishEnemy : EnemyAI
         agent.isStopped = true;
         Debug.Log("Is stopped");
 
-        //rotate to face player
-        Vector3 dir = (player.position - transform.position);
-        dir.y = 0;
-        if (dir != Vector3.zero)
-            transform.rotation = Quaternion.LookRotation(dir);
-
         // Enable hitbox
         attackHitbox.EnableHitbox();
 
