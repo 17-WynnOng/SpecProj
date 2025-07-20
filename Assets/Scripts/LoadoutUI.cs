@@ -56,7 +56,7 @@ public class LoadoutUI : MonoBehaviour
 
     public void ConfirmLoadout()
     {
-        if (selectedPrimary != null && selectedSecondary != null)
+        if (selectedPrimary != null && selectedSecondary != null && selectedSentries[0] != null )
         {
             LoadoutManager.Instance.SetLoadout(selectedPrimary, selectedSecondary, selectedSentries);
                 

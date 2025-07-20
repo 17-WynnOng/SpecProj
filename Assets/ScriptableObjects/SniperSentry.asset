@@ -17,7 +17,10 @@ MonoBehaviour:
   damage: 50
   range: 100
   fireRate: 5
+  magazineSize: 0
+  maxAmmo: 0
+  reloadTime: 0
+  fireMode: 1
   hitLayers:
     serializedVersion: 2
-    m_Bits: 4294967295
-  fireMode: 1
+    m_Bits: 512

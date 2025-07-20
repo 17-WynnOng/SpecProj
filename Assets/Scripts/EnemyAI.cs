@@ -1,7 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine;
+
+public enum EnemyState
+{
+    Patrol,
+    Chase,
+    Search,
+    Attack
+}
 
 public abstract class EnemyAI : MonoBehaviour
 {
@@ -10,10 +16,15 @@ public abstract class EnemyAI : MonoBehaviour
     [SerializeField] protected Transform player;
     protected int currentIndex;
 
+    protected EnemyState state = EnemyState.Patrol;
+
     protected virtual void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
         player = GameObject.FindWithTag("Player").transform;
+        agent.avoidancePriority = Random.Range(30, 70);
+        int enemyLayerIndex = LayerMask.NameToLayer("Enemy");
+        Physics.IgnoreLayerCollision(enemyLayerIndex, enemyLayerIndex);
     }
 
     protected virtual void Start()
@@ -24,15 +35,6 @@ public abstract class EnemyAI : MonoBehaviour
             agent.SetDestination(path[0].position);
     }
 
-    protected virtual void Update()
-    {
-        if (ShouldChasePlayer())
-            ChasePlayer();
-        else
-            PatrolPath();
-    }
-
-    protected abstract bool ShouldChasePlayer();
-    protected abstract void ChasePlayer();
-    protected abstract void PatrolPath();
+    protected abstract void Update();// Let children override entirely
 }
+

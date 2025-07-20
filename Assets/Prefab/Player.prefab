@@ -17,9 +17,10 @@ GameObject:
   - component: {fileID: 4684775784073754192}
   - component: {fileID: 8677603806838760248}
   - component: {fileID: 3107846410334598256}
-  m_Layer: 0
+  - component: {fileID: 1683883515830330731}
+  m_Layer: 10
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -216,9 +217,7 @@ MonoBehaviour:
   - {fileID: 0}
   currentWeaponIndex: 0
   heldSentry: {fileID: 0}
-  equippedSentries:
-  - {fileID: 0}
-  - {fileID: 0}
+  equippedSentries: []
   currentSentryIndex: 0
 --- !u!114 &3107846410334598256
 MonoBehaviour:
@@ -237,6 +236,23 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   buildMode: 0
+--- !u!114 &1683883515830330731
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 499672841334020520}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6c7e61f9649c7f4ba6dc37aec0ca58e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
+  currentHealth: 0
+  objectRenderer: {fileID: 689107219141489804}
+  damageColor: {r: 0, g: 0, b: 1, a: 1}
+  damageEffectDuration: 0.5
 --- !u!1 &1081787301315465637
 GameObject:
   m_ObjectHideFlags: 0
@@ -246,7 +262,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3124429862334976240}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: GroundCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -279,7 +295,7 @@ GameObject:
   - component: {fileID: 7500257459999026818}
   - component: {fileID: 6927774623196750630}
   - component: {fileID: 4716563081129749680}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Weapon Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -405,7 +421,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7150644935232864533}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: WeaponHolder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -439,7 +455,7 @@ GameObject:
   - component: {fileID: 1646965744765572851}
   - component: {fileID: 8661036607368099311}
   - component: {fileID: 5716467233024845118}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Main Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -500,7 +516,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 887
+    m_Bits: 2935
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -574,7 +590,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5878403158091963375}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: CameraHolder
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -5,7 +5,7 @@ using UnityEngine;
 public class Damageable : MonoBehaviour
 {
     [SerializeField] private float maxHealth = 100f;
-    private float currentHealth;
+    [SerializeField] private float currentHealth;
 
     public delegate void OnDeath();
     public event OnDeath onDeath;
@@ -47,7 +47,7 @@ public class Damageable : MonoBehaviour
         }
     }
 
-    private void Die()
+    protected virtual void Die()
     {
         onDeath?.Invoke(); // Notify listeners
         Destroy(gameObject); // Or pool

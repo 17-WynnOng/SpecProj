@@ -6,14 +6,7 @@ public class SiegeEnemey : EnemyAI
 {
     [SerializeField] private float tolerance = 0.3f;
 
-    protected override bool ShouldChasePlayer() => false;
-
-    protected override void ChasePlayer()
-    {
-        
-    }
-
-    protected override void PatrolPath()
+    protected override void Update()
     {
         if (agent.pathPending || agent.remainingDistance > tolerance) return;
 

@@ -87,7 +87,11 @@ public class PlayerLoadout : MonoBehaviour
     {
         currentSentryIndex = index;
         heldSentry = equippedSentries[currentSentryIndex];
-        UIManager.Instance.buildStatusTxt.text = "Turret: " + heldSentry.weaponName;
+
+        if (heldSentry != null)
+        {
+            UIManager.Instance.buildStatusTxt.text = "Turret: " + heldSentry.weaponName;
+        }
     }
 
     public void SwitchToNextSentry()
