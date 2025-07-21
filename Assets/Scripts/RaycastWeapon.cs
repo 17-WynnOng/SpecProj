@@ -1,4 +1,4 @@
-using System.Runtime.CompilerServices;
+﻿using System.Runtime.CompilerServices;
 using UnityEngine;
 public class RaycastWeapon : Weapon
 {
@@ -12,7 +12,21 @@ public class RaycastWeapon : Weapon
                 PerformRaycast();
 
                 currentMag--;
-                UIManager.Instance.ammoTxt.text = currentMag + "/" + currentReserve;
+                UIManager.Instance.magazineTxt.text = currentMag.ToString();
+                UIManager.Instance.reserveAmmoTxt.text = currentReserve.ToString();
+            }
+        }
+    }
+
+    public override void PerformRaycast()
+    {
+        Ray ray = GetFireRay();
+        if (Physics.Raycast(ray, out var hit, weaponData.range, weaponData.hitLayers))
+        {
+            if (hit.collider.TryGetComponent<Damageable>(out var d))
+            {
+                d.TakeDamage(weaponData.damage);
+                d.IfDamagedByPlayer();
             }
         }
     }

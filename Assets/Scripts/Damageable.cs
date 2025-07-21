@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Damageable : MonoBehaviour
 {
-    [SerializeField] private float maxHealth = 100f;
-    [SerializeField] private float currentHealth;
+    [SerializeField] protected float maxHealth = 100f;
+    [SerializeField] protected float currentHealth;
 
     public delegate void OnDeath();
     public event OnDeath onDeath;
@@ -19,7 +19,7 @@ public class Damageable : MonoBehaviour
     private Color originalColor;
     private Material runtimeMaterial;
 
-    private void Start()
+    protected virtual void Start()
     {
         currentHealth = maxHealth;
 
@@ -28,7 +28,12 @@ public class Damageable : MonoBehaviour
         originalColor = runtimeMaterial.color;
     }
 
-    public void TakeDamage(float damage)
+    public float GetCurrentHealth()
+    {
+        return currentHealth;
+    }
+
+    public virtual void TakeDamage(float damage)
     {
         currentHealth -= damage;
 
@@ -44,7 +49,13 @@ public class Damageable : MonoBehaviour
         if (currentHealth <= 0f)
         {
             Die();
+            currentHealth = 0f;
         }
+        else
+        {
+            IfDamagedByPlayer();
+        }
+
     }
 
     protected virtual void Die()
@@ -69,4 +80,6 @@ public class Damageable : MonoBehaviour
         // Ensure the final color is reset to the original
         objectRenderer.material.color = originalColor;
     }
+
+    public virtual void IfDamagedByPlayer() { }
 }

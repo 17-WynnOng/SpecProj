@@ -6,32 +6,113 @@ using UnityEngine;
 public class EnemySpawner : MonoBehaviour
 {
     [Header("Enemy Settings")]
-    [SerializeField] private GameObject enemyPrefab;
+    [Tooltip("SiegeEnemy = 0\nSkirmishEnemy = 1")]
+    [SerializeField] private GameObject[] enemyPrefabs;
+
     [SerializeField] private Transform spawnPoint;
 
     [Header("Spawning Settings")]
-    [SerializeField] private float spawnRate = 2f; //Seconds
-    [SerializeField] private int maxEnemies = 10;  // Optional: limit number of enemies
-    private float spawnTimer;
-    private int enemiesSpawned = 0;
+    [SerializeField] private int maxEnemies = 20;
+    [SerializeField] private float spawnRateBetweenEnemies = 1f;
+    [SerializeField] private float delayBetweenGroups = 5f;
+    [SerializeField] private int enemiesInGroup;
 
-    private void Update()
+    [Header("Siege Settings")]
+    [Range(0f, 1f)]
+    [SerializeField] private float siegeSpawnChance = 0.3f; // 30% chance to include Siege enemies
+    [SerializeField] private int maxSiegePerGroup = 1;
+
+    private int enemiesLeft;
+    private int groupsSpawned = 0;
+    private bool spawningGroup = false;
+
+    private void Start()
     {
-        if (!GameManager.Instance.allowSpawning)
-            return;
+        enemiesLeft = maxEnemies;
+        StartCoroutine(SpawnGroupsLoop());
+    }
 
-        spawnTimer += Time.deltaTime;
-
-        if (spawnTimer >= spawnRate && enemiesSpawned < maxEnemies)
+    private IEnumerator SpawnGroupsLoop()
+    {
+        while (enemiesLeft > 0)
         {
-            SpawnEnemy();
-            spawnTimer = 0f;
+            if (!GameManager.Instance.allowSpawning)
+            {
+                yield return null;
+                continue;
+            }
+
+            if (!spawningGroup)
+            {
+                spawningGroup = true;
+                yield return StartCoroutine(SpawnGroup());
+
+                groupsSpawned++;
+                if (groupsSpawned % 3 == 0)
+                {
+                    enemiesInGroup++;
+                    Debug.Log($"Increased group size to {enemiesInGroup} after {groupsSpawned} groups.");
+                }
+
+                yield return new WaitForSeconds(delayBetweenGroups);
+                spawningGroup = false;
+            }
+
+            yield return null;
         }
     }
 
-    private void SpawnEnemy()
+    private IEnumerator SpawnGroup()
     {
-        GameObject enemy = Instantiate(enemyPrefab, spawnPoint.position, spawnPoint.rotation);
-        enemiesSpawned++;
+        int groupSize = Mathf.Min(enemiesInGroup, enemiesLeft);
+
+        int siegeCount = 0;
+
+        if (Random.value < siegeSpawnChance)
+        {
+            siegeCount = Random.Range(0, maxSiegePerGroup + 1);
+            siegeCount = Mathf.Min(siegeCount, groupSize);
+        }
+
+        int skirmishCount = groupSize - siegeCount;
+
+        Debug.Log($"Spawning group: {siegeCount} Siege, {skirmishCount} Skirmish");
+
+        for (int i = 0; i < siegeCount; i++)
+        {
+            SpawnEnemy(0); // Siege
+            yield return new WaitForSeconds(spawnRateBetweenEnemies);
+        }
+
+        for (int i = 0; i < skirmishCount; i++)
+        {
+            SpawnEnemy(1); // Skirmish
+            yield return new WaitForSeconds(spawnRateBetweenEnemies);
+        }
+    }
+
+    public void SpawnEnemy(int index)
+    {
+        if (enemiesLeft <= 0) return;
+
+        if (index < 0 || index >= enemyPrefabs.Length)
+        {
+            Debug.LogWarning("Invalid enemy index: " + index);
+            return;
+        }
+
+        Instantiate(enemyPrefabs[index], spawnPoint.position, spawnPoint.rotation);
+        enemiesLeft--;
+    }
+
+    // Optional API for wave scaling
+    public void SetEnemiesPerGroup(int amount)
+    {
+        enemiesInGroup = amount;
+    }
+
+    public void SetSiegeSpawnChance(float chance)
+    {
+        siegeSpawnChance = Mathf.Clamp01(chance);
     }
 }

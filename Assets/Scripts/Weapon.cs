@@ -47,12 +47,13 @@ public abstract class Weapon : MonoBehaviour
         currentMag += toLoad;
         currentReserve -= toLoad;
 
-        UIManager.Instance.ammoTxt.text = currentMag + "/" + currentReserve;
+        UIManager.Instance.magazineTxt.text = currentMag.ToString();
+        UIManager.Instance.reserveAmmoTxt.text = currentReserve.ToString();
 
         isReloading = false;
     }
 
-    public void PerformRaycast()
+    public virtual void PerformRaycast()
     {
         Ray ray = GetFireRay();
         if (Physics.Raycast(ray, out var hit, weaponData.range, weaponData.hitLayers))

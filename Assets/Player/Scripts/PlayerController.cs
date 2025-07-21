@@ -41,6 +41,7 @@ public class PlayerController : MonoBehaviour
     private InputAction mouseWheelAction;
     private InputAction buildAction;
     private InputAction reloadAction;
+    private InputAction enterAction;
 
     //Camera
     private InputAction lookAction;
@@ -67,6 +68,7 @@ public class PlayerController : MonoBehaviour
         mouseWheelAction = playerInput.actions["MouseWheel"];
         buildAction = playerInput.actions["Build"];
         reloadAction = playerInput.actions["Reload"];
+        enterAction = playerInput.actions["Enter"];
 
     }
 
@@ -82,6 +84,8 @@ public class PlayerController : MonoBehaviour
         HandleLook();
         HandleMove();
         HandleJump();
+        HandleEnter();
+
 
         // Weapon switching should probably still work, even in build mode
         HandleScrollSwitch();
@@ -212,7 +216,6 @@ public class PlayerController : MonoBehaviour
     public void EnableControls(bool toggle)
     {
         controlsEnabled = toggle;
-        GameManager.Instance.allowSpawning = toggle;
     }
 
     private void HandleBuildModeToggle()
@@ -232,6 +235,14 @@ public class PlayerController : MonoBehaviour
             {
                 playerBuildMode.TryPlaceSentry(playerCamera, playerLoadout);
             }
+        }
+    }
+
+    private void HandleEnter()
+    {
+        if (enterAction.WasPressedThisFrame())
+        {
+            GameManager.Instance.EndCountdown();
         }
     }
 }

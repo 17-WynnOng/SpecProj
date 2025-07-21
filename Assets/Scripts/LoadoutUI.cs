@@ -77,7 +77,8 @@ public class LoadoutUI : MonoBehaviour
             Cursor.lockState = CursorLockMode.Locked;
 
             // Optionally hide UI
-            gameObject.SetActive(false);
+            UIManager.Instance.loadoutUICanvas.SetActive(false);
+            GameManager.Instance.StartWaveCountdown();
         }
         else
         {

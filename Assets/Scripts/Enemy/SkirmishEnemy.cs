@@ -10,7 +10,7 @@ public class SkirmishEnemy : EnemyAI
     public float viewRadius;
     public float viewAngle;
     public LayerMask playerMask, obstacleMask;
-    public float tolerance = 0.3f;
+    public float searchDuration = 3f;
 
     [Header("Attack Settings")]
     [SerializeField] private float attackRange = 1f;
@@ -22,7 +22,6 @@ public class SkirmishEnemy : EnemyAI
     private Vector3 lastKnownPlayerPosition;
     private float searchTimer = 0f;
     private float attackCooldownTimer = 0f;
-    public float searchDuration = 3f;
 
     [Header("Enemy Status")]
     [SerializeField] private bool isAttacking = false;
@@ -34,7 +33,7 @@ public class SkirmishEnemy : EnemyAI
         switch (state)
         {
             case EnemyState.Patrol:
-                HandlePatrol();
+                HandlePathing();
                 break;
 
             case EnemyState.Chase:
@@ -50,7 +49,7 @@ public class SkirmishEnemy : EnemyAI
         }
     }
 
-    private void HandlePatrol()
+    protected override void HandlePathing()
     {
         if (CanSeePlayer())
         {
@@ -60,13 +59,7 @@ public class SkirmishEnemy : EnemyAI
             return;
         }
 
-        if (agent.pathPending || agent.remainingDistance > tolerance) return;
-
-        currentIndex++;
-        if (currentIndex < path.Length)
-            agent.SetDestination(path[currentIndex].position);
-        else
-            Destroy(gameObject);
+        base.HandlePathing();
     }
 
     private void HandleChase()
@@ -107,7 +100,7 @@ public class SkirmishEnemy : EnemyAI
         if (searchTimer <= 0f)
         {
             state = EnemyState.Patrol;
-            currentIndex = Mathf.Clamp(currentIndex, 0, path.Length - 1);
+            currentIndex = GetClosestWaypointIndex();
             agent.SetDestination(path[currentIndex].position);
         }
     }
@@ -123,7 +116,6 @@ public class SkirmishEnemy : EnemyAI
     {
         isAttacking = true;
         agent.isStopped = true;
-        Debug.Log("Is stopped");
 
         // Enable hitbox
         attackHitbox.EnableHitbox();
@@ -135,7 +127,6 @@ public class SkirmishEnemy : EnemyAI
 
         attackCooldownTimer = attackCooldown;
         agent.isStopped = false;
-        Debug.Log("Is moving");
         isAttacking = false;
         state = EnemyState.Chase;
     }
@@ -159,5 +150,15 @@ public class SkirmishEnemy : EnemyAI
         }
 
         return false;
+    }
+
+    public override void IfDamagedByPlayer()
+    {
+        if (state != EnemyState.Chase && state != EnemyState.Attack)
+        {
+            state = EnemyState.Chase;
+            lastKnownPlayerPosition = player.position;
+            agent.SetDestination(lastKnownPlayerPosition);
+        }
     }
 }

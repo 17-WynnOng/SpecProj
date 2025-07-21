@@ -17,7 +17,7 @@ public class RaycastSentry : Weapon
         if (Time.time >= nextFireTime)
         {
             nextFireTime = Time.time + weaponData.fireRate;
-            PerformRaycast();
+            base.PerformRaycast();
         }
     }
 }
