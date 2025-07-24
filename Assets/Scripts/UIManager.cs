@@ -3,20 +3,24 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using JetBrains.Annotations;
+using System.ComponentModel;
 
 public class UIManager : MonoBehaviour
 {
     public static UIManager Instance;
 
     [Header("Game UI")]
-    public GameObject gameUICanvas;
     public RectTransform healthBar;
     public RectTransform baseHealthBar;
+    public RectTransform waveBar;
     public TMP_Text magazineTxt;
     public TMP_Text reserveAmmoTxt;
     public TMP_Text gunTxt;
     public TMP_Text buildStatusTxt;
     public TMP_Text waveCountDownText;
+    public TMP_Text waveText;
+    public TMP_Text scrapAmtTxt;
+    public GameObject gameUICanvas;
     public GameObject middleLeftUI;
 
     [Header("Loadout UI")]
@@ -27,11 +31,12 @@ public class UIManager : MonoBehaviour
 
     private float healthBarMaxWidth;
     private float baseHPBarMaxWidth;
+    private float waveBarMaxWidth;
 
     private void Awake()
     {
         middleLeftUI.SetActive(false);
-        gameUICanvas.SetActive(true);
+        gameUICanvas.SetActive(false);
         loadoutUICanvas.SetActive(true);
 
         if (Instance == null)
@@ -44,26 +49,66 @@ public class UIManager : MonoBehaviour
     {
         healthBarMaxWidth = healthBar.sizeDelta.x;
         baseHPBarMaxWidth = baseHealthBar.sizeDelta.x;
+        waveBarMaxWidth = waveBar.sizeDelta.x;
     }
 
-    public void UpdateSentryList(WeaponData[] sentries)
+    public void UpdateSentryList(DeployableData[] deployables)
     {
         for (int i = 0; i < selectedSentriesTxt.Length; i++)
         {
-            if (i < sentries.Length && sentries[i] != null)
-                selectedSentriesTxt[i].text = sentries[i].weaponName;
+            if (i < deployables.Length && deployables[i] != null)
+                selectedSentriesTxt[i].text = deployables[i].deployableName;
             else
                 selectedSentriesTxt[i].text = "—";    // or blank
         }
     }
 
-    public float GetHPMaxWidth()
+    public void UpdateAmmoUI(int currentMag, int currentReserve)
     {
-        return healthBarMaxWidth;
+        magazineTxt.text = currentMag.ToString();
+        reserveAmmoTxt.text = currentReserve.ToString();
     }
 
-    public float GetBaseHPMaxWidth()
+    public void UpdatePlayerHealthBar(float currentHealth, float maxHealth)
     {
-        return baseHPBarMaxWidth;
+        if (healthBar == null)
+            return;
+
+        float percent = Mathf.Clamp01(currentHealth / maxHealth);
+        Vector2 size = healthBar.sizeDelta;
+        size.x = percent * healthBarMaxWidth;
+        healthBar.sizeDelta = size;
+    }
+
+    public void UpdateBaseHealthBar(float baseCurrentHealth, float baseMaxHealth)
+    {
+        if (baseHealthBar == null)
+            return;
+
+        float percent = Mathf.Clamp01(baseCurrentHealth / baseMaxHealth);
+        Vector2 size = baseHealthBar.sizeDelta;
+        size.x = percent * baseHPBarMaxWidth;
+        baseHealthBar.sizeDelta = size;
+    }
+
+    public void UpdateWaveBar(int enemiesLeft, int maxEnemies)
+    {
+        if (waveBar == null)
+            return;
+
+        float percent = Mathf.Clamp01((float)enemiesLeft / maxEnemies);
+        Vector2 size = waveBar.sizeDelta;
+        size.x = percent * waveBarMaxWidth;
+        waveBar.sizeDelta = size;
+    }
+
+    public void UpdateWaveCount(int currentWave, int winWave)
+    {
+        waveText.text = currentWave.ToString() + "/" + winWave.ToString();
+    }
+
+    public void UpdateScrapCount(int currentScrap)
+    {
+        scrapAmtTxt.text = currentScrap.ToString();
     }
 }

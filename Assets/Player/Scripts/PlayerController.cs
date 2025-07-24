@@ -19,12 +19,16 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float groundDistance = 0.4f;
     [SerializeField] private LayerMask groundMask;
 
+    [Header("Collectible Attract")]
+    [SerializeField] private float attractRadius = 3f;
+    [SerializeField] private LayerMask collectibleLayer;
+
     [Header("Scrollwheel Cooldown")]
     [SerializeField] private float scrollCooldown = 0.2f;
     private float nextScrollTime = 0f;
 
     [Header("PlayerLoadout (Important)")]
-    [SerializeField] private PlayerLoadout playerLoadout;
+    [SerializeField] public PlayerLoadout playerLoadout;
 
     [Header("PlayerBuild(Important)")]
     [SerializeField] private PlayerBuild playerBuildMode;
@@ -102,6 +106,14 @@ public class PlayerController : MonoBehaviour
         Vector3 move = transform.right * moveInput.x + transform.forward * moveInput.y;
         characterController.Move(move * moveSpeed * Time.deltaTime);
     }
+
+    private void FixedUpdate()
+{
+    if (!controlsEnabled)
+        return;
+
+    AttractNearbyCollectibles();
+}
     
     private void HandleLook()
     {
@@ -207,9 +219,9 @@ public class PlayerController : MonoBehaviour
         {
             // in build mode, switch which sentry you’ll place
             if (scrollY > 0f)
-                playerLoadout.SwitchToNextSentry();
+                playerLoadout.SwitchToNextDeployable();
             else
-                playerLoadout.SwitchToPreviousSentry();
+                playerLoadout.SwitchToPreviousDeployable();
         }
     }
 
@@ -230,10 +242,12 @@ public class PlayerController : MonoBehaviour
     {
         if (playerCamera != null)
         {
+            playerBuildMode.UpdateGhostPosition(playerCamera, playerLoadout);
+
             // On left click, place the turret
             if (lmbAction.WasPressedThisFrame())
             {
-                playerBuildMode.TryPlaceSentry(playerCamera, playerLoadout);
+                playerBuildMode.TryPlaceDeployable(playerCamera, playerLoadout);
             }
         }
     }
@@ -243,6 +257,18 @@ public class PlayerController : MonoBehaviour
         if (enterAction.WasPressedThisFrame())
         {
             GameManager.Instance.EndCountdown();
+        }
+    }
+
+    private void AttractNearbyCollectibles()
+    {
+        Collider[] collision = Physics.OverlapSphere(transform.position, attractRadius, collectibleLayer);
+        foreach (var hit in collision)
+        {
+            if (hit.TryGetComponent<Collectible>(out var collectible))
+            {
+                collectible.StartFlyingToPlayer(transform); // Make this method public in Collectible
+            }
         }
     }
 }

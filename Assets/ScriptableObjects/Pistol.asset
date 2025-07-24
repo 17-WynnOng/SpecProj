@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponName: Pistol
   weaponPrefab: {fileID: 5093368982277136714, guid: 4f0cb521814854548ac9dd77cbeb39e7, type: 3}
-  damage: 10
-  range: 100
+  damage: 15
+  range: 30
   fireRate: 0.2
   magazineSize: 17
   maxAmmo: 85

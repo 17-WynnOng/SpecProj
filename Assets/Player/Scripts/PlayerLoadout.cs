@@ -13,24 +13,38 @@ public class PlayerLoadout : MonoBehaviour
     [SerializeField] private Weapon[] equippedWeapons = new Weapon[2];
     [HideInInspector] public int currentWeaponIndex = 0;
 
-    [Header("Held Sentry")]
-    public WeaponData heldSentry;
+    [Header("Build Tool")]
+    [SerializeField] private GameObject buildTool;
+    [SerializeField] private Vector3 buildToolOffset = Vector3.zero;
+    private GameObject instantiatedBuildTool;
+    private Transform buildToolCanvas;
+    private Dictionary<DeployableData, GameObject> iconDic = new();
 
-    [Tooltip("Prefabs for the two sentry types")]
-    [SerializeField] public WeaponData[] equippedSentries;
-    [HideInInspector] public int currentSentryIndex = 0; // which sentry prefab is selected
+    [Header("Held Deployable")]
+    public DeployableData heldDeployable;
+
+    [Tooltip("Prefabs for deployabls")]
+    [SerializeField] public DeployableData[] equippedDeployables;
+    [HideInInspector] public int currentDeployableIndex = 0;
+
+    [Header("Build Resources")]
+    public int currentScrap = 250;
 
     public void LoadPlayerLoadout()
     {
         WeaponData primary = LoadoutManager.Instance.PrimaryWeapon;
         WeaponData secondary = LoadoutManager.Instance.SecondaryWeapon;
-        equippedSentries = LoadoutManager.Instance.Sentries;
+        equippedDeployables = LoadoutManager.Instance.Deployables;
 
         EquipWeapon(0, primary);
         EquipWeapon(1, secondary);
+        EquipBuildTool();
 
         SwitchToWeapon(0); // Start with primary
-        SwitchToSentry(0);
+        SwitchToDeployable(0);
+
+        HideBuildTool();
+        UIManager.Instance.UpdateScrapCount(currentScrap);
     }
 
     private void EquipWeapon(int slot, WeaponData data)
@@ -38,6 +52,45 @@ public class PlayerLoadout : MonoBehaviour
         Weapon weapon = Instantiate(data.weaponPrefab, weaponHolder).GetComponent<Weapon>();
         weapon.Initialize(data, Camera.main);
         equippedWeapons[slot] = weapon;
+    }
+
+    private void EquipBuildTool()
+    {
+        instantiatedBuildTool = Instantiate(buildTool, weaponHolder);
+        instantiatedBuildTool.transform.localPosition = buildToolOffset;
+        instantiatedBuildTool.transform.localRotation = Quaternion.identity;
+
+        buildToolCanvas = instantiatedBuildTool.transform.Find("Canvas");
+        if (buildToolCanvas == null)
+        {
+            Debug.LogWarning("BuildTool canvas not found!");
+            return;
+        }
+
+        // Pre-instantiate all icons
+        iconDic.Clear();
+        foreach (var deployable in equippedDeployables)
+        {
+            if (deployable == null || deployable.deployableIconPrefab == null)
+                continue;
+
+            GameObject icon = Instantiate(deployable.deployableIconPrefab, buildToolCanvas);
+            icon.SetActive(false);
+            iconDic.Add(deployable, icon);
+        }
+
+    }
+
+    public void SwitchToBuildTool()
+    {
+        if (instantiatedBuildTool != null)
+            instantiatedBuildTool.SetActive(true);
+    }
+
+    public void HideBuildTool()
+    {
+        if (instantiatedBuildTool != null)
+            instantiatedBuildTool.SetActive(false);
     }
 
     public void SwitchToWeapon(int index)
@@ -66,7 +119,6 @@ public class PlayerLoadout : MonoBehaviour
                 return;
             }
         }
-        // no non-null weapon found → do nothing
     }
     public void SwitchToPreviousWeapon()
     {
@@ -81,49 +133,64 @@ public class PlayerLoadout : MonoBehaviour
                 return;
             }
         }
-        // no non-null weapon found → do nothing
     }
 
-    public void SwitchToSentry(int index)
+    public void SwitchToDeployable(int index)
     {
-        currentSentryIndex = index;
-        heldSentry = equippedSentries[currentSentryIndex];
+        SwitchToBuildTool();
+        currentDeployableIndex = index;
+        heldDeployable = equippedDeployables[currentDeployableIndex];
 
-        if (heldSentry != null)
+        if (heldDeployable != null)
         {
-            UIManager.Instance.buildStatusTxt.text = heldSentry.weaponName;
+            UIManager.Instance.buildStatusTxt.text = heldDeployable.deployableName;
+
+            // Hide all indicators
+            foreach (var kvp in iconDic)
+                kvp.Value.SetActive(false);
+
+            // Show the one for the current deployable
+            if (iconDic.TryGetValue(heldDeployable, out var icon))
+            {
+                icon.SetActive(true);
+            }
         }
     }
 
-    public void SwitchToNextSentry()
+    public void SwitchToNextDeployable()
     {
-        int length = equippedSentries.Length;
+        int length = equippedDeployables.Length;
         // Look at each slot after the current
         for (int offset = 1; offset < length; offset++)
         {
-            int index = (currentSentryIndex + offset) % length;
-            if (equippedSentries[index] != null)
+            int index = (currentDeployableIndex + offset) % length;
+            if (equippedDeployables[index] != null)
             {
-                SwitchToSentry(index);
+                SwitchToDeployable(index);
                 return;
             }
         }
         // no non-null weapon found → do nothing
     }
 
-    public void SwitchToPreviousSentry()
+    public void SwitchToPreviousDeployable()
     {
-        int length = equippedSentries.Length;
+        int length = equippedDeployables.Length;
         // Look backwards from the current
         for (int offset = 1; offset < length; offset++)
         {
-            int index = (currentSentryIndex - offset + length) % length;
-            if (equippedSentries[index] != null)
+            int index = (currentDeployableIndex - offset + length) % length;
+            if (equippedDeployables[index] != null)
             {
-                SwitchToSentry(index);
+                SwitchToDeployable(index);
                 return;
             }
         }
         // no non-null weapon found → do nothing
+    }
+
+    public void AddScrap(int amount)
+    {
+        currentScrap += amount;
     }
 }

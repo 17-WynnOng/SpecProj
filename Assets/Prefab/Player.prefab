@@ -139,6 +139,10 @@ MonoBehaviour:
   groundMask:
     serializedVersion: 2
     m_Bits: 320
+  attractRadius: 3
+  collectibleLayer:
+    serializedVersion: 2
+    m_Bits: 4096
   scrollCooldown: 0.2
   playerLoadout: {fileID: 8677603806838760248}
   playerBuildMode: {fileID: 3107846410334598256}
@@ -216,9 +220,9 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   currentWeaponIndex: 0
-  heldSentry: {fileID: 0}
-  equippedSentries: []
-  currentSentryIndex: 0
+  heldDeployable: {fileID: 0}
+  equippedDeployables: []
+  currentDeployableIndex: 0
 --- !u!114 &3107846410334598256
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -234,7 +238,7 @@ MonoBehaviour:
   buildDistance: 100
   buildableLayer:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 4294967295
   buildMode: 0
 --- !u!114 &1683883515830330731
 MonoBehaviour:

@@ -16,12 +16,12 @@ public class SentryController : MonoBehaviour
     [Tooltip("How quickly the turret turns")]
     [SerializeField] private float rotationSpeed = 5f;
 
-    private Weapon weapon;            // your RaycastSentry subclass
+    private Sentries sentry;            // your RaycastSentry subclass
     private Transform currentTarget;  // what we're aiming at
 
     void Awake()
     {
-        weapon = GetComponent<Weapon>();
+        sentry = GetComponent<Sentries>();
     }
 
     void Update()
@@ -30,7 +30,7 @@ public class SentryController : MonoBehaviour
         if (currentTarget != null)
         {
             RotateToward(currentTarget.position);
-            weapon.Shoot();      // uses your base PerformRaycast()
+            sentry.Shoot();      // uses your base PerformRaycast()
         }
     }
 

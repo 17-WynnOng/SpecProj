@@ -26,6 +26,12 @@ public class SkirmishEnemy : EnemyAI
     [Header("Enemy Status")]
     [SerializeField] private bool isAttacking = false;
 
+    protected override void Awake()
+    {
+        base.Awake();
+        agent.avoidancePriority = Random.Range(70, 90);
+    }
+
     protected override void Update()
     {
         attackCooldownTimer -= Time.deltaTime;

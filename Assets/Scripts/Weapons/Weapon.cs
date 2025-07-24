@@ -47,8 +47,7 @@ public abstract class Weapon : MonoBehaviour
         currentMag += toLoad;
         currentReserve -= toLoad;
 
-        UIManager.Instance.magazineTxt.text = currentMag.ToString();
-        UIManager.Instance.reserveAmmoTxt.text = currentReserve.ToString();
+        UIManager.Instance.UpdateAmmoUI(currentMag, currentReserve);
 
         isReloading = false;
     }

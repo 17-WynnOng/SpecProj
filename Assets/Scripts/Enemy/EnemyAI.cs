@@ -19,15 +19,17 @@ public abstract class EnemyAI : Damageable
     [SerializeField] protected float tolerance = 0.3f;
     protected int currentIndex;
 
+    [Header("Drops")]
+    [SerializeField] private GameObject dropPrefab;
+
     protected EnemyState state = EnemyState.Patrol;
 
     protected virtual void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
         player = GameObject.FindWithTag("Player").transform;
-        agent.avoidancePriority = Random.Range(30, 70);
-        int enemyLayerIndex = LayerMask.NameToLayer("Enemy");
-        Physics.IgnoreLayerCollision(enemyLayerIndex, enemyLayerIndex);
+        int enemyLayer = LayerMask.NameToLayer("Enemy");
+        Physics.IgnoreLayerCollision(enemyLayer, enemyLayer);
     }
 
     protected override void Start()
@@ -71,6 +73,36 @@ public abstract class EnemyAI : Damageable
         }
 
         return closestIndex;
+    }
+
+    protected override void Die()
+    {
+        DropCollectible();
+        GameManager.Instance.enemyCounter++;
+        GameManager.Instance.AdvanceWave();
+        base.Die();
+    }
+
+    private void DropCollectible()
+    {
+        if (dropPrefab == null)
+            return;
+
+        int dropAmount = Random.Range(1, 4); // 1 to 3
+
+        for (int i = 0; i < dropAmount; i++)
+        {
+            Vector3 spawnPosition = transform.position + Vector3.up * 1f;
+            GameObject scrap = Instantiate(dropPrefab, spawnPosition, Quaternion.identity);
+
+            if (scrap.TryGetComponent<Rigidbody>(out Rigidbody rb))
+            {
+                // Launch in a random horizontal direction with some upward force
+                Vector3 randomDir = Quaternion.Euler(0, Random.Range(0f, 360f), 0) * Vector3.forward;
+                Vector3 launchForce = (randomDir + Vector3.up * 0.75f) * Random.Range(1f, 2f);
+                rb.AddForce(launchForce, ForceMode.Impulse);
+            }
+        }
     }
 
     protected abstract void Update();// Let children override entirely

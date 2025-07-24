@@ -18,7 +18,7 @@ public class WeaponData : ScriptableObject
     [Header("Weapon")]
     public int magazineSize;
     public int maxAmmo;
-    public int reloadTime;
+    public float reloadTime;
 
     [Header("Firing Mode")]
     public FireMode fireMode;

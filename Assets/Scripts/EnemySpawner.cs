@@ -12,7 +12,7 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private Transform spawnPoint;
 
     [Header("Spawning Settings")]
-    [SerializeField] private int maxEnemies = 20;
+    [SerializeField] public int maxEnemies = 20;
     [SerializeField] private float spawnRateBetweenEnemies = 1f;
     [SerializeField] private float delayBetweenGroups = 5f;
     [SerializeField] private int enemiesInGroup;
@@ -30,6 +30,11 @@ public class EnemySpawner : MonoBehaviour
     {
         enemiesLeft = maxEnemies;
         StartCoroutine(SpawnGroupsLoop());
+    }
+
+    public int GetEnemiesLeft()
+    {
+        return enemiesLeft;
     }
 
     private IEnumerator SpawnGroupsLoop()
@@ -70,7 +75,7 @@ public class EnemySpawner : MonoBehaviour
 
         if (Random.value < siegeSpawnChance)
         {
-            siegeCount = Random.Range(0, maxSiegePerGroup + 1);
+            siegeCount = Random.Range(1, maxSiegePerGroup + 1);
             siegeCount = Mathf.Min(siegeCount, groupSize);
         }
 
@@ -93,7 +98,8 @@ public class EnemySpawner : MonoBehaviour
 
     public void SpawnEnemy(int index)
     {
-        if (enemiesLeft <= 0) return;
+        if (enemiesLeft <= 0) 
+            return;
 
         if (index < 0 || index >= enemyPrefabs.Length)
         {
@@ -103,9 +109,10 @@ public class EnemySpawner : MonoBehaviour
 
         Instantiate(enemyPrefabs[index], spawnPoint.position, spawnPoint.rotation);
         enemiesLeft--;
+
+        UIManager.Instance.UpdateWaveBar(enemiesLeft, maxEnemies);
     }
 
-    // Optional API for wave scaling
     public void SetEnemiesPerGroup(int amount)
     {
         enemiesInGroup = amount;
@@ -114,5 +121,14 @@ public class EnemySpawner : MonoBehaviour
     public void SetSiegeSpawnChance(float chance)
     {
         siegeSpawnChance = Mathf.Clamp01(chance);
+    }
+
+    public void StartNextWave(int wave)
+    {
+        maxEnemies += 5;
+        enemiesLeft = maxEnemies;
+        enemiesInGroup = 3 + wave / 2;
+        siegeSpawnChance = siegeSpawnChance + 0.05f;
+        Debug.Log($"Wave {wave} spawned: maxEnemies={maxEnemies}, siegeChance={siegeSpawnChance}");
     }
 }

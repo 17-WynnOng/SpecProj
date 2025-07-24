@@ -9,7 +9,7 @@ public class LoadoutManager : MonoBehaviour
     public WeaponData PrimaryWeapon { get; private set; }
     public WeaponData SecondaryWeapon { get; private set; }
 
-    public WeaponData[] Sentries { get; private set;}
+    public DeployableData[] Deployables { get; private set;}
 
     private void Awake()
     {
@@ -19,10 +19,10 @@ public class LoadoutManager : MonoBehaviour
             Destroy(gameObject);
     }
 
-    public void SetLoadout(WeaponData primary, WeaponData secondary, WeaponData[] sentries)
+    public void SetLoadout(WeaponData primary, WeaponData secondary, DeployableData[] deployables)
     {
         PrimaryWeapon = primary;
         SecondaryWeapon = secondary;
-        Sentries = sentries;
+        Deployables = deployables;
     }
 }

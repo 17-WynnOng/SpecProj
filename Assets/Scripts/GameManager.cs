@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
 
     public BaseHealth playerBase;
+    public EnemySpawner enemySpawner;
     public LevelPath levelPath;
     public bool allowSpawning = false;
 
@@ -14,12 +15,24 @@ public class GameManager : MonoBehaviour
     private float countdownRemaining;
     private bool countdownActive = false;
 
+    public int winWave = 4;
+    public int currentWave = 1;
+    
+    public int enemyCounter = 0;
+
     private void Awake()
     {
         if (Instance == null)
             Instance = this;
         else
             Destroy(gameObject);
+
+    }
+
+    private void Start()
+    {
+        UIManager.Instance.UpdateWaveCount(currentWave, winWave);
+
     }
 
     private void Update()
@@ -40,6 +53,7 @@ public class GameManager : MonoBehaviour
 
     public void StartWaveCountdown()
     {
+        enemyCounter = 0;
         countdownRemaining = waveCountdownDuration;
         countdownActive = true;
         allowSpawning = false;
@@ -51,5 +65,31 @@ public class GameManager : MonoBehaviour
         countdownActive = false;
         allowSpawning = true;
         UIManager.Instance.middleLeftUI.SetActive(false);
+        UIManager.Instance.UpdateWaveBar(enemySpawner.GetEnemiesLeft(), enemySpawner.maxEnemies);
+    }
+    public void AdvanceWave()
+    {
+        if (!allowSpawning)
+            return;
+
+        bool noEnemiesLeftToSpawn = enemySpawner.GetEnemiesLeft() <= 0;
+        bool allEnemiesDead = enemyCounter >= enemySpawner.maxEnemies;
+
+        if (noEnemiesLeftToSpawn && allEnemiesDead)
+        {
+            if (currentWave < winWave)
+            {
+                currentWave++;
+                enemyCounter = 0;
+                enemySpawner.StartNextWave(currentWave);
+                StartWaveCountdown();
+                UIManager.Instance.UpdateWaveCount(currentWave, winWave);
+            }
+            else if (currentWave == winWave)
+            {
+                // Last wave is over, all enemies are dead → Win
+                SceneManagement.Instance.LoadScene("WinScene");
+            }
+        }
     }
 }

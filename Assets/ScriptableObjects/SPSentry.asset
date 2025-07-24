@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75f48caa9be2cc242995568a5aeed342, type: 3}
+  m_Name: SPSentry
+  m_EditorClassIdentifier: 
+  deployCost: 160
+  deployableName: Sniper Sentry
+  deployablePrefab: {fileID: 6528960764385774299, guid: 6e43e32399605c44ea3900c07d7c3bdd, type: 3}
+  deployableIconPrefab: {fileID: 7393188199528984226, guid: 7623e98cafb76f6409c95ffc0f852154, type: 3}
+  deployableGhost: {fileID: 6528960764385774299, guid: d72457c7aef3f2f4f99f56f5c686916a, type: 3}
+  damage: 10
+  magazineSize: 0
+  maxAmmo: 0
+  reloadTime: 0
+  range: 100
+  fireRate: 1
+  placementType: 0
+  hitLayers:
+    serializedVersion: 2
+    m_Bits: 512

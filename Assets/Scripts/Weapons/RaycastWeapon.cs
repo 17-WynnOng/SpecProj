@@ -12,8 +12,7 @@ public class RaycastWeapon : Weapon
                 PerformRaycast();
 
                 currentMag--;
-                UIManager.Instance.magazineTxt.text = currentMag.ToString();
-                UIManager.Instance.reserveAmmoTxt.text = currentReserve.ToString();
+                UIManager.Instance.UpdateAmmoUI(currentMag, currentReserve);
             }
         }
     }

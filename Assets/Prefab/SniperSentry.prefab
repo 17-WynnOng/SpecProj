@@ -1203,9 +1203,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 937352158971351194}
-  - component: {fileID: 6028079215853490832}
   - component: {fileID: 8218184342491288786}
   - component: {fileID: 1499400855721733932}
+  - component: {fileID: 1161830039055617449}
   m_Layer: 0
   m_Name: SniperSentry
   m_TagString: Untagged
@@ -1229,21 +1229,6 @@ Transform:
   - {fileID: 6470226433872932106}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6028079215853490832
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6528960764385774299}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 56d5d3962acf1704d9fbc4a692c936db, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerCamera: {fileID: 0}
-  weaponData: {fileID: 11400000, guid: 5313b933f4a14104fad249a2a45638ec, type: 2}
-  firePoint: {fileID: 1568685582970001773}
 --- !u!65 &8218184342491288786
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1283,6 +1268,20 @@ MonoBehaviour:
     m_Bits: 512
   rotationPivot: {fileID: 7018240475709001042}
   rotationSpeed: 25
+--- !u!114 &1161830039055617449
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6528960764385774299}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d86d768a08f18b947b4bdc6155c3327a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  deployableData: {fileID: 11400000, guid: 5313b933f4a14104fad249a2a45638ec, type: 2}
+  firePoint: {fileID: 1568685582970001773}
 --- !u!1 &7163351627012606805
 GameObject:
   m_ObjectHideFlags: 0

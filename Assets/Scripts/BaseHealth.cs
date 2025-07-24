@@ -16,15 +16,7 @@ public class BaseHealth : MonoBehaviour
     {
         baseCurrentHealth -= damage;
 
-        RectTransform baseHealthBar = UIManager.Instance.baseHealthBar;
-
-        if (baseHealthBar != null)
-        {
-            float percent = Mathf.Clamp01(baseCurrentHealth / baseMaxHealth);
-            Vector2 size = baseHealthBar.sizeDelta;
-            size.x = percent * UIManager.Instance.GetBaseHPMaxWidth(); // percent * original bar width
-            baseHealthBar.sizeDelta = size;
-        }
+        UIManager.Instance.UpdateBaseHealthBar(baseCurrentHealth, baseMaxHealth);   
 
         if (baseCurrentHealth <= 0f)
         {
@@ -32,6 +24,7 @@ public class BaseHealth : MonoBehaviour
             baseCurrentHealth = 0f;
 
             //insert what happens when lose
+            SceneManagement.Instance.LoadScene("LoseScene");
         }
     }
 }

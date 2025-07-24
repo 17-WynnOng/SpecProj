@@ -8,13 +8,13 @@ public class LoadoutUI : MonoBehaviour
     public List<WeaponData> allWeapons; // assign in inspector
     public WeaponData selectedPrimary;
     public WeaponData selectedSecondary;
-    public WeaponData[] selectedSentries;
+    public DeployableData[] selectedDeployables;
     private void Awake()
     {
         // if someone messed with it in the inspector, or it's null,
         // re-create the array at length 4
-        if (selectedSentries == null || selectedSentries.Length != 4)
-            selectedSentries = new WeaponData[4];
+        if (selectedDeployables == null || selectedDeployables.Length != 4)
+            selectedDeployables = new DeployableData[4];
     }
     public void SelectPrimary(WeaponData weapon)
     {
@@ -30,35 +30,44 @@ public class LoadoutUI : MonoBehaviour
         UIManager.Instance.selectedSecondaryTxt.text = weapon.weaponName;
     }
 
-    public void SelectSentries(WeaponData weapon)
+    public void SelectDeployables(DeployableData deployable)
     {
-        // 1) Fill any empty slot
-        for (int i = 0; i < selectedSentries.Length; i++)
+        // Prevent duplicates
+        for (int i = 0; i < selectedDeployables.Length; i++)
         {
-            if (selectedSentries[i] == null)
+            if (selectedDeployables[i] == deployable)
             {
-                selectedSentries[i] = weapon;
-                Debug.Log($"Added to slot {i}: {weapon.weaponName}");
-                UIManager.Instance.UpdateSentryList(selectedSentries);
+                Debug.LogWarning($"Deployable '{deployable.deployableName}' is already selected.");
                 return;
             }
         }
 
-        // shift everything right (drop the old last)
-        for (int i = selectedSentries.Length - 1; i > 0; i--)
-            selectedSentries[i] = selectedSentries[i - 1];
+        for (int i = 0; i < selectedDeployables.Length; i++)
+        {
+            if (selectedDeployables[i] == null)
+            {
+                selectedDeployables[i] = deployable;
+                Debug.Log($"Added to slot {i}: {deployable.deployableName}");
+                UIManager.Instance.UpdateSentryList(selectedDeployables);
+                return;
+            }
+        }
 
-        // now put the new weapon in the first slot
-        selectedSentries[0] = weapon;
-        Debug.Log($"Slots full → pushed down and placed new in slot 0: {weapon.weaponName}");
-        UIManager.Instance.UpdateSentryList(selectedSentries);
+        // shift everything right
+        for (int i = selectedDeployables.Length - 1; i > 0; i--)
+            selectedDeployables[i] = selectedDeployables[i - 1];
+
+        // put the new weapon in the first slot
+        selectedDeployables[0] = deployable;
+        Debug.Log($"Slots full → pushed down and placed new in slot 0: {deployable.deployableName}");
+        UIManager.Instance.UpdateSentryList(selectedDeployables);
     }
 
     public void ConfirmLoadout()
     {
-        if (selectedPrimary != null && selectedSecondary != null && selectedSentries[0] != null )
+        if (selectedPrimary != null && selectedSecondary != null && selectedDeployables[0] != null )
         {
-            LoadoutManager.Instance.SetLoadout(selectedPrimary, selectedSecondary, selectedSentries);
+            LoadoutManager.Instance.SetLoadout(selectedPrimary, selectedSecondary, selectedDeployables);
                 
             // Find the player's WeaponInventory
             PlayerLoadout weaponInventory = FindObjectOfType<PlayerLoadout>();
@@ -78,6 +87,7 @@ public class LoadoutUI : MonoBehaviour
 
             // Optionally hide UI
             UIManager.Instance.loadoutUICanvas.SetActive(false);
+            UIManager.Instance.gameUICanvas.SetActive(true);
             GameManager.Instance.StartWaveCountdown();
         }
         else

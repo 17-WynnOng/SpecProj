@@ -17,11 +17,11 @@ public class SceneManagement : MonoBehaviour
         }
 
         Instance = this;
-        DontDestroyOnLoad(gameObject);
     }
 
     public void LoadScene(string sceneName)
     {
         SceneManager.LoadScene(sceneName);
+        Cursor.lockState = CursorLockMode.None;
     }
 }
