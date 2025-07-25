@@ -30,6 +30,8 @@ public class DeployableData : ScriptableObject
 
     [Header("Placement Settings")]
     public PlacementType placementType = PlacementType.Ground;
+    public Color validPlacement;
+    public Color invalidPlacement;
 
     public LayerMask hitLayers; // Layers the weapon can hit
 }

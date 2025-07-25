@@ -2,19 +2,20 @@
 using UnityEngine;
 public class RaycastWeapon : Weapon
 {
-    public override void Shoot()
+    public override bool Shoot()
     {
-        if (currentMag > 0)
-        {
-            if (Time.time >= nextFireTime)
-            {
-                nextFireTime = Time.time + weaponData.fireRate;
-                PerformRaycast();
+        if (isReloading || currentMag <= 0 || Time.time < nextFireTime)
+            return false;
 
-                currentMag--;
-                UIManager.Instance.UpdateAmmoUI(currentMag, currentReserve);
-            }
-        }
+        nextFireTime = Time.time + weaponData.fireRate;
+
+        PerformRaycast(); // damage logic here
+        if (animator != null)
+            animator.SetTrigger("Shoot");
+
+        currentMag--;
+        UIManager.Instance.UpdateAmmoUI(currentMag, currentReserve); // optional
+        return true;
     }
 
     public override void PerformRaycast()

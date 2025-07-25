@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Base
   - Enemy
+  - Deployable
   layers:
   - Default
   - TransparentFX
@@ -20,7 +21,7 @@ TagManager:
   - Player
   - Environment
   - Collectible
-  - 
+  - Objective
   - 
   - 
   - 

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerBuild : MonoBehaviour
 {
+    public static PlayerBuild Instance;
+
     [SerializeField] private float buildDistance = 100f;
 
     [Header("Build Mode")]
@@ -16,20 +18,36 @@ public class PlayerBuild : MonoBehaviour
 
     private GameObject currentGhostInstance;
 
+    private bool canPlace = true;
+
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        Instance = this;
+    }
 
     public void TryPlaceDeployable(Camera playerCamera, PlayerLoadout loadout)
     {
+        if (!canPlace)
+            return;
+
         if (loadout.currentScrap >= loadout.heldDeployable.deployCost)
         {
-            loadout.currentScrap -= loadout.heldDeployable.deployCost;
-            UIManager.Instance.UpdateScrapCount(loadout.currentScrap);
-
             Ray ray = playerCamera.ViewportPointToRay(new Vector3(.5f, .5f, 0f));
             if (Physics.Raycast(ray, out var hit, buildDistance, buildableLayer))
             {
+                loadout.currentScrap -= loadout.heldDeployable.deployCost;
+                UIManager.Instance.UpdateScrapCount(loadout.currentScrap);
+
                 var data = loadout.heldDeployable;
                 Vector3 snappedPos = SnapToLocalGrid(hit.point, hit.normal);
                 Deployable.PlaceDeployable(snappedPos, hit.normal, data);
+                UIManager.Instance.UpdateDeployableCost(loadout.currentScrap, loadout.heldDeployable.deployCost);
             }
         }
     }
@@ -48,10 +66,7 @@ public class PlayerBuild : MonoBehaviour
                 playerLoadout.SwitchToDeployable(playerLoadout.currentDeployableIndex);
             }
 
-            if (playerLoadout.heldDeployable.deployableGhost != null)
-            {
-                currentGhostInstance = Instantiate(playerLoadout.heldDeployable.deployableGhost);
-            }
+            SwitchGhost(playerLoadout);
         }
         else
         {
@@ -88,6 +103,45 @@ public class PlayerBuild : MonoBehaviour
                     currentGhostInstance.transform.rotation = Quaternion.LookRotation(Vector3.forward); // default forward
                     break;
             }
+
+            // ==== Overlap check ====
+            Bounds bounds = currentGhostInstance.GetComponent<Collider>().bounds;
+            Collider[] overlaps = Physics.OverlapBox(bounds.center, bounds.extents, currentGhostInstance.transform.rotation);
+            bool overlappingSentry = false;
+            foreach (var col in overlaps)
+            {
+                if (col.gameObject.CompareTag("Deployable") && col.gameObject != currentGhostInstance)
+                {
+                    overlappingSentry = true;
+                    break;
+                }
+            }
+
+            canPlace = !overlappingSentry;
+
+            Renderer[] renderers = currentGhostInstance.GetComponentsInChildren<Renderer>();
+            Color color = canPlace ? playerloadout.heldDeployable.validPlacement : playerloadout.heldDeployable.invalidPlacement;
+
+            foreach (Renderer rend in renderers)
+            {
+                rend.material.color = color;
+            }
+        }
+    }
+
+    public void SwitchGhost(PlayerLoadout playerLoadout)
+    {
+        if (!buildMode)
+            return;
+
+        if (currentGhostInstance != null)
+        {
+            Destroy(currentGhostInstance);
+        }
+
+        if (playerLoadout.heldDeployable != null && playerLoadout.heldDeployable.deployableGhost != null)
+        {
+            currentGhostInstance = Instantiate(playerLoadout.heldDeployable.deployableGhost);
         }
     }
 
@@ -115,4 +169,5 @@ public class PlayerBuild : MonoBehaviour
         //Transform back to world space
         return toWorld.MultiplyPoint3x4(local);
     }
+
 }

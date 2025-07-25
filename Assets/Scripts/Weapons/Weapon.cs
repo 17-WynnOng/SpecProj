@@ -12,6 +12,8 @@ public abstract class Weapon : MonoBehaviour
     public int currentReserve;
     public bool isReloading = false;
 
+    [SerializeField] public Animator animator;
+
     public void Initialize(WeaponData data, Camera cam = null)
     {
         weaponData = data;
@@ -27,21 +29,31 @@ public abstract class Weapon : MonoBehaviour
         return playerCamera.ViewportPointToRay(new Vector3(.5f, .5f, 0f));
     }
 
-    public abstract void Shoot();
+    public abstract bool Shoot();
 
     public void Reload()
     {
         if (isReloading || currentMag == weaponData.magazineSize || currentReserve == 0)
             return;
 
-        StartCoroutine(ReloadRoutine());
+        StartReloadAnim();
     }
 
-    private IEnumerator ReloadRoutine()
+    public void StartReloadAnim()
     {
         isReloading = true;
-        yield return new WaitForSeconds(weaponData.reloadTime);
+        if (animator != null)
+        {
+            animator.SetBool("Reload", true);
+        }
+    }
 
+    public void EndReloadAnim()
+    {
+        if (animator != null)
+        {
+            animator.SetBool("Reload", false);
+        }
         int needed = weaponData.magazineSize - currentMag;
         int toLoad = Mathf.Min(needed, currentReserve);
         currentMag += toLoad;

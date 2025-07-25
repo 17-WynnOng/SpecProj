@@ -1208,7 +1208,7 @@ GameObject:
   - component: {fileID: 5164574916045532762}
   m_Layer: 0
   m_Name: MachineGunSentry
-  m_TagString: Untagged
+  m_TagString: Deployable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1280,7 +1280,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d86d768a08f18b947b4bdc6155c3327a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deployableData: {fileID: 11400000, guid: fd26aec3bd156ff4e8d621e5b206ade0, type: 2}
   firePoint: {fileID: 1568685582970001773}
 --- !u!1 &7163351627012606805
 GameObject:

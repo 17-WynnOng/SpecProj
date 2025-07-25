@@ -127,11 +127,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 071980355a146f1428244ef07a9be196, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5
+  moveSpeed: 8
   mouseSensitivity: 10
   cameraHolder: {fileID: 5878403158091963375}
   verticalClampAngle: 80
-  jumpHeight: 2
+  jumpHeight: 1.5
   playerCamera: {fileID: 1646965744765572851}
   gravity: -20
   groundCheck: {fileID: 3124429862334976240}
@@ -145,7 +145,12 @@ MonoBehaviour:
     m_Bits: 4096
   scrollCooldown: 0.2
   playerLoadout: {fileID: 8677603806838760248}
-  playerBuildMode: {fileID: 3107846410334598256}
+  recoilSnapSpeed: 10
+  weaponHolder: {fileID: 7150644935232864533}
+  swayAmount: 0.02
+  swaySmooth: 1
+  strafeTiltAmount: 3
+  strafeTiltSpeed: 2
 --- !u!143 &6859302663249143970
 CharacterController:
   m_ObjectHideFlags: 0
@@ -220,9 +225,11 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   currentWeaponIndex: 0
+  buildTool: {fileID: 5093368982277136714, guid: 7284fc13269ec234592da75500eed040, type: 3}
   heldDeployable: {fileID: 0}
   equippedDeployables: []
   currentDeployableIndex: 0
+  currentScrap: 250
 --- !u!114 &3107846410334598256
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -235,10 +242,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6f2e12b533d8904cb36303221b348ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buildDistance: 100
+  buildDistance: 3.5
   buildableLayer:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 320
+  gridSize: 1.1
   buildMode: 0
 --- !u!114 &1683883515830330731
 MonoBehaviour:
@@ -334,7 +342,7 @@ Camera:
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
-  m_FOVAxisMode: 0
+  m_FOVAxisMode: 1
   m_Iso: 200
   m_ShutterSpeed: 0.005
   m_Aperture: 16
@@ -354,13 +362,13 @@ Camera:
     height: 1
   near clip plane: 0.01
   far clip plane: 1000
-  field of view: 90
+  field of view: 58.74284
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 8320
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -441,7 +449,7 @@ Transform:
   m_GameObject: {fileID: 4656753249957975497}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.604, y: 0, z: 0.7}
+  m_LocalPosition: {x: 0.023, y: -0.24, z: 0.097}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -520,7 +528,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 2935
+    m_Bits: 7031
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0

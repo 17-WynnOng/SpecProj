@@ -16,10 +16,11 @@ MonoBehaviour:
   weaponPrefab: {fileID: 5093368982277136714, guid: 4f0cb521814854548ac9dd77cbeb39e7, type: 3}
   damage: 15
   range: 30
-  fireRate: 0.2
+  fireRate: 0.1
   magazineSize: 17
   maxAmmo: 85
   reloadTime: 1
+  recoil: 0.3
   fireMode: 0
   hitLayers:
     serializedVersion: 2

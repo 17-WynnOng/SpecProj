@@ -15,7 +15,6 @@ public class PlayerLoadout : MonoBehaviour
 
     [Header("Build Tool")]
     [SerializeField] private GameObject buildTool;
-    [SerializeField] private Vector3 buildToolOffset = Vector3.zero;
     private GameObject instantiatedBuildTool;
     private Transform buildToolCanvas;
     private Dictionary<DeployableData, GameObject> iconDic = new();
@@ -57,7 +56,7 @@ public class PlayerLoadout : MonoBehaviour
     private void EquipBuildTool()
     {
         instantiatedBuildTool = Instantiate(buildTool, weaponHolder);
-        instantiatedBuildTool.transform.localPosition = buildToolOffset;
+        UIManager.Instance.InitializeBuildToolUI(instantiatedBuildTool);
         instantiatedBuildTool.transform.localRotation = Quaternion.identity;
 
         buildToolCanvas = instantiatedBuildTool.transform.Find("Canvas");
@@ -67,7 +66,7 @@ public class PlayerLoadout : MonoBehaviour
             return;
         }
 
-        // Pre-instantiate all icons
+        //instantiate all icons
         iconDic.Clear();
         foreach (var deployable in equippedDeployables)
         {
@@ -75,6 +74,7 @@ public class PlayerLoadout : MonoBehaviour
                 continue;
 
             GameObject icon = Instantiate(deployable.deployableIconPrefab, buildToolCanvas);
+            icon.transform.localPosition = new Vector3(0, -0.044f, 0);
             icon.SetActive(false);
             iconDic.Add(deployable, icon);
         }
@@ -144,6 +144,8 @@ public class PlayerLoadout : MonoBehaviour
         if (heldDeployable != null)
         {
             UIManager.Instance.buildStatusTxt.text = heldDeployable.deployableName;
+            UIManager.Instance.UpdateDeployableCost(currentScrap, heldDeployable.deployCost);
+            PlayerBuild.Instance.SwitchGhost(this);
 
             // Hide all indicators
             foreach (var kvp in iconDic)

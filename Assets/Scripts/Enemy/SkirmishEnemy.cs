@@ -164,7 +164,10 @@ public class SkirmishEnemy : EnemyAI
         {
             state = EnemyState.Chase;
             lastKnownPlayerPosition = player.position;
-            agent.SetDestination(lastKnownPlayerPosition);
+            if (agent != null)
+            {
+                agent.SetDestination(lastKnownPlayerPosition);
+            }
         }
     }
 }

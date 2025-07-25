@@ -22,6 +22,7 @@ public class UIManager : MonoBehaviour
     public TMP_Text scrapAmtTxt;
     public GameObject gameUICanvas;
     public GameObject middleLeftUI;
+    public TMP_Text buildCostText;
 
     [Header("Loadout UI")]
     public GameObject loadoutUICanvas;
@@ -110,5 +111,32 @@ public class UIManager : MonoBehaviour
     public void UpdateScrapCount(int currentScrap)
     {
         scrapAmtTxt.text = currentScrap.ToString();
+    }
+
+    public void UpdateDeployableCost(int currentScrap, int deployableCost)
+    {
+        buildCostText.text = currentScrap.ToString() + "/" + deployableCost.ToString();
+    }
+
+    public void InitializeBuildToolUI(GameObject buildToolInstance)
+    {
+        Transform txtTransform = buildToolInstance.transform.Find("Canvas/BuildCost_Txt");
+
+        if (txtTransform != null)
+        {
+            TMP_Text costText = txtTransform.GetComponent<TMP_Text>();
+            if (costText != null)
+            {
+                buildCostText = costText;
+            }
+            else
+            {
+                Debug.LogWarning("BuildCost_Txt found, but TextMeshProUGUI component is missing.");
+            }
+        }
+        else
+        {
+            Debug.LogWarning("BuildCost_Txt not found in BuildTool prefab.");
+        }
     }
 }

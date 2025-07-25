@@ -30,9 +30,19 @@ public class PlayerController : MonoBehaviour
     [Header("PlayerLoadout (Important)")]
     [SerializeField] public PlayerLoadout playerLoadout;
 
-    [Header("PlayerBuild(Important)")]
-    [SerializeField] private PlayerBuild playerBuildMode;
+    [Header("Recoil Recovery")]
+    [SerializeField] private float recoilSnapSpeed = 15f;
 
+    [Header("Weapon Sway")]
+    [SerializeField] private Transform weaponHolder; // Assign in inspector (usually the weapon parent)
+    [SerializeField] private float swayAmount = 0.05f;
+    [SerializeField] private float swaySmooth = 6f;
+
+    [Header("Camera Strafe Tilt")]
+    [SerializeField] private float strafeTiltAmount = 5f;
+    [SerializeField] private float strafeTiltSpeed = 5f;
+
+    private Vector3 initialWeaponPos;
 
     private PlayerInput playerInput;
     private CharacterController characterController;
@@ -52,11 +62,20 @@ public class PlayerController : MonoBehaviour
     private Vector2 mouseDelta;
     private float verticalRotation = 0f;
 
+    //Walking
+    private bool isWalking;
+
     //Gravity
     private Vector3 velocity;
     private bool isGrounded;
 
     private bool controlsEnabled = false;
+
+    //Recoil
+    private float targetRecoilX = 0f;
+    private float targetRecoilY = 0f;
+    private float currentRecoilX = 0f;
+    private float currentRecoilY = 0f;
 
 
     // Start is called before the first frame update
@@ -76,6 +95,11 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    void Start()
+    {
+        initialWeaponPos = weaponHolder.localPosition;
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -86,6 +110,8 @@ public class PlayerController : MonoBehaviour
         // Always allow movement/look/jump
         Gravity();
         HandleLook();
+        HandleCameraStrafeTilt();
+        HandleWeaponSway();
         HandleMove();
         HandleJump();
         HandleEnter();
@@ -99,22 +125,45 @@ public class PlayerController : MonoBehaviour
         HandleReload();
 
         // Still let the player place turrets when in build mode
-        if (playerBuildMode.buildMode)
+        if (PlayerBuild.Instance.buildMode)
             HandleBuildMode();
-
-        moveInput = moveAction.ReadValue<Vector2>();
-        Vector3 move = transform.right * moveInput.x + transform.forward * moveInput.y;
-        characterController.Move(move * moveSpeed * Time.deltaTime);
     }
 
     private void FixedUpdate()
-{
-    if (!controlsEnabled)
-        return;
+    {
+        if (!controlsEnabled)
+            return;
 
-    AttractNearbyCollectibles();
-}
-    
+        AttractNearbyCollectibles();
+    }
+
+    private void HandleWeaponSway()
+    {
+        Vector2 mouseDelta = lookAction.ReadValue<Vector2>();
+        Vector2 moveDelta = moveAction.ReadValue<Vector2>();
+
+        //Mouse
+        float swayX = -mouseDelta.x * swayAmount;
+        float swayY = -mouseDelta.y * swayAmount;
+
+        // Movement
+        float moveSwayX = moveDelta.x * swayAmount * 5f; // lateral sway
+        float moveSwayY = Mathf.Abs(moveDelta.y) * swayAmount * 5f; // forward/back
+
+        Vector3 targetPosition = initialWeaponPos + new Vector3(swayX + moveSwayX, swayY + moveSwayY, 0f);
+        weaponHolder.localPosition = Vector3.Lerp(weaponHolder.localPosition, targetPosition, Time.deltaTime * swaySmooth);
+    }
+
+    private void HandleCameraStrafeTilt()
+    {
+        float strafeInput = moveAction.ReadValue<Vector2>().x; // A/D input
+        float targetZRotation = -strafeInput * strafeTiltAmount;
+
+        Vector3 currentEuler = cameraHolder.localRotation.eulerAngles;
+        Quaternion targetRotation = Quaternion.Euler(verticalRotation, 0f, targetZRotation);
+        cameraHolder.localRotation = Quaternion.Slerp(cameraHolder.localRotation, targetRotation, Time.deltaTime * strafeTiltSpeed);
+    }
+
     private void HandleLook()
     {
         mouseDelta = lookAction.ReadValue<Vector2>();
@@ -125,18 +174,32 @@ public class PlayerController : MonoBehaviour
         // Rotate player body (horizontal look)
         transform.Rotate(Vector3.up * mouseX);
 
+        // Recoil logic
+        currentRecoilX = Mathf.Lerp(currentRecoilX, targetRecoilX, recoilSnapSpeed * Time.deltaTime);
+        currentRecoilY = Mathf.Lerp(currentRecoilY, targetRecoilY, recoilSnapSpeed * Time.deltaTime);
+
         // Rotate camera root (vertical look)
         verticalRotation -= mouseY;
+        //Recoil pitch
+        verticalRotation += currentRecoilX;
         verticalRotation = Mathf.Clamp(verticalRotation, -verticalClampAngle, verticalClampAngle);
 
-        cameraHolder.localRotation = Quaternion.Euler(verticalRotation, 0f, 0f);
+        Quaternion currentRotation = cameraHolder.localRotation;
+        float currentRoll = currentRotation.eulerAngles.z;
+        cameraHolder.localRotation = Quaternion.Euler(verticalRotation, 0f, currentRoll);
     }
 
     private void HandleMove()
     {
         moveInput = moveAction.ReadValue<Vector2>();
+        isWalking = moveInput.magnitude > 0.1f && isGrounded;
         Vector3 move = transform.right * moveInput.x + transform.forward * moveInput.y;
         characterController.Move(move * moveSpeed * Time.deltaTime);
+
+        if (playerLoadout.heldWeapon != null && playerLoadout.heldWeapon.animator != null)
+        {
+            playerLoadout.heldWeapon.animator.SetBool("Walking", isWalking);
+        }
     }
 
     private void Gravity()
@@ -165,23 +228,35 @@ public class PlayerController : MonoBehaviour
     private void HandleShoot()
     {
         // don’t ever shoot if we’re in build mode
-        if (playerBuildMode.buildMode || playerLoadout.heldWeapon.isReloading)
+        if (PlayerBuild.Instance.buildMode || playerLoadout.heldWeapon.isReloading)
             return;
 
         if (playerLoadout.heldWeapon == null)
             return;
 
+        bool shot = false;
+
         switch (playerLoadout.heldWeapon.weaponData.fireMode)
         {
             case FireMode.FullAuto:
                 if (lmbAction.IsPressed())
-                    playerLoadout.heldWeapon.Shoot();
+                {
+                    shot = playerLoadout.heldWeapon.Shoot();
+                }
                 break;
 
             case FireMode.SemiAuto:
                 if (lmbAction.WasPressedThisFrame())
-                    playerLoadout.heldWeapon.Shoot();
+                {
+                    shot = playerLoadout.heldWeapon.Shoot();
+                }
                 break;
+        }
+
+        if (shot)
+        {
+            ApplyRecoil(playerLoadout.heldWeapon.weaponData.recoil);
+
         }
     }
 
@@ -207,7 +282,7 @@ public class PlayerController : MonoBehaviour
         // advance the cooldown
         nextScrollTime = Time.time + scrollCooldown;
 
-        if (!playerBuildMode.buildMode)
+        if (!PlayerBuild.Instance.buildMode)
         {
             // normal weapon switching
             if (scrollY > 0f)
@@ -234,7 +309,7 @@ public class PlayerController : MonoBehaviour
     {
         if (buildAction.WasPressedThisFrame())
         {
-            playerBuildMode.TryBuildToggle(playerLoadout);
+            PlayerBuild.Instance.TryBuildToggle(playerLoadout);
         }
     }
 
@@ -242,12 +317,12 @@ public class PlayerController : MonoBehaviour
     {
         if (playerCamera != null)
         {
-            playerBuildMode.UpdateGhostPosition(playerCamera, playerLoadout);
+            PlayerBuild.Instance.UpdateGhostPosition(playerCamera, playerLoadout);
 
             // On left click, place the turret
             if (lmbAction.WasPressedThisFrame())
             {
-                playerBuildMode.TryPlaceDeployable(playerCamera, playerLoadout);
+                PlayerBuild.Instance.TryPlaceDeployable(playerCamera, playerLoadout);
             }
         }
     }
@@ -270,5 +345,11 @@ public class PlayerController : MonoBehaviour
                 collectible.StartFlyingToPlayer(transform); // Make this method public in Collectible
             }
         }
+    }
+
+    public void ApplyRecoil(float recoilAmount)
+    {
+        currentRecoilX -= recoilAmount; // Pitch (upward)
+        currentRecoilY += Random.Range(-recoilAmount * 0.5f, recoilAmount * 0.5f); // Optional yaw sway
     }
 }

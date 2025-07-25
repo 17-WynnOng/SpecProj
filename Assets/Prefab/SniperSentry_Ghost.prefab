@@ -1206,7 +1206,7 @@ GameObject:
   - component: {fileID: 8218184342491288786}
   m_Layer: 0
   m_Name: SniperSentry_Ghost
-  m_TagString: Untagged
+  m_TagString: Deployable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
