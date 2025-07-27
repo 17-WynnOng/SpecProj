@@ -9816,7 +9816,6 @@ MonoBehaviour:
   maxSiegePerGroup: 1
   enemiesLeft: 0
   groupsSpawned: 0
-  spawningGroup: 0
 --- !u!1 &1773706842
 GameObject:
   m_ObjectHideFlags: 0
@@ -14993,7 +14992,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7732240769833466712, guid: e93980672e8e2e24e9f0631a8fc5a9d3, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 20.24
+      value: 13.6
       objectReference: {fileID: 0}
     - target: {fileID: 7732240769833466712, guid: e93980672e8e2e24e9f0631a8fc5a9d3, type: 3}
       propertyPath: m_LocalPosition.y
@@ -15001,7 +15000,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7732240769833466712, guid: e93980672e8e2e24e9f0631a8fc5a9d3, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 8.04
+      value: 49.2
       objectReference: {fileID: 0}
     - target: {fileID: 7732240769833466712, guid: e93980672e8e2e24e9f0631a8fc5a9d3, type: 3}
       propertyPath: m_LocalRotation.w

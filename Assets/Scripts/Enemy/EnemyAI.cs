@@ -88,7 +88,7 @@ public abstract class EnemyAI : Damageable
     private void DieWithNoDrops()
     {
         GameManager.Instance.enemyCounter++;
-        GameManager.Instance.AdvanceWave();
+        GameManager.Instance.TryAdvanceWave();
         base.Die();
     }
 
@@ -96,7 +96,7 @@ public abstract class EnemyAI : Damageable
     {
         DropCollectible();
         GameManager.Instance.enemyCounter++;
-        GameManager.Instance.AdvanceWave();
+        GameManager.Instance.TryAdvanceWave();
         base.Die();
     }
 

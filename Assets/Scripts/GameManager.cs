@@ -37,6 +37,11 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
+        if (allowSpawning && enemySpawner.GetEnemiesLeft() <= 0 && enemyCounter >= enemySpawner.maxEnemies)
+        {
+            HandleWaveEnd();
+        }
+
         if (!countdownActive) return;
 
         countdownRemaining -= Time.deltaTime;
@@ -49,6 +54,15 @@ public class GameManager : MonoBehaviour
         {
             EndCountdown();
         }
+    }
+
+    private void HandleWaveEnd()
+    {
+        allowSpawning = false; // Immediately stop spawner
+        if (enemySpawner != null)
+            enemySpawner.StopSpawning();
+
+        TryAdvanceWave(); // Existing logic
     }
 
     public void StartWaveCountdown()
@@ -64,6 +78,7 @@ public class GameManager : MonoBehaviour
     {
         countdownActive = false;
         allowSpawning = true;
+        enemySpawner.enemiesLeft = enemySpawner.maxEnemies;
         UIManager.Instance.middleLeftUI.SetActive(false);
         UIManager.Instance.UpdateWaveBar(enemySpawner.GetEnemiesLeft(), enemySpawner.maxEnemies);
 
@@ -72,7 +87,7 @@ public class GameManager : MonoBehaviour
             enemySpawner.BeginSpawning();
         }
     }
-    public void AdvanceWave()
+    public void TryAdvanceWave()
     {
         if (!allowSpawning)
             return;
@@ -82,6 +97,9 @@ public class GameManager : MonoBehaviour
 
         if (noEnemiesLeftToSpawn && allEnemiesDead)
         {
+            allowSpawning = false;
+            enemySpawner.StopSpawning();
+
             if (currentWave < winWave)
             {
                 currentWave++;

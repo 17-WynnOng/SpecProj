@@ -12,7 +12,7 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private Transform spawnPoint;
 
     [Header("Spawning Settings")]
-    [SerializeField] public int maxEnemies = 20;
+    public int maxEnemies = 20;
     [SerializeField] private float spawnRateBetweenEnemies = 1f;
     [SerializeField] private float delayBetweenGroups = 5f;
     [SerializeField] private int enemiesInGroup;
@@ -22,9 +22,9 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private float siegeSpawnChance = 0.3f; // 30% chance to include Siege enemies
     [SerializeField] private int maxSiegePerGroup = 1;
 
-    [SerializeField] private int enemiesLeft;
+    public int enemiesLeft;
     [SerializeField] private int groupsSpawned = 0;
-    [SerializeField] private bool spawningGroup = false;
+    private bool spawningGroup = false;
 
     private Coroutine spawnLoop;
 
@@ -33,12 +33,22 @@ public class EnemySpawner : MonoBehaviour
     private void Start()
     {
         enemiesLeft = maxEnemies;
-        StartCoroutine(SpawnGroupsLoop());
+        spawnLoop = StartCoroutine(SpawnGroupsLoop());
     }
 
     public int GetEnemiesLeft()
     {
         return enemiesLeft;
+    }
+
+    public void StopSpawning()
+    {
+        if (spawnLoop != null)
+        {
+            StopCoroutine(spawnLoop);
+            spawnLoop = null;
+            spawningGroup = false;
+        }
     }
 
     private IEnumerator SpawnGroupsLoop()
@@ -47,17 +57,29 @@ public class EnemySpawner : MonoBehaviour
         {
             if (!GameManager.Instance.allowSpawning)
             {
-                yield return null;
-                continue;
+                Debug.LogWarning("Spawning was disabled, exiting SpawnGroupsLoop.");
+                yield break; // stop the coroutine entirely
             }
+
+            if (enemiesLeft <= 0)
+                yield break;
 
             if (!spawningGroup)
             {
+                if (!GameManager.Instance.allowSpawning)
+                {
+                    Debug.LogWarning("Spawning was disabled, exiting SpawnGroupsLoop.");
+                    yield break; // stop the coroutine entirely
+                }
+
+                if (enemiesLeft <= 0)
+                    yield break;
+
                 spawningGroup = true;
                 yield return StartCoroutine(SpawnGroup());
 
                 groupsSpawned++;
-                if (groupsSpawned % 3 == 0)
+                if (groupsSpawned % 4 == 0)
                 {
                     enemiesInGroup++;
                     Debug.Log($"Increased group size to {enemiesInGroup} after {groupsSpawned} groups.");
@@ -75,6 +97,12 @@ public class EnemySpawner : MonoBehaviour
     {
         if (enemiesLeft <= 0)
             yield break;
+
+        if (!GameManager.Instance.allowSpawning)
+        {
+            Debug.LogWarning("Tried to spawn while spawning is disabled.");
+            yield break;
+        }
 
         int groupSize = Mathf.Min(enemiesInGroup, enemiesLeft);
 
@@ -96,7 +124,8 @@ public class EnemySpawner : MonoBehaviour
 
         for (int i = 0; i < totalToSpawn; i++)
         {
-            if (enemiesLeft <= 0) break;
+            if (!GameManager.Instance.allowSpawning || enemiesLeft <= 0)
+                break;
 
             if (siegeSpawned < siegeCount)
             {
@@ -121,6 +150,12 @@ public class EnemySpawner : MonoBehaviour
             return;
         }
 
+        if (!GameManager.Instance.allowSpawning)
+        {
+            Debug.LogWarning("Tried to spawn while spawning is disabled.");
+            return;
+        }
+
 
         if (index < 0 || index >= enemyPrefabs.Length)
         {
@@ -140,6 +175,13 @@ public class EnemySpawner : MonoBehaviour
     {
         if (spawnLoop != null)
             StopCoroutine(spawnLoop);
+
+        if (!GameManager.Instance.allowSpawning)
+        {
+            Debug.LogWarning("Tried to start spawning when disallowed.");
+            return;
+        }
+
         spawnLoop = StartCoroutine(SpawnGroupsLoop());
     }
 
@@ -156,7 +198,6 @@ public class EnemySpawner : MonoBehaviour
     public void StartNextWave(int wave)
     {
         maxEnemies += 5;
-        enemiesLeft = maxEnemies;
         enemiesInGroup = 3 + wave / 2;
         siegeSpawnChance = Mathf.Min(0.1f + wave * 0.05f, 0.8f);    
 
