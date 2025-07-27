@@ -14,6 +14,7 @@ public abstract class Collectible : MonoBehaviour
 
     private bool isFlyingToPlayer = false;
 
+    private bool hasCollected = false;
     protected virtual void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -62,13 +63,14 @@ public abstract class Collectible : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!isFlyingToPlayer) return;
+        if (hasCollected || !isFlyingToPlayer) return;
 
         if (other.CompareTag("Player"))
         {
             PlayerController player = other.GetComponent<PlayerController>();
             if (player != null)
             {
+                hasCollected = true;
                 Collect(player);
                 Destroy(gameObject);
             }

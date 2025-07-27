@@ -60,12 +60,11 @@ public class SkirmishEnemy : EnemyAI
         if (CanSeePlayer())
         {
             state = EnemyState.Chase;
-            lastKnownPlayerPosition = player.position;
-            agent.SetDestination(lastKnownPlayerPosition);
             return;
         }
 
         base.HandlePathing();
+        PlayPathingAnim();
     }
 
     private void HandleChase()
@@ -78,14 +77,24 @@ public class SkirmishEnemy : EnemyAI
             return;
         }
 
+        PlayChaseAnim();
+
         if (CanSeePlayer())
         {
             lastKnownPlayerPosition = player.position;
             agent.SetDestination(lastKnownPlayerPosition);
+
+            Vector3 lookDirection = player.position - transform.position;
+            lookDirection.y = 0f; // prevent tilting up/down
+            if (lookDirection.sqrMagnitude > 0.01f)
+            {
+                Quaternion targetRotation = Quaternion.LookRotation(lookDirection);
+                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 10f);
+            }
         }
         else if (agent.remainingDistance <= tolerance)
         {
-            state = EnemyState.Search;
+            state = EnemyState.Search;  
             searchTimer = searchDuration;
         }
     }
@@ -95,11 +104,11 @@ public class SkirmishEnemy : EnemyAI
         searchTimer -= Time.deltaTime;
         transform.Rotate(Vector3.up * 90f * Time.deltaTime);
 
+        PlaySearchAnim();
+
         if (CanSeePlayer())
         {
             state = EnemyState.Chase;
-            lastKnownPlayerPosition = player.position;
-            agent.SetDestination(lastKnownPlayerPosition);
             return;
         }
 
@@ -114,11 +123,13 @@ public class SkirmishEnemy : EnemyAI
     private void HandleAttack()
     {
         if (!isAttacking)
+        {
             attackHitbox.SetDamage(attackDamage);
-            StartCoroutine(PerformAttack());
+            PlayAttackAnim();
+        }
     }
 
-    private IEnumerator PerformAttack()
+    public IEnumerator PerformAttack()
     {
         isAttacking = true;
         agent.isStopped = true;
@@ -130,11 +141,6 @@ public class SkirmishEnemy : EnemyAI
 
         // Disable hitbox after attack window   
         attackHitbox.DisableHitbox();
-
-        attackCooldownTimer = attackCooldown;
-        agent.isStopped = false;
-        isAttacking = false;
-        state = EnemyState.Chase;
     }
 
 
@@ -164,10 +170,48 @@ public class SkirmishEnemy : EnemyAI
         {
             state = EnemyState.Chase;
             lastKnownPlayerPosition = player.position;
-            if (agent != null)
+            if (agent.enabled && agent.isOnNavMesh)
             {
                 agent.SetDestination(lastKnownPlayerPosition);
             }
         }
+    }
+
+    private void SetAnimationState(string parameter, bool state)
+    {
+        if (animator != null)
+            animator.SetBool(parameter, state);
+    }
+
+    private void PlayChaseAnim()
+    {
+        SetAnimationState("Chasing", true);
+        SetAnimationState("Search", false);
+    }
+
+    private void PlaySearchAnim()
+    {
+        SetAnimationState("Chasing", false);
+        SetAnimationState("Search", true);
+    }
+
+    private void PlayPathingAnim()
+    {
+        SetAnimationState("Chasing", false);
+        SetAnimationState("Search", false);
+    }
+
+    private void PlayAttackAnim()
+    {
+        SetAnimationState("Attack", true);
+    }
+
+    public void EndAttackAnim()
+    {
+        SetAnimationState("Attack", false);
+        attackCooldownTimer = attackCooldown;
+        agent.isStopped = false;
+        isAttacking = false;
+        state = EnemyState.Chase;
     }
 }

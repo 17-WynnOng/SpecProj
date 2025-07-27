@@ -66,6 +66,11 @@ public class GameManager : MonoBehaviour
         allowSpawning = true;
         UIManager.Instance.middleLeftUI.SetActive(false);
         UIManager.Instance.UpdateWaveBar(enemySpawner.GetEnemiesLeft(), enemySpawner.maxEnemies);
+
+        if (enemySpawner != null)
+        {
+            enemySpawner.BeginSpawning();
+        }
     }
     public void AdvanceWave()
     {

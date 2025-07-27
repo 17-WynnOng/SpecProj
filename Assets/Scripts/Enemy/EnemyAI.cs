@@ -21,6 +21,16 @@ public abstract class EnemyAI : Damageable
 
     [Header("Drops")]
     [SerializeField] private GameObject dropPrefab;
+    [Tooltip("minimum amount of drops")]
+    [SerializeField] private int minDrops;
+    [Tooltip("minimum amount of drops")]
+    [SerializeField] private int maxDrops;
+
+    [Header("Animator")]
+    [SerializeField] protected Animator animator;
+
+    [Header("Health Bar")]
+    [SerializeField] protected EnemyHealthBar healthBar;
 
     protected EnemyState state = EnemyState.Patrol;
 
@@ -52,7 +62,7 @@ public abstract class EnemyAI : Damageable
         {
             float currentHealth = GetCurrentHealth();
             GameManager.Instance.playerBase.TakeDamage(currentHealth);
-            Die();
+            DieWithNoDrops();
         }
     }
 
@@ -75,6 +85,13 @@ public abstract class EnemyAI : Damageable
         return closestIndex;
     }
 
+    private void DieWithNoDrops()
+    {
+        GameManager.Instance.enemyCounter++;
+        GameManager.Instance.AdvanceWave();
+        base.Die();
+    }
+
     protected override void Die()
     {
         DropCollectible();
@@ -88,7 +105,7 @@ public abstract class EnemyAI : Damageable
         if (dropPrefab == null)
             return;
 
-        int dropAmount = Random.Range(1, 4); // 1 to 3
+        int dropAmount = Random.Range(minDrops, maxDrops + 1); // 1 to 3
 
         for (int i = 0; i < dropAmount; i++)
         {
@@ -103,6 +120,14 @@ public abstract class EnemyAI : Damageable
                 rb.AddForce(launchForce, ForceMode.Impulse);
             }
         }
+    }
+
+    public override void TakeDamage(float damage)
+    {
+        base.TakeDamage(damage);
+
+        if (healthBar != null)
+            healthBar.UpdateEnemyHealthBar(currentHealth, maxHealth);
     }
 
     protected abstract void Update();// Let children override entirely

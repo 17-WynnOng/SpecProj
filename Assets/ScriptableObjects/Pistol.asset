@@ -15,12 +15,12 @@ MonoBehaviour:
   weaponName: Pistol
   weaponPrefab: {fileID: 5093368982277136714, guid: 4f0cb521814854548ac9dd77cbeb39e7, type: 3}
   damage: 15
-  range: 30
-  fireRate: 0.1
+  range: 20
+  fireRate: 0.15
   magazineSize: 17
-  maxAmmo: 85
+  maxAmmo: 68
   reloadTime: 1
-  recoil: 0.3
+  recoil: 0.2
   fireMode: 0
   hitLayers:
     serializedVersion: 2

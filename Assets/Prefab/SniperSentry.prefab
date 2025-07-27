@@ -1248,8 +1248,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.0999091, y: 0.777578, z: 1.4576683}
-  m_Center: {x: 0.17165673, y: 0.40175372, z: 0.35878944}
+  m_Size: {x: 1.0999091, y: 0.777578, z: 1.1135712}
+  m_Center: {x: 0.17165673, y: 0.40175372, z: 0.18674088}
 --- !u!114 &1499400855721733932
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1263,9 +1263,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   detectionRadius: 25
-  targetMask:
-    serializedVersion: 2
-    m_Bits: 512
   rotationPivot: {fileID: 7018240475709001042}
   rotationSpeed: 25
 --- !u!114 &1161830039055617449

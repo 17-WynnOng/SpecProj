@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,16 +9,21 @@ public class PlayerBuild : MonoBehaviour
     [SerializeField] private float buildDistance = 100f;
 
     [Header("Build Mode")]
-    [SerializeField] private LayerMask buildableLayer; // e.g. “Ground”
+    [SerializeField] private LayerMask buildableLayer; // e.g. â€œGroundâ€
 
     [Header("Grid Settings")]
-    [SerializeField] private float gridSize = 1f;
+    [SerializeField] private float gridSizeHorizontal = 1f; // used for ground
+    [SerializeField] private float gridSizeVertical = 0.5f; // used for walls
 
     public bool buildMode = false;
 
     private GameObject currentGhostInstance;
 
     private bool canPlace = true;
+
+    private Vector3 cachedPlacementPos;
+    private Vector3 cachedPlacementNormal;
+    private bool placementValid = false;
 
     private void Awake()
     {
@@ -33,23 +38,17 @@ public class PlayerBuild : MonoBehaviour
 
     public void TryPlaceDeployable(Camera playerCamera, PlayerLoadout loadout)
     {
-        if (!canPlace)
+        if (!placementValid)
             return;
 
-        if (loadout.currentScrap >= loadout.heldDeployable.deployCost)
-        {
-            Ray ray = playerCamera.ViewportPointToRay(new Vector3(.5f, .5f, 0f));
-            if (Physics.Raycast(ray, out var hit, buildDistance, buildableLayer))
-            {
-                loadout.currentScrap -= loadout.heldDeployable.deployCost;
-                UIManager.Instance.UpdateScrapCount(loadout.currentScrap);
+        if (loadout.currentScrap < loadout.heldDeployable.deployCost)
+            return;
 
-                var data = loadout.heldDeployable;
-                Vector3 snappedPos = SnapToLocalGrid(hit.point, hit.normal);
-                Deployable.PlaceDeployable(snappedPos, hit.normal, data);
-                UIManager.Instance.UpdateDeployableCost(loadout.currentScrap, loadout.heldDeployable.deployCost);
-            }
-        }
+        loadout.currentScrap -= loadout.heldDeployable.deployCost;
+        UIManager.Instance.UpdateScrapCount(loadout.currentScrap);
+
+        Deployable.PlaceDeployable(cachedPlacementPos, cachedPlacementNormal, loadout.heldDeployable);
+        UIManager.Instance.UpdateDeployableCost(loadout.currentScrap, loadout.heldDeployable.deployCost);
     }
 
     public void TryBuildToggle(PlayerLoadout playerLoadout)
@@ -82,49 +81,102 @@ public class PlayerBuild : MonoBehaviour
 
     public void UpdateGhostPosition(Camera cam, PlayerLoadout playerloadout)
     {
+        placementValid = false;
+
         if (!buildMode || currentGhostInstance == null)
             return;
 
         Ray ray = cam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
-        if (Physics.Raycast(ray, out var hit, buildDistance, buildableLayer))
+        RaycastHit[] hits = Physics.RaycastAll(ray, buildDistance);
+        System.Array.Sort(hits, (a, b) => a.distance.CompareTo(b.distance));
+
+        foreach (var hit in hits)
         {
-            Vector3 snapped = SnapToLocalGrid(hit.point, hit.normal);
-            currentGhostInstance.transform.position = snapped;
+            GameObject hitObj = hit.collider.gameObject;
 
+            // Skip self and ghost
+            if (hitObj.layer == LayerMask.NameToLayer("IgnoreRaycast") || hitObj.CompareTag("Deployable"))
+                continue;
 
+            // Block ray if a wall is in front and we're placing a ground object
+            if (hitObj.layer == LayerMask.NameToLayer("Environment"))
+            {
+                if (playerloadout.heldDeployable.placementType != PlacementType.Wall)
+                    break; // wall blocks ray for ground deployables
+            }
+
+            // Not a wall, check if it's buildable
+            if (((1 << hitObj.layer) & buildableLayer) == 0)
+                continue;
+
+            // Now filter by placement type using surface normal
+            Vector3 normal = hit.normal;
             switch (playerloadout.heldDeployable.placementType)
             {
-                case PlacementType.Wall:
-                    currentGhostInstance.transform.rotation = Quaternion.LookRotation(hit.normal); // face outward from wall
-                    break;
-
                 case PlacementType.Ground:
-                default:
-                    currentGhostInstance.transform.rotation = Quaternion.LookRotation(Vector3.forward); // default forward
+                    if (Vector3.Dot(normal, Vector3.up) < 0.75f)
+                        continue;
+                    break;
+
+                case PlacementType.Wall:
+                    float upDot = Mathf.Abs(Vector3.Dot(normal, Vector3.up));
+                    if (upDot > 0.5f)
+                        continue;
                     break;
             }
 
-            // ==== Overlap check ====
-            Bounds bounds = currentGhostInstance.GetComponent<Collider>().bounds;
-            Collider[] overlaps = Physics.OverlapBox(bounds.center, bounds.extents, currentGhostInstance.transform.rotation);
-            bool overlappingSentry = false;
-            foreach (var col in overlaps)
+            HandleGhostPlacement(hit, playerloadout);
+            break;
+        }
+    }
+
+    private void HandleGhostPlacement(RaycastHit hit, PlayerLoadout playerloadout)
+    {
+        Vector3 snapped = SnapToLocalGrid(hit.point, hit.normal, playerloadout);
+        currentGhostInstance.transform.position = snapped;
+
+        switch (playerloadout.heldDeployable.placementType)
+        {
+            case PlacementType.Wall:
+                currentGhostInstance.transform.rotation = Quaternion.LookRotation(hit.normal);
+                break;
+
+            case PlacementType.Ground:
+            default:
+                currentGhostInstance.transform.rotation = Quaternion.LookRotation(Vector3.forward);
+                break;
+        }
+
+        Bounds bounds = currentGhostInstance.GetComponent<Collider>().bounds;
+        Collider[] overlaps = Physics.OverlapBox(bounds.center, bounds.extents, currentGhostInstance.transform.rotation);
+        bool overlappingSentry = false;
+        foreach (var col in overlaps)
+        {
+            if (col.gameObject.CompareTag("Deployable") && col.gameObject != currentGhostInstance)
             {
-                if (col.gameObject.CompareTag("Deployable") && col.gameObject != currentGhostInstance)
-                {
-                    overlappingSentry = true;
-                    break;
-                }
+                overlappingSentry = true;
+                break;
             }
+        }
 
-            canPlace = !overlappingSentry;
+        canPlace = !overlappingSentry;
+        bool canAfford = playerloadout.currentScrap >= playerloadout.heldDeployable.deployCost;
+        placementValid = (canAfford && canPlace);
 
-            Renderer[] renderers = currentGhostInstance.GetComponentsInChildren<Renderer>();
-            Color color = canPlace ? playerloadout.heldDeployable.validPlacement : playerloadout.heldDeployable.invalidPlacement;
+        if (placementValid)
+        {
+            cachedPlacementPos = snapped;
+            cachedPlacementNormal = hit.normal;
+        }
 
-            foreach (Renderer rend in renderers)
+        Color color = (canAfford && canPlace) ? playerloadout.heldDeployable.validPlacement : playerloadout.heldDeployable.invalidPlacement;
+
+        Renderer[] renderers = currentGhostInstance.GetComponentsInChildren<Renderer>();
+        foreach (Renderer rend in renderers)
+        {
+            foreach (Material mat in rend.materials)
             {
-                rend.material.color = color;
+                mat.color = color;
             }
         }
     }
@@ -145,29 +197,41 @@ public class PlayerBuild : MonoBehaviour
         }
     }
 
-    private Vector3 SnapToLocalGrid(Vector3 hitPoint, Vector3 hitNormal)
+    private Vector3 SnapToLocalGrid(Vector3 hitPoint, Vector3 hitNormal, PlayerLoadout playerloadout)
     {
-        //Get basis vectors
+        float gridSize = 1f;
+
+        // Determine grid size based on placement type
+        if (playerloadout != null && playerloadout.heldDeployable != null)
+        {
+            switch (playerloadout.heldDeployable.placementType)
+            {
+                case PlacementType.Ground:
+                    gridSize = gridSizeHorizontal;
+                    break;
+                case PlacementType.Wall:
+                    gridSize = gridSizeVertical;
+                    break;
+            }
+        }
+
+        // Get surface basis
         Vector3 up = hitNormal.normalized;
         Vector3 right = Vector3.Cross(up, Vector3.forward);
         if (right.sqrMagnitude < 0.001f)
-            right = Vector3.Cross(up, Vector3.right); // fallback if up is parallel to forward
+            right = Vector3.Cross(up, Vector3.right); // fallback
 
         Vector3 forward = Vector3.Cross(right, up);
 
-        //Build rotation matrix
         Matrix4x4 toLocal = Matrix4x4.TRS(Vector3.zero, Quaternion.LookRotation(forward, up), Vector3.one).inverse;
         Matrix4x4 toWorld = Matrix4x4.TRS(Vector3.zero, Quaternion.LookRotation(forward, up), Vector3.one);
 
-        //Transform to local grid space
         Vector3 local = toLocal.MultiplyPoint3x4(hitPoint);
 
-        //Snap X and Z in local space
+        // Snap X and Z in local space
         local.x = Mathf.Round(local.x / gridSize) * gridSize;
         local.z = Mathf.Round(local.z / gridSize) * gridSize;
 
-        //Transform back to world space
         return toWorld.MultiplyPoint3x4(local);
     }
-
 }

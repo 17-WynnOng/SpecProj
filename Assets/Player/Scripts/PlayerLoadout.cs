@@ -195,4 +195,13 @@ public class PlayerLoadout : MonoBehaviour
     {
         currentScrap += amount;
     }
+
+    public void AddAmmo(int amount)
+    {
+        if (heldWeapon != null)
+        {
+            heldWeapon.currentReserve += amount;
+            UIManager.Instance.UpdateAmmoUI(heldWeapon.currentMag, heldWeapon.currentReserve);
+        }
+    }
 }

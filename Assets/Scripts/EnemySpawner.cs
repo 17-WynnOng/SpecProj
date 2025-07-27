@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
@@ -22,9 +22,13 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private float siegeSpawnChance = 0.3f; // 30% chance to include Siege enemies
     [SerializeField] private int maxSiegePerGroup = 1;
 
-    private int enemiesLeft;
-    private int groupsSpawned = 0;
-    private bool spawningGroup = false;
+    [SerializeField] private int enemiesLeft;
+    [SerializeField] private int groupsSpawned = 0;
+    [SerializeField] private bool spawningGroup = false;
+
+    private Coroutine spawnLoop;
+
+    private int debugSpawnedTotal = 0;
 
     private void Start()
     {
@@ -69,6 +73,9 @@ public class EnemySpawner : MonoBehaviour
 
     private IEnumerator SpawnGroup()
     {
+        if (enemiesLeft <= 0)
+            yield break;
+
         int groupSize = Mathf.Min(enemiesInGroup, enemiesLeft);
 
         int siegeCount = 0;
@@ -76,30 +83,44 @@ public class EnemySpawner : MonoBehaviour
         if (Random.value < siegeSpawnChance)
         {
             siegeCount = Random.Range(1, maxSiegePerGroup + 1);
-            siegeCount = Mathf.Min(siegeCount, groupSize);
         }
 
+        siegeCount = Mathf.Min(siegeCount, groupSize);
         int skirmishCount = groupSize - siegeCount;
 
         Debug.Log($"Spawning group: {siegeCount} Siege, {skirmishCount} Skirmish");
 
-        for (int i = 0; i < siegeCount; i++)
-        {
-            SpawnEnemy(0); // Siege
-            yield return new WaitForSeconds(spawnRateBetweenEnemies);
-        }
+        int totalToSpawn = siegeCount + skirmishCount;
+        int siegeSpawned = 0;
+        int skirmishSpawned = 0;
 
-        for (int i = 0; i < skirmishCount; i++)
+        for (int i = 0; i < totalToSpawn; i++)
         {
-            SpawnEnemy(1); // Skirmish
+            if (enemiesLeft <= 0) break;
+
+            if (siegeSpawned < siegeCount)
+            {
+                SpawnEnemy(0);
+                siegeSpawned++;
+            }
+            else if (skirmishSpawned < skirmishCount)
+            {
+                SpawnEnemy(1);
+                skirmishSpawned++;
+            }
+
             yield return new WaitForSeconds(spawnRateBetweenEnemies);
         }
     }
 
     public void SpawnEnemy(int index)
     {
-        if (enemiesLeft <= 0) 
+        if (enemiesLeft <= 0)
+        {
+            Debug.LogWarning("Tried to spawn enemy when none left!");
             return;
+        }
+
 
         if (index < 0 || index >= enemyPrefabs.Length)
         {
@@ -109,8 +130,17 @@ public class EnemySpawner : MonoBehaviour
 
         Instantiate(enemyPrefabs[index], spawnPoint.position, spawnPoint.rotation);
         enemiesLeft--;
-
+        debugSpawnedTotal++;
+        Debug.Log("Total spawned: " + debugSpawnedTotal);
         UIManager.Instance.UpdateWaveBar(enemiesLeft, maxEnemies);
+
+    }
+
+    public void BeginSpawning()
+    {
+        if (spawnLoop != null)
+            StopCoroutine(spawnLoop);
+        spawnLoop = StartCoroutine(SpawnGroupsLoop());
     }
 
     public void SetEnemiesPerGroup(int amount)
@@ -128,7 +158,14 @@ public class EnemySpawner : MonoBehaviour
         maxEnemies += 5;
         enemiesLeft = maxEnemies;
         enemiesInGroup = 3 + wave / 2;
-        siegeSpawnChance = siegeSpawnChance + 0.05f;
+        siegeSpawnChance = Mathf.Min(0.1f + wave * 0.05f, 0.8f);    
+
+        groupsSpawned = 0;          // reset group count for wave pacing
+        spawningGroup = false;      // reset group state
+
         Debug.Log($"Wave {wave} spawned: maxEnemies={maxEnemies}, siegeChance={siegeSpawnChance}");
+
+        if (spawnLoop != null)
+            StopCoroutine(spawnLoop);
     }
 }

@@ -21,12 +21,16 @@ public class RaycastWeapon : Weapon
     public override void PerformRaycast()
     {
         Ray ray = GetFireRay();
-        if (Physics.Raycast(ray, out var hit, weaponData.range, weaponData.hitLayers))
+        if (Physics.Raycast(ray, out var hit, weaponData.range))
         {
-            if (hit.collider.TryGetComponent<Damageable>(out var d))
+            // Stop at first object hit
+            if (((1 << hit.collider.gameObject.layer) & weaponData.hitLayers) != 0)
             {
-                d.TakeDamage(weaponData.damage);
-                d.IfDamagedByPlayer();
+                if (hit.collider.TryGetComponent<Damageable>(out var d))
+                {
+                    d.TakeDamage(weaponData.damage);
+                    d.IfDamagedByPlayer();
+                }
             }
         }
     }

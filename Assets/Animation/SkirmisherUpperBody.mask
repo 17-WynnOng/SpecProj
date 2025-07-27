@@ -1,0 +1,121 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!319 &31900000
+AvatarMask:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: SkirmisherUpperBody
+  m_Mask: 01000000010000000100000000000000000000000100000001000000010000000100000001000000010000000100000001000000
+  m_Elements:
+  - m_Path: 
+    m_Weight: 1
+  - m_Path: Armature
+    m_Weight: 1
+  - m_Path: Armature/Hips
+    m_Weight: 1
+  - m_Path: Armature/Hips/stomache
+    m_Weight: 1
+  - m_Path: Armature/Hips/stomache/chest
+    m_Weight: 1
+  - m_Path: Armature/Hips/stomache/chest/backpack
+    m_Weight: 1
+  - m_Path: Armature/Hips/stomache/chest/backpack/wire
+    m_Weight: 1
+  - m_Path: Armature/Hips/stomache/chest/bags.002
+    m_Weight: 1
+  - m_Path: Armature/Hips/stomache/chest/chest plate
+    m_Weight: 1
+  - m_Path: Armature/Hips/stomache/chest/neck
+    m_Weight: 1
+  - m_Path: Armature/Hips/stomache/chest/neck/head
+    m_Weight: 1
+  - m_Path: Armature/Hips/stomache/chest/neck/head/head_end
+    m_Weight: 1
+  - m_Path: Armature/Hips/stomache/chest/neck/head/head_end/head_end_end
+    m_Weight: 1
+  - m_Path: Armature/Hips/stomache/chest/neck/head/headArmor
+    m_Weight: 1
+  - m_Path: Armature/Hips/stomache/chest/neck/head/headArmor/visor
+    m_Weight: 1
+  - m_Path: Armature/Hips/stomache/chest/neck collar
+    m_Weight: 1
+  - m_Path: Armature/Hips/stomache/chest/sholdrL
+    m_Weight: 1
+  - m_Path: Armature/Hips/stomache/chest/sholdrL/uparmL
+    m_Weight: 1
+  - m_Path: Armature/Hips/stomache/chest/sholdrL/uparmL/BotarmL
+    m_Weight: 1
+  - m_Path: Armature/Hips/stomache/chest/sholdrL/uparmL/BotarmL/handL
+    m_Weight: 1
+  - m_Path: Armature/Hips/stomache/chest/sholdrL/uparmL/BotarmL/handL/handL_end
+    m_Weight: 1
+  - m_Path: Armature/Hips/stomache/chest/sholdrL/uparmL/BotarmL/handL/handL_end/handL_end_end
+    m_Weight: 1
+  - m_Path: Armature/Hips/stomache/chest/sholdrL/uparmL/shoulderplate
+    m_Weight: 1
+  - m_Path: Armature/Hips/stomache/chest/sholdrR
+    m_Weight: 1
+  - m_Path: Armature/Hips/stomache/chest/sholdrR/uparmR
+    m_Weight: 1
+  - m_Path: Armature/Hips/stomache/chest/sholdrR/uparmR/BotarmR
+    m_Weight: 1
+  - m_Path: Armature/Hips/stomache/chest/sholdrR/uparmR/BotarmR/handR
+    m_Weight: 1
+  - m_Path: Armature/Hips/stomache/chest/sholdrR/uparmR/BotarmR/handR/handR_end
+    m_Weight: 1
+  - m_Path: Armature/Hips/stomache/chest/sholdrR/uparmR/BotarmR/handR/handR_end/handR_end_end
+    m_Weight: 1
+  - m_Path: Armature/Hips/stomache/chest/sholdrR/uparmR/shoulderplate.001
+    m_Weight: 1
+  - m_Path: Armature/Hips/thighL
+    m_Weight: 1
+  - m_Path: Armature/Hips/thighL/bags.001
+    m_Weight: 1
+  - m_Path: Armature/Hips/thighL/legL
+    m_Weight: 1
+  - m_Path: Armature/Hips/thighL/legL/f1
+    m_Weight: 1
+  - m_Path: Armature/Hips/thighL/legL/f1/f1_end
+    m_Weight: 1
+  - m_Path: Armature/Hips/thighL/legL/f1/f1_end/f1_end_end
+    m_Weight: 1
+  - m_Path: Armature/Hips/thighR
+    m_Weight: 1
+  - m_Path: Armature/Hips/thighR/bags
+    m_Weight: 1
+  - m_Path: Armature/Hips/thighR/legR
+    m_Weight: 1
+  - m_Path: Armature/Hips/thighR/legR/f2
+    m_Weight: 1
+  - m_Path: Armature/Hips/thighR/legR/f2/f2_end
+    m_Weight: 1
+  - m_Path: Armature/Hips/thighR/legR/f2/f2_end/f2_end_end
+    m_Weight: 1
+  - m_Path: Armature/p1
+    m_Weight: 1
+  - m_Path: Armature/p1/p1_end
+    m_Weight: 1
+  - m_Path: Armature/p1/p1_end/p1_end_end
+    m_Weight: 1
+  - m_Path: Armature/p2
+    m_Weight: 1
+  - m_Path: Armature/p2/p2_end
+    m_Weight: 1
+  - m_Path: Armature/p2/p2_end/p2_end_end
+    m_Weight: 1
+  - m_Path: base
+    m_Weight: 1
+  - m_Path: boots
+    m_Weight: 1
+  - m_Path: chest
+    m_Weight: 1
+  - m_Path: gernades
+    m_Weight: 1
+  - m_Path: thighs
+    m_Weight: 1
+  - m_Path: waist
+    m_Weight: 1
+  - m_Path: wrist
+    m_Weight: 1

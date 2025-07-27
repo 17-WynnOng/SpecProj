@@ -11,21 +11,36 @@ public class Damageable : MonoBehaviour
     public event OnDeath onDeath;
 
     [Header("Visual Feedback")]
-    [SerializeField] private Renderer objectRenderer;
+    private Renderer[] objectRenderers;
     [SerializeField] private Color damageColor = Color.blue;
     [SerializeField] private float damageEffectDuration = 0.5f;
 
     private Coroutine damageCoroutine;
-    private Color originalColor;
-    private Material runtimeMaterial;
+    private Color[] originalColors;
+    private Material[] runtimeMaterials;
 
     protected virtual void Start()
     {
         currentHealth = maxHealth;
 
-        // Create a unique instance of the material
-        runtimeMaterial = objectRenderer.material;
-        originalColor = runtimeMaterial.color;
+        // Automatically get all child renderers, including nested ones
+        objectRenderers = GetComponentsInChildren<Renderer>();
+
+        List<Material> allMats = new List<Material>();
+        List<Color> allOriginalColors = new List<Color>();
+
+        foreach (var renderer in objectRenderers)
+        {
+            Material[] mats = renderer.materials; // unique material instances
+            allMats.AddRange(mats);
+            foreach (var mat in mats)
+            {
+                allOriginalColors.Add(mat.color);
+            }
+        }
+
+        runtimeMaterials = allMats.ToArray();
+        originalColors = allOriginalColors.ToArray();
     }
 
     public float GetCurrentHealth()
@@ -37,7 +52,7 @@ public class Damageable : MonoBehaviour
     {
         currentHealth -= damage;
 
-        if (objectRenderer != null)
+        if (objectRenderers != null)
         {
             if (damageCoroutine != null)
             {
@@ -66,19 +81,24 @@ public class Damageable : MonoBehaviour
 
     private IEnumerator FlashColor()
     {
-        // Set to damage color instantly
-        objectRenderer.material.color = damageColor;
-        // Gradually transition back to the original color over time
+        foreach (var mat in runtimeMaterials)
+            mat.color = damageColor;
+
         float elapsedTime = 0f;
         while (elapsedTime < damageEffectDuration)
         {
-            objectRenderer.material.color = Color.Lerp(damageColor,
-            originalColor, elapsedTime / damageEffectDuration);
+            for (int i = 0; i < runtimeMaterials.Length; i++)
+            {
+                runtimeMaterials[i].color = Color.Lerp(damageColor, originalColors[i], elapsedTime / damageEffectDuration);
+            }
             elapsedTime += Time.deltaTime;
             yield return null;
         }
-        // Ensure the final color is reset to the original
-        objectRenderer.material.color = originalColor;
+
+        for (int i = 0; i < runtimeMaterials.Length; i++)
+        {
+            runtimeMaterials[i].color = originalColors[i];
+        }
     }
 
     public virtual void IfDamagedByPlayer() { }

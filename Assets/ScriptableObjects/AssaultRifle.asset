@@ -15,12 +15,12 @@ MonoBehaviour:
   weaponName: Assault Rifle
   weaponPrefab: {fileID: 4082824778660106895, guid: 33744929a806ac644a70ed1ec5a124c0, type: 3}
   damage: 10
-  range: 50
+  range: 30
   fireRate: 0.1
-  magazineSize: 30
-  maxAmmo: 240
+  magazineSize: 32
+  maxAmmo: 150
   reloadTime: 1.5
-  recoil: 0.2
+  recoil: 0.15
   fireMode: 1
   hitLayers:
     serializedVersion: 2

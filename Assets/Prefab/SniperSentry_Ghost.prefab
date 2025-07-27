@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7465329134040126951}
   - component: {fileID: 7910162343667005437}
   - component: {fileID: 6284754576396755153}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: TurretBase
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1204,7 +1204,7 @@ GameObject:
   m_Component:
   - component: {fileID: 937352158971351194}
   - component: {fileID: 8218184342491288786}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: SniperSentry_Ghost
   m_TagString: Deployable
   m_Icon: {fileID: 0}
@@ -1246,8 +1246,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.0999091, y: 0.777578, z: 1.4576683}
-  m_Center: {x: 0.17165673, y: 0.40175372, z: 0.35878944}
+  m_Size: {x: 1.0999091, y: 0.777578, z: 1.1276894}
+  m_Center: {x: 0.17165673, y: 0.40175372, z: 0.19379997}
 --- !u!1 &7163351627012606805
 GameObject:
   m_ObjectHideFlags: 0
@@ -1262,7 +1262,7 @@ GameObject:
   - component: {fileID: 9135786258295075388}
   - component: {fileID: 5052810539753048943}
   - component: {fileID: 256045965098019181}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Gunmount
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2456,7 +2456,7 @@ GameObject:
   - component: {fileID: 6904580810854042646}
   - component: {fileID: 8025123763266293070}
   - component: {fileID: 7274448965097629694}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Turret
   m_TagString: Untagged
   m_Icon: {fileID: 0}

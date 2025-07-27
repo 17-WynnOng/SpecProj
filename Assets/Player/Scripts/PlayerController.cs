@@ -13,6 +13,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float jumpHeight = 2f;
     [SerializeField] private Camera playerCamera;
 
+
+    [Header("PlayerLoadout (Important)")]
+    [SerializeField] public PlayerLoadout playerLoadout;
+
     [Header("Gravity")]
     [SerializeField] private float gravity = -9.81f;
     [SerializeField] private Transform groundCheck; // small empty GameObject at player feet
@@ -23,12 +27,12 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float attractRadius = 3f;
     [SerializeField] private LayerMask collectibleLayer;
 
+    [Header("Interact Range")]
+    [SerializeField] private float interactRange = 1f;
+
     [Header("Scrollwheel Cooldown")]
     [SerializeField] private float scrollCooldown = 0.2f;
     private float nextScrollTime = 0f;
-
-    [Header("PlayerLoadout (Important)")]
-    [SerializeField] public PlayerLoadout playerLoadout;
 
     [Header("Recoil Recovery")]
     [SerializeField] private float recoilSnapSpeed = 15f;
@@ -56,6 +60,7 @@ public class PlayerController : MonoBehaviour
     private InputAction buildAction;
     private InputAction reloadAction;
     private InputAction enterAction;
+    private InputAction interactAction;
 
     //Camera
     private InputAction lookAction;
@@ -92,6 +97,7 @@ public class PlayerController : MonoBehaviour
         buildAction = playerInput.actions["Build"];
         reloadAction = playerInput.actions["Reload"];
         enterAction = playerInput.actions["Enter"];
+        interactAction = playerInput.actions["EKey"];
 
     }
 
@@ -115,6 +121,7 @@ public class PlayerController : MonoBehaviour
         HandleMove();
         HandleJump();
         HandleEnter();
+        HandleInteract();
 
 
         // Weapon switching should probably still work, even in build mode
@@ -332,6 +339,22 @@ public class PlayerController : MonoBehaviour
         if (enterAction.WasPressedThisFrame())
         {
             GameManager.Instance.EndCountdown();
+        }
+    }
+
+    private void HandleInteract()
+    {
+        if (interactAction.WasPressedThisFrame())
+        {
+            Ray ray = playerCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
+
+            if (Physics.Raycast(ray, out RaycastHit hit, interactRange)) // 3f = interaction distance
+            {
+                if (hit.collider.TryGetComponent<Deployable>(out var deployable))
+                {
+                    deployable.InteractWithDeployable();
+                }
+            }
         }
     }
 

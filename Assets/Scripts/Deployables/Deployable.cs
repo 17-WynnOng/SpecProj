@@ -3,12 +3,14 @@ using UnityEngine;
 public abstract class Deployable : MonoBehaviour
 {
 
-    protected DeployableData deployableData;
+    [SerializeField] public DeployableData deployableData;
 
     public void Initialize(DeployableData data)
     {
         deployableData = data;
     }
+
+    public virtual void InteractWithDeployable() { }
 
     public static void PlaceDeployable(Vector3 hitPoint, Vector3 surfaceNormal, DeployableData data)
     {

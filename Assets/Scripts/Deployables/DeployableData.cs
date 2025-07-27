@@ -20,19 +20,18 @@ public class DeployableData : ScriptableObject
     [Header("Defensive/Offensive deployables")]
     public float damage = 10f;
 
-
     [Header("Sentries")]
     public int magazineSize;
     public int maxAmmo;
     public int reloadTime;
     public float range = 100f;
     public float fireRate = 0.1f;
+    public LayerMask hitLayers; // Layers the weapon can hit
+    public LayerMask losLayers; //Layers that the sentry will interact with
 
     [Header("Placement Settings")]
     public PlacementType placementType = PlacementType.Ground;
     public Color validPlacement;
     public Color invalidPlacement;
-
-    public LayerMask hitLayers; // Layers the weapon can hit
 }
 
