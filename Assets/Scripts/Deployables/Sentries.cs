@@ -40,7 +40,6 @@ public class Sentries : Deployable
                 if (hit.collider.TryGetComponent<Damageable>(out var d))
                 {
                     d.TakeDamage(deployableData.damage);
-                    d.IfDamagedByPlayer();
                 }
             }
         }

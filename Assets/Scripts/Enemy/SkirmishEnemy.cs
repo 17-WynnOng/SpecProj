@@ -32,6 +32,7 @@ public class SkirmishEnemy : EnemyAI
     [SerializeField] private float dashSpeed = 10f;
 
     private bool canDash = true;
+    private bool isDashing = false;
 
     [Header("Enemy Status")]
     [SerializeField] private bool isAttacking = false;
@@ -114,11 +115,6 @@ public class SkirmishEnemy : EnemyAI
                 {
                     agent.SetDestination(lastKnownPlayerPosition);
                 }
-
-                if (canDash && Random.value < 0.01f) // 2% chance per frame
-                {
-                    StartCoroutine(PerformRandomDash());
-                }
             }
             else if (agent.enabled && agent.remainingDistance <= tolerance)
             {
@@ -163,46 +159,51 @@ public class SkirmishEnemy : EnemyAI
     private IEnumerator PerformRandomDash()
     {
         canDash = false;
+        isDashing = true;
         agent.enabled = false;
 
         float minClearDistance = 2f; // how much space is needed to dash
+        float maxDashCheck = dashDistance + 0.6f; //max dash distance
         float buffer = 0.1f;
-        float rightDist = Random.Range(dashDistance, dashDistance + 0.5f);
-        float leftDist = Random.Range(dashDistance, dashDistance + 0.5f);
+
+        float rightMaxDist = maxDashCheck;
+        float leftMaxDist = maxDashCheck;
 
         // Cast to the right
         if (Physics.Raycast(transform.position, transform.right, out RaycastHit hitRight, dashDistance, LayerMask.GetMask("Environment")))
         {
-            rightDist = hitRight.distance - buffer;
+            rightMaxDist = hitRight.distance - buffer;
         }
 
         // Cast to the left
         if (Physics.Raycast(transform.position, -transform.right, out RaycastHit hitLeft, dashDistance, LayerMask.GetMask("Environment")))
         {
-            leftDist = hitLeft.distance - buffer;
+            leftMaxDist = hitLeft.distance - buffer;
         }
 
         // Decide direction
         Vector3 dashDir;
         float actualDashDistance;
 
-        if (rightDist >= minClearDistance && leftDist >= minClearDistance)
+        if (rightMaxDist >= minClearDistance && leftMaxDist >= minClearDistance)
         {
             // Both directions clear → pick random
             bool dashRight = Random.value < 0.5f;
             dashDir = dashRight ? transform.right : -transform.right;
-            actualDashDistance = dashRight ? rightDist : leftDist;
+            actualDashDistance = dashRight ? Random.Range(minClearDistance, rightMaxDist) : Random.Range(minClearDistance, leftMaxDist);
             DashAnim(dashRight ? "DashRight" : "DashLeft", true);
         }
-        else if (rightDist >= minClearDistance)
+        else if (rightMaxDist >= minClearDistance)
         {
             dashDir = transform.right;
-            actualDashDistance = rightDist;
+            actualDashDistance = Random.Range(minClearDistance, rightMaxDist);
+            DashAnim("DashRight", true);
         }
-        else if (leftDist >= minClearDistance)
+        else if (leftMaxDist >= minClearDistance)
         {
             dashDir = -transform.right;
-            actualDashDistance = leftDist;
+            actualDashDistance = Random.Range(minClearDistance, leftMaxDist);
+            DashAnim("DashRight", false);
         }
         else
         {
@@ -210,6 +211,7 @@ public class SkirmishEnemy : EnemyAI
             agent.enabled = true;
             yield return new WaitForSeconds(dashCooldown);
             canDash = true;
+            isDashing = false;
             yield break;
         }
 
@@ -235,6 +237,7 @@ public class SkirmishEnemy : EnemyAI
 
         transform.position = end;
         agent.enabled = true;
+        isDashing = false;
         agent.SetDestination(lastKnownPlayerPosition);
 
         DashAnim("DashRight", false);
@@ -292,6 +295,14 @@ public class SkirmishEnemy : EnemyAI
             if (agent.enabled && agent.isOnNavMesh)
             {
                 agent.SetDestination(lastKnownPlayerPosition);
+            }
+        }
+        else if (state == EnemyState.Chase && canDash && !isDashing)
+        {
+            // 40% chance to dodge when hit during chase
+            if (Random.value < 0.4f)
+            {
+                StartCoroutine(PerformRandomDash());
             }
         }
     }

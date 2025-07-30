@@ -13006,63 +13006,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0150c0006494bd84198ac13cd4d0d7f5, type: 3}
---- !u!1001 &2103699841
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 5618743776489482615, guid: 8100999d9f69598469cfb90a1f426036, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 10.115397
-      objectReference: {fileID: 0}
-    - target: {fileID: 5618743776489482615, guid: 8100999d9f69598469cfb90a1f426036, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 1.28
-      objectReference: {fileID: 0}
-    - target: {fileID: 5618743776489482615, guid: 8100999d9f69598469cfb90a1f426036, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 49.44857
-      objectReference: {fileID: 0}
-    - target: {fileID: 5618743776489482615, guid: 8100999d9f69598469cfb90a1f426036, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5618743776489482615, guid: 8100999d9f69598469cfb90a1f426036, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5618743776489482615, guid: 8100999d9f69598469cfb90a1f426036, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5618743776489482615, guid: 8100999d9f69598469cfb90a1f426036, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5618743776489482615, guid: 8100999d9f69598469cfb90a1f426036, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5618743776489482615, guid: 8100999d9f69598469cfb90a1f426036, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5618743776489482615, guid: 8100999d9f69598469cfb90a1f426036, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7241409482216587773, guid: 8100999d9f69598469cfb90a1f426036, type: 3}
-      propertyPath: m_Name
-      value: SkirmishEnemy
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 8100999d9f69598469cfb90a1f426036, type: 3}
 --- !u!1 &2104446769
 GameObject:
   m_ObjectHideFlags: 0
@@ -16632,4 +16575,3 @@ SceneRoots:
   - {fileID: 1475627227}
   - {fileID: 594787017}
   - {fileID: 626558456}
-  - {fileID: 2103699841}

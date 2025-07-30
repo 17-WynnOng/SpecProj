@@ -60,7 +60,28 @@ public abstract class EnemyAI : Damageable
 
         currentIndex++;
         if (currentIndex < path.Length)
-            agent.SetDestination(path[currentIndex].position);
+        {
+            Vector3 baseTarget = path[currentIndex].position;
+
+            // Offset radius (tweakable)
+            float radius = 2;
+
+            // Generate a random point in a circle around the waypoint (on XZ plane)
+            Vector2 offset2D = Random.insideUnitCircle * radius;
+            Vector3 offset = new Vector3(offset2D.x, 0f, offset2D.y);
+
+            Vector3 randomizedTarget = baseTarget + offset;
+
+            // Check if point is on NavMesh
+            if (NavMesh.SamplePosition(randomizedTarget, out NavMeshHit hit, 1f, NavMesh.AllAreas))
+            {
+                agent.SetDestination(hit.position);
+            }
+            else
+            {
+                agent.SetDestination(baseTarget); // fallback to exact waypoint if failed
+            }
+        }
         else
         {
             float currentHealth = GetCurrentHealth();

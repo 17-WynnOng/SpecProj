@@ -132,8 +132,8 @@ MonoBehaviour:
   attackHitbox: {fileID: 7210396312316987541}
   defaultSpeed: 3.5
   chaseSpeed: 6
-  dashDistance: 3.5
-  dashCooldown: 3
+  dashDistance: 3
+  dashCooldown: 2
   dashSpeed: 8
   isAttacking: 0
 --- !u!95 &1054969480670373612
