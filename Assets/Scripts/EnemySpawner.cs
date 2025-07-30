@@ -150,25 +150,32 @@ public class EnemySpawner : MonoBehaviour
             return;
         }
 
-        if (!GameManager.Instance.allowSpawning)
-        {
-            Debug.LogWarning("Tried to spawn while spawning is disabled.");
-            return;
-        }
-
-
         if (index < 0 || index >= enemyPrefabs.Length)
         {
             Debug.LogWarning("Invalid enemy index: " + index);
             return;
         }
 
-        Instantiate(enemyPrefabs[index], spawnPoint.position, spawnPoint.rotation);
+        GameObject enemy = Instantiate(enemyPrefabs[index], spawnPoint.position, spawnPoint.rotation);
+
         enemiesLeft--;
         debugSpawnedTotal++;
-        Debug.Log("Total spawned: " + debugSpawnedTotal);
+        Debug.Log($"Spawned: {debugSpawnedTotal} / {maxEnemies} | enemiesLeft: {enemiesLeft}");
+
         UIManager.Instance.UpdateWaveBar(enemiesLeft, maxEnemies);
 
+        //Add to GameManager's list
+        GameManager.Instance.aliveEnemies.Add(enemy);
+
+        //remove from list when enemy dies
+        if (enemy.TryGetComponent<EnemyAI>(out var dmg))
+        {
+            dmg.onDeath += () =>
+            {
+                GameManager.Instance.aliveEnemies.Remove(enemy);
+                GameManager.Instance.CheckWaveEnd();
+            };
+        }
     }
 
     public void BeginSpawning()
@@ -185,26 +192,18 @@ public class EnemySpawner : MonoBehaviour
         spawnLoop = StartCoroutine(SpawnGroupsLoop());
     }
 
-    public void SetEnemiesPerGroup(int amount)
-    {
-        enemiesInGroup = amount;
-    }
-
-    public void SetSiegeSpawnChance(float chance)
-    {
-        siegeSpawnChance = Mathf.Clamp01(chance);
-    }
-
     public void StartNextWave(int wave)
     {
         maxEnemies += 5;
         enemiesInGroup = 3 + wave / 2;
-        siegeSpawnChance = Mathf.Min(0.1f + wave * 0.05f, 0.8f);    
+        siegeSpawnChance = Mathf.Min(0.15f + 0.05f, 0.5f);    
 
         groupsSpawned = 0;          // reset group count for wave pacing
         spawningGroup = false;      // reset group state
 
         Debug.Log($"Wave {wave} spawned: maxEnemies={maxEnemies}, siegeChance={siegeSpawnChance}");
+
+        enemiesLeft = maxEnemies;
 
         if (spawnLoop != null)
             StopCoroutine(spawnLoop);

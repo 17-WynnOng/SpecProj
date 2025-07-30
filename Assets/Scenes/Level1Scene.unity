@@ -7149,8 +7149,8 @@ MonoBehaviour:
   allowSpawning: 0
   waveCountdownDuration: 60
   winWave: 4
-  currentWave: 1
-  enemyCounter: 0
+  currentWave: 2
+  aliveEnemies: []
 --- !u!4 &1163586453
 Transform:
   m_ObjectHideFlags: 0

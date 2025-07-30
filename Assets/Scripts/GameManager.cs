@@ -17,8 +17,8 @@ public class GameManager : MonoBehaviour
 
     public int winWave = 4;
     public int currentWave = 1;
-    
-    public int enemyCounter = 0;
+
+    public List<GameObject> aliveEnemies = new List<GameObject>();
 
     private void Awake()
     {
@@ -37,10 +37,7 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if (allowSpawning && enemySpawner.GetEnemiesLeft() <= 0 && enemyCounter >= enemySpawner.maxEnemies)
-        {
-            HandleWaveEnd();
-        }
+        CheckWaveEnd();
 
         if (!countdownActive) return;
 
@@ -56,18 +53,17 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void HandleWaveEnd()
+    public void CheckWaveEnd()
     {
-        allowSpawning = false; // Immediately stop spawner
-        if (enemySpawner != null)
-            enemySpawner.StopSpawning();
-
-        TryAdvanceWave(); // Existing logic
+        if (aliveEnemies.Count == 0 && enemySpawner.GetEnemiesLeft() <= 0)
+        {
+            allowSpawning = false;
+            TryAdvanceWave(); // or Win if last wave
+        }
     }
 
     public void StartWaveCountdown()
     {
-        enemyCounter = 0;
         countdownRemaining = waveCountdownDuration;
         countdownActive = true;
         allowSpawning = false;
@@ -89,11 +85,8 @@ public class GameManager : MonoBehaviour
     }
     public void TryAdvanceWave()
     {
-        if (!allowSpawning)
-            return;
-
         bool noEnemiesLeftToSpawn = enemySpawner.GetEnemiesLeft() <= 0;
-        bool allEnemiesDead = enemyCounter >= enemySpawner.maxEnemies;
+        bool allEnemiesDead = aliveEnemies.Count == 0;
 
         if (noEnemiesLeftToSpawn && allEnemiesDead)
         {
@@ -103,7 +96,6 @@ public class GameManager : MonoBehaviour
             if (currentWave < winWave)
             {
                 currentWave++;
-                enemyCounter = 0;
                 enemySpawner.StartNextWave(currentWave);
                 StartWaveCountdown();
                 UIManager.Instance.UpdateWaveCount(currentWave, winWave);

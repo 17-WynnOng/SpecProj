@@ -34,6 +34,9 @@ public abstract class EnemyAI : Damageable
 
     protected EnemyState state = EnemyState.Patrol;
 
+    public delegate void OnDeath();
+    public event OnDeath onDeath;
+
     protected virtual void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -87,16 +90,14 @@ public abstract class EnemyAI : Damageable
 
     private void DieWithNoDrops()
     {
-        GameManager.Instance.enemyCounter++;
-        GameManager.Instance.TryAdvanceWave();
         base.Die();
+        onDeath?.Invoke(); // Notify listeners
     }
 
     protected override void Die()
     {
         DropCollectible();
-        GameManager.Instance.enemyCounter++;
-        GameManager.Instance.TryAdvanceWave();
+        onDeath?.Invoke(); // Notify listeners
         base.Die();
     }
 

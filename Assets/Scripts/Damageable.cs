@@ -7,9 +7,6 @@ public class Damageable : MonoBehaviour
     [SerializeField] protected float maxHealth = 100f;
     [SerializeField] protected float currentHealth;
 
-    public delegate void OnDeath();
-    public event OnDeath onDeath;
-
     [Header("Visual Feedback")]
     private Renderer[] objectRenderers;
     [SerializeField] private Color damageColor = Color.blue;
@@ -75,7 +72,6 @@ public class Damageable : MonoBehaviour
 
     protected virtual void Die()
     {
-        onDeath?.Invoke(); // Notify listeners
         Destroy(gameObject); // Or pool
     }
 
