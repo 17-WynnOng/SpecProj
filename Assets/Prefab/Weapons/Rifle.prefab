@@ -52,6 +52,9 @@ MonoBehaviour:
   currentReserve: 0
   isReloading: 0
   animator: {fileID: 623294775275646953}
+  firePoint: {fileID: 5872884661075926309}
+  trailPrefab: {fileID: 5692523098029617758, guid: f195d39a68122454990029d44051b250, type: 3}
+  shotsForTracer: 4
 --- !u!95 &623294775275646953
 Animator:
   serializedVersion: 5
@@ -390,6 +393,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ac2267d298559bd41a2e8d0530454409, type: 3}
+--- !u!4 &5872884661075926309 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2577035786290206049, guid: ac2267d298559bd41a2e8d0530454409, type: 3}
+  m_PrefabInstance: {fileID: 8233658874646317124}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8487434141316689839 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: ac2267d298559bd41a2e8d0530454409, type: 3}

@@ -12,6 +12,8 @@ public abstract class Weapon : MonoBehaviour
     public int currentReserve;
     public bool isReloading = false;
 
+    protected int shotCounter = 0;
+
     [SerializeField] public Animator animator;
 
     public void Initialize(WeaponData data, Camera cam = null)
@@ -36,6 +38,7 @@ public abstract class Weapon : MonoBehaviour
         if (isReloading || currentMag == weaponData.magazineSize || currentReserve == 0)
             return;
 
+        shotCounter = 0;
         StartReloadAnim();
     }
 
