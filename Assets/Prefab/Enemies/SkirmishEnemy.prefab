@@ -80,7 +80,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.18
-  m_Speed: 0.5
+  m_Speed: 3.5
   m_Acceleration: 12
   avoidancePriority: 50
   m_AngularSpeed: 360
@@ -104,7 +104,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b254b6b0f2769247b696486e848c333, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
+  maxHealth: 50
   currentHealth: 0
   damageColor: {r: 1, g: 1, b: 1, a: 1}
   damageEffectDuration: 0.1
@@ -130,6 +130,11 @@ MonoBehaviour:
   attackCooldown: 1
   attackLingerDuration: 0.5
   attackHitbox: {fileID: 7210396312316987541}
+  defaultSpeed: 3.5
+  chaseSpeed: 6
+  dashDistance: 3.5
+  dashCooldown: 3
+  dashSpeed: 8
   isAttacking: 0
 --- !u!95 &1054969480670373612
 Animator:
@@ -227,8 +232,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 0
   serializedVersion: 3
-  m_Size: {x: 0.62149334, y: 0.9728953, z: 1.1571372}
-  m_Center: {x: 0.008277117, y: -0.04376964, z: 0.078568116}
+  m_Size: {x: 0.73941284, y: 0.9728953, z: 1.1571372}
+  m_Center: {x: -0.0071612825, y: -0.04376964, z: 0.07856813}
 --- !u!114 &7210396312316987541
 MonoBehaviour:
   m_ObjectHideFlags: 0

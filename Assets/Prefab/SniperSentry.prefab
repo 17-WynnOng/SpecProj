@@ -1244,7 +1244,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -1262,7 +1262,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dba1625acc487b4e8b6fcd5cf949736, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  detectionRadius: 25
   rotationPivot: {fileID: 7018240475709001042}
   rotationSpeed: 25
 --- !u!114 &1161830039055617449
@@ -1277,6 +1276,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d86d768a08f18b947b4bdc6155c3327a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  deployableData: {fileID: 0}
   firePoint: {fileID: 1568685582970001773}
 --- !u!1 &7163351627012606805
 GameObject:

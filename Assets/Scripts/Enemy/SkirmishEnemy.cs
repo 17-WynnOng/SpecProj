@@ -19,12 +19,24 @@ public class SkirmishEnemy : EnemyAI
     [SerializeField] private float attackLingerDuration = 0.5f;
     [SerializeField] private EnemyAttackHitbox attackHitbox;
 
+    [Header("Chase Settings")]
+    [SerializeField] private float defaultSpeed = 3.5f;
+    [SerializeField] private float chaseSpeed = 5.5f;
+
     private Vector3 lastKnownPlayerPosition;
     private float searchTimer = 0f;
     private float attackCooldownTimer = 0f;
 
+    [SerializeField] private float dashDistance = 5f;
+    [SerializeField] private float dashCooldown = 3f;
+    [SerializeField] private float dashSpeed = 10f;
+
+    private bool canDash = true;
+
     [Header("Enemy Status")]
     [SerializeField] private bool isAttacking = false;
+
+
 
     protected override void Awake()
     {
@@ -57,6 +69,8 @@ public class SkirmishEnemy : EnemyAI
 
     protected override void HandlePathing()
     {
+        agent.speed = defaultSpeed;
+
         if (CanSeePlayer())
         {
             state = EnemyState.Chase;
@@ -69,6 +83,8 @@ public class SkirmishEnemy : EnemyAI
 
     private void HandleChase()
     {
+        agent.speed = chaseSpeed;
+
         float dist = Vector3.Distance(transform.position, player.position);
 
         if (dist <= attackRange && attackCooldownTimer <= 0f)
@@ -79,28 +95,43 @@ public class SkirmishEnemy : EnemyAI
 
         PlayChaseAnim();
 
-        if (CanSeePlayer())
+        if (agent.enabled == true)
         {
-            lastKnownPlayerPosition = player.position;
-            agent.SetDestination(lastKnownPlayerPosition);
-
-            Vector3 lookDirection = player.position - transform.position;
-            lookDirection.y = 0f; // prevent tilting up/down
-            if (lookDirection.sqrMagnitude > 0.01f)
+            if (CanSeePlayer())
             {
-                Quaternion targetRotation = Quaternion.LookRotation(lookDirection);
-                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 10f);
+                lastKnownPlayerPosition = player.position;
+
+                Vector3 lookDirection = player.position - transform.position;
+                lookDirection.y = 0f; // prevent tilting up/down
+                if (lookDirection.sqrMagnitude > 0.01f)
+                {
+                    Quaternion targetRotation = Quaternion.LookRotation(lookDirection);
+                    transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 10f);
+                }
+
+                // Only move if NavMeshAgent is active
+                if (agent.enabled)
+                {
+                    agent.SetDestination(lastKnownPlayerPosition);
+                }
+
+                if (canDash && Random.value < 0.01f) // 2% chance per frame
+                {
+                    StartCoroutine(PerformRandomDash());
+                }
             }
-        }
-        else if (agent.remainingDistance <= tolerance)
-        {
-            state = EnemyState.Search;  
-            searchTimer = searchDuration;
+            else if (agent.enabled && agent.remainingDistance <= tolerance)
+            {
+                state = EnemyState.Search;
+                searchTimer = searchDuration;
+            }
         }
     }
 
     private void HandleSearch()
     {
+        agent.speed = defaultSpeed;
+
         searchTimer -= Time.deltaTime;
         transform.Rotate(Vector3.up * 90f * Time.deltaTime);
 
@@ -129,18 +160,106 @@ public class SkirmishEnemy : EnemyAI
         }
     }
 
+    private IEnumerator PerformRandomDash()
+    {
+        canDash = false;
+        agent.enabled = false;
+
+        float minClearDistance = 2f; // how much space is needed to dash
+        float buffer = 0.1f;
+        float rightDist = Random.Range(dashDistance, dashDistance + 0.5f);
+        float leftDist = Random.Range(dashDistance, dashDistance + 0.5f);
+
+        // Cast to the right
+        if (Physics.Raycast(transform.position, transform.right, out RaycastHit hitRight, dashDistance, LayerMask.GetMask("Environment")))
+        {
+            rightDist = hitRight.distance - buffer;
+        }
+
+        // Cast to the left
+        if (Physics.Raycast(transform.position, -transform.right, out RaycastHit hitLeft, dashDistance, LayerMask.GetMask("Environment")))
+        {
+            leftDist = hitLeft.distance - buffer;
+        }
+
+        // Decide direction
+        Vector3 dashDir;
+        float actualDashDistance;
+
+        if (rightDist >= minClearDistance && leftDist >= minClearDistance)
+        {
+            // Both directions clear → pick random
+            bool dashRight = Random.value < 0.5f;
+            dashDir = dashRight ? transform.right : -transform.right;
+            actualDashDistance = dashRight ? rightDist : leftDist;
+            DashAnim(dashRight ? "DashRight" : "DashLeft", true);
+        }
+        else if (rightDist >= minClearDistance)
+        {
+            dashDir = transform.right;
+            actualDashDistance = rightDist;
+        }
+        else if (leftDist >= minClearDistance)
+        {
+            dashDir = -transform.right;
+            actualDashDistance = leftDist;
+        }
+        else
+        {
+            // No valid direction → cancel dash
+            agent.enabled = true;
+            yield return new WaitForSeconds(dashCooldown);
+            canDash = true;
+            yield break;
+        }
+
+        Vector3 start = transform.position;
+        Vector3 end = start + dashDir * actualDashDistance;
+        float dashDuration = actualDashDistance / dashSpeed;
+
+        float elapsed = 0f;
+        while (elapsed < dashDuration)
+        {
+            Vector3 lookDirection = player.position - transform.position;
+            lookDirection.y = 0f; // prevent tilting up/down
+            if (lookDirection.sqrMagnitude > 0.01f)
+            {
+                Quaternion targetRotation = Quaternion.LookRotation(lookDirection);
+                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 10f);
+            }
+
+            transform.position = Vector3.Lerp(start, end, elapsed / dashDuration);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        transform.position = end;
+        agent.enabled = true;
+        agent.SetDestination(lastKnownPlayerPosition);
+
+        DashAnim("DashRight", false);
+        DashAnim("DashLeft", false);
+
+        yield return new WaitForSeconds(dashCooldown);
+        canDash = true;
+    }
+
+
     public IEnumerator PerformAttack()
     {
-        isAttacking = true;
-        agent.isStopped = true;
+        if (agent.enabled)
+        {
+            isAttacking = true;
+            agent.isStopped = true;
 
-        // Enable hitbox
-        attackHitbox.EnableHitbox();
+            // Enable hitbox
+            attackHitbox.EnableHitbox();
 
-        yield return new WaitForSeconds(attackLingerDuration);
+            yield return new WaitForSeconds(attackLingerDuration);
 
-        // Disable hitbox after attack window   
-        attackHitbox.DisableHitbox();
+            // Disable hitbox after attack window   
+            attackHitbox.DisableHitbox();
+        }
     }
 
 
@@ -204,6 +323,11 @@ public class SkirmishEnemy : EnemyAI
     private void PlayAttackAnim()
     {
         SetAnimationState("Attack", true);
+    }
+
+    private void DashAnim(string direction, bool state)
+    {
+        SetAnimationState(direction, state);
     }
 
     public void EndAttackAnim()
