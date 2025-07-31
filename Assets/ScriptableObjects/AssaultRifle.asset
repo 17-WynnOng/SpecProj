@@ -17,6 +17,8 @@ MonoBehaviour:
   damage: 10
   range: 30
   fireRate: 0.125
+  weaponID: assault_rifle_01
+  slotType: 0
   magazineSize: 32
   maxAmmo: 150
   reloadTime: 1.5
@@ -25,3 +27,4 @@ MonoBehaviour:
   hitLayers:
     serializedVersion: 2
     m_Bits: 512
+  loadoutButton: {fileID: 8592745675911088816, guid: d32eb2fd123ad61438c205f3dfb97328, type: 3}

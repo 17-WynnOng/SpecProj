@@ -16,6 +16,7 @@ public class DeployableData : ScriptableObject
     public GameObject deployablePrefab;
     public GameObject deployableIconPrefab;
     public GameObject deployableGhost;
+    public string deployableID;
 
     [Header("Defensive/Offensive deployables")]
     public float damage = 10f;
@@ -26,12 +27,15 @@ public class DeployableData : ScriptableObject
     public int reloadTime;
     public float range = 100f;
     public float fireRate = 0.1f;
-    public LayerMask hitLayers; // Layers the weapon can hit
+    public LayerMask hitLayers; // Layers the sentry can hit
     public LayerMask losLayers; //Layers that the sentry will interact with
 
     [Header("Placement Settings")]
     public PlacementType placementType = PlacementType.Ground;
     public Color validPlacement;
     public Color invalidPlacement;
+
+    [Header("Loadout Button")]
+    public GameObject loadoutButton;
 }
 

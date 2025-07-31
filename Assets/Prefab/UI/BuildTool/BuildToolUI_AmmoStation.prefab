@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1525819195949905721}
   - component: {fileID: 5993534482349628338}
   m_Layer: 7
-  m_Name: AmmoStation_Icon
+  m_Name: BuildToolUI_AmmoStation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

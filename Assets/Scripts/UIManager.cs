@@ -30,7 +30,6 @@ public class UIManager : MonoBehaviour
     public TMP_Text selectedPrimaryTxt;
     public TMP_Text selectedSecondaryTxt;
     public TMP_Text[] selectedSentriesTxt;
-    public RawImage scanLines;
 
     private float healthBarMaxWidth;
     private float baseHPBarMaxWidth;

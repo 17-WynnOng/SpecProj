@@ -1,0 +1,9 @@
+{
+    "unlockedWeaponIDs": [
+        "assault_rifle_01",
+        "pistol_01"
+    ],
+    "unlockedDeployableIDs": [
+        "mg_sentry"
+    ]
+}

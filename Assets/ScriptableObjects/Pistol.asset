@@ -17,6 +17,8 @@ MonoBehaviour:
   damage: 15
   range: 20
   fireRate: 0.15
+  weaponID: pistol_01
+  slotType: 1
   magazineSize: 17
   maxAmmo: 68
   reloadTime: 1
@@ -25,3 +27,4 @@ MonoBehaviour:
   hitLayers:
     serializedVersion: 2
     m_Bits: 512
+  loadoutButton: {fileID: 9093436210076126721, guid: 5917028c003c44f41941b013910f6937, type: 3}

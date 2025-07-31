@@ -1,21 +1,48 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class LoadoutUI : MonoBehaviour
 {
-    public List<WeaponData> allWeapons; // assign in inspector
-    public WeaponData selectedPrimary;
-    public WeaponData selectedSecondary;
-    public DeployableData[] selectedDeployables;
+    public static LoadoutUI Instance;
+
+    private WeaponData selectedPrimary;
+    private WeaponData selectedSecondary;
+    private DeployableData[] selectedDeployables;
+
+    [SerializeField] private Transform content;
     private void Awake()
     {
-        // if someone messed with it in the inspector, or it's null,
-        // re-create the array at length 4
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        Instance = this;
+
         if (selectedDeployables == null || selectedDeployables.Length != 4)
             selectedDeployables = new DeployableData[4];
     }
+
+    private void Start()
+    {
+        foreach (var weapon in LoadoutManager.Instance.unlockedWeapons)
+        {
+            if (weapon.slotType == WeaponType.Primary || weapon.slotType == WeaponType.Secondary)
+            {
+                GameObject btn = Instantiate(weapon.loadoutButton, content);
+                btn.GetComponent<WeaponLoadout_Btn>().Initialize(weapon);
+            }
+        }
+
+        foreach (var deployable in LoadoutManager.Instance.unlockedDeployables)
+        {
+            GameObject btn = Instantiate(deployable.loadoutButton, content);
+            btn.GetComponent<DeployableLoadout_Btn>().Initialize(deployable);
+        }
+    }
+
     public void SelectPrimary(WeaponData weapon)
     {
         selectedPrimary = weapon;

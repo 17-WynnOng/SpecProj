@@ -26,13 +26,11 @@ public class GameManager : MonoBehaviour
             Instance = this;
         else
             Destroy(gameObject);
-
     }
 
     private void Start()
     {
         UIManager.Instance.UpdateWaveCount(currentWave, winWave);
-
     }
 
     private void Update()

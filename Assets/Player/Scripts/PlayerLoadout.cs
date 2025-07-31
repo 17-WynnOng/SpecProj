@@ -22,7 +22,7 @@ public class PlayerLoadout : MonoBehaviour
     [Header("Held Deployable")]
     public DeployableData heldDeployable;
 
-    [Tooltip("Prefabs for deployabls")]
+    [Tooltip("Prefabs for deployables")]
     [SerializeField] public DeployableData[] equippedDeployables;
     [HideInInspector] public int currentDeployableIndex = 0;
 
@@ -31,9 +31,9 @@ public class PlayerLoadout : MonoBehaviour
 
     public void LoadPlayerLoadout()
     {
-        WeaponData primary = LoadoutManager.Instance.PrimaryWeapon;
-        WeaponData secondary = LoadoutManager.Instance.SecondaryWeapon;
-        equippedDeployables = LoadoutManager.Instance.Deployables;
+        WeaponData primary = LoadoutManager.Instance.primaryWeapon;
+        WeaponData secondary = LoadoutManager.Instance.secondaryWeapon;
+        equippedDeployables = LoadoutManager.Instance.deployables;
 
         EquipWeapon(0, primary);
         EquipWeapon(1, secondary);

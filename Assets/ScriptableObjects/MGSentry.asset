@@ -17,6 +17,7 @@ MonoBehaviour:
   deployablePrefab: {fileID: 6528960764385774299, guid: cbbb0fbff609e9141b3b5fa8dc63e666, type: 3}
   deployableIconPrefab: {fileID: 7393188199528984226, guid: 84b0334314e3d5d4185545d69c41f36e, type: 3}
   deployableGhost: {fileID: 6528960764385774299, guid: feb441a4e89ddea4cb6e1b89d0d892cc, type: 3}
+  deployableID: mg_sentry
   damage: 0
   magazineSize: 0
   maxAmmo: 0
@@ -32,3 +33,4 @@ MonoBehaviour:
   placementType: 0
   validPlacement: {r: 0.16470589, g: 0.56078434, b: 1, a: 0.39215687}
   invalidPlacement: {r: 0.8396226, g: 0, b: 0, a: 0.39215687}
+  loadoutButton: {fileID: 329075764206810970, guid: 1801729ded23f3d4785ed65a1d515358, type: 3}
