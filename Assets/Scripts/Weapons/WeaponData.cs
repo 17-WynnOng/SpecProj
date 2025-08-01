@@ -23,6 +23,8 @@ public class WeaponData : ScriptableObject
     public float fireRate = 0.1f;
     public string weaponID;
     public WeaponType slotType;
+    public Sprite weapon2DIcon;
+    public GameObject weapon3DModel;
     
 
     [Header("Weapon")]

@@ -18,6 +18,7 @@ MonoBehaviour:
   deployableIconPrefab: {fileID: 7393188199528984226, guid: 7623e98cafb76f6409c95ffc0f852154, type: 3}
   deployableGhost: {fileID: 6528960764385774299, guid: d72457c7aef3f2f4f99f56f5c686916a, type: 3}
   deployableID: sniper_sentry
+  deployable2DIcon: {fileID: 0}
   damage: 50
   magazineSize: 0
   maxAmmo: 0
@@ -33,4 +34,4 @@ MonoBehaviour:
   placementType: 0
   validPlacement: {r: 0.16470589, g: 0.56078434, b: 1, a: 0.39215687}
   invalidPlacement: {r: 0.8392157, g: 0, b: 0, a: 0.39215687}
-  loadoutButton: {fileID: 4301041101136657165, guid: c1ea66e5f222f1b48b831cc001beb5aa, type: 3}
+  loadoutButton: {fileID: 1590075376193790157, guid: 26942b616a4bb0d4b97a8cabb85e6791, type: 3}

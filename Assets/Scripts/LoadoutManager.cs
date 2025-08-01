@@ -29,6 +29,8 @@ public class LoadoutManager : MonoBehaviour
 
         if (deployables == null || deployables.Length != 4)
             deployables = new DeployableData[4];
+
+        LoadUnlockedData();
     }
 
     public void UnlockWeapon(string weaponID)

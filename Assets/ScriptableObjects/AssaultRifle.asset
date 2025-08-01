@@ -19,6 +19,8 @@ MonoBehaviour:
   fireRate: 0.125
   weaponID: assault_rifle_01
   slotType: 0
+  weapon2DIcon: {fileID: 21300000, guid: cadc520d3e0e3c542819388e0fe8defc, type: 3}
+  weapon3DModel: {fileID: 919132149155446097, guid: ac2267d298559bd41a2e8d0530454409, type: 3}
   magazineSize: 32
   maxAmmo: 150
   reloadTime: 1.5
@@ -27,4 +29,4 @@ MonoBehaviour:
   hitLayers:
     serializedVersion: 2
     m_Bits: 512
-  loadoutButton: {fileID: 8592745675911088816, guid: d32eb2fd123ad61438c205f3dfb97328, type: 3}
+  loadoutButton: {fileID: 1590075376193790157, guid: 26942b616a4bb0d4b97a8cabb85e6791, type: 3}

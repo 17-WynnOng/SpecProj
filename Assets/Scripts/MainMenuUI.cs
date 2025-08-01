@@ -7,7 +7,9 @@ public class MainMenuUI : MonoBehaviour
 {
     public static MainMenuUI Instance;
     [SerializeField] private GameObject continueBtn;
-    [SerializeField] private Transform content;
+    [SerializeField] private Transform mainMenuBtnGroup;
+    [SerializeField] private Transform startingLoadoutGroup;
+    [SerializeField] private GameObject startingLoadoutUI;
 
     private void Awake()
     {
@@ -21,7 +23,7 @@ public class MainMenuUI : MonoBehaviour
     {
         if (SaveSystem.Exists("unlocks.json"))
         {
-            GameObject instance = Instantiate(continueBtn, content);
+            GameObject instance = Instantiate(continueBtn, mainMenuBtnGroup);
             Button button = instance.GetComponent<Button>();
 
             button.onClick.AddListener(() =>
@@ -41,5 +43,20 @@ public class MainMenuUI : MonoBehaviour
     public void ClosePanel(GameObject gameobject)
     {
         gameobject.SetActive(false);
+    }
+
+    public void StartNewGame()
+    {
+        foreach (var weapon in LoadoutManager.Instance.unlockedWeapons)
+        {
+            GameObject btn = Instantiate(startingLoadoutUI, startingLoadoutGroup);
+            btn.GetComponent<StartingLoadout_UI>().InitializeWeapon(weapon);
+        }
+
+        foreach (var deployable in LoadoutManager.Instance.unlockedDeployables)
+        {
+            GameObject btn = Instantiate(startingLoadoutUI, startingLoadoutGroup);
+            btn.GetComponent<StartingLoadout_UI>().InitializeDeployable(deployable);
+        }
     }
 }

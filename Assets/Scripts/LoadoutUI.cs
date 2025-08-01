@@ -32,14 +32,14 @@ public class LoadoutUI : MonoBehaviour
             if (weapon.slotType == WeaponType.Primary || weapon.slotType == WeaponType.Secondary)
             {
                 GameObject btn = Instantiate(weapon.loadoutButton, content);
-                btn.GetComponent<WeaponLoadout_Btn>().Initialize(weapon);
+                btn.GetComponent<Loadout_Btn>().InitializeWeapon(weapon);
             }
         }
 
         foreach (var deployable in LoadoutManager.Instance.unlockedDeployables)
         {
             GameObject btn = Instantiate(deployable.loadoutButton, content);
-            btn.GetComponent<DeployableLoadout_Btn>().Initialize(deployable);
+            btn.GetComponent<Loadout_Btn>().InitializeDeployable(deployable);
         }
     }
 
@@ -92,7 +92,7 @@ public class LoadoutUI : MonoBehaviour
 
     public void ConfirmLoadout()
     {
-        if (selectedPrimary != null && selectedSecondary != null && selectedDeployables[0] != null )
+        if (selectedPrimary != null)
         {
             LoadoutManager.Instance.SetLoadout(selectedPrimary, selectedSecondary, selectedDeployables);
                 

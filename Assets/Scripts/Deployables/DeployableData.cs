@@ -17,6 +17,7 @@ public class DeployableData : ScriptableObject
     public GameObject deployableIconPrefab;
     public GameObject deployableGhost;
     public string deployableID;
+    public Sprite deployable2DIcon;
 
     [Header("Defensive/Offensive deployables")]
     public float damage = 10f;

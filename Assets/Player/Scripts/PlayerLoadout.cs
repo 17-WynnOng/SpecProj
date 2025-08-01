@@ -32,11 +32,14 @@ public class PlayerLoadout : MonoBehaviour
     public void LoadPlayerLoadout()
     {
         WeaponData primary = LoadoutManager.Instance.primaryWeapon;
-        WeaponData secondary = LoadoutManager.Instance.secondaryWeapon;
-        equippedDeployables = LoadoutManager.Instance.deployables;
-
         EquipWeapon(0, primary);
-        EquipWeapon(1, secondary);
+
+        WeaponData secondary = LoadoutManager.Instance.secondaryWeapon;
+
+        if (secondary != null)
+            EquipWeapon(1, secondary);
+
+        equippedDeployables = LoadoutManager.Instance.deployables;
         EquipBuildTool();
 
         SwitchToWeapon(0); // Start with primary
@@ -85,6 +88,11 @@ public class PlayerLoadout : MonoBehaviour
     {
         if (instantiatedBuildTool != null)
             instantiatedBuildTool.SetActive(true);
+
+        if (heldDeployable == null)
+        {
+            UIManager.Instance.buildCostText.text = currentScrap + "/0";
+        }
     }
 
     public void HideBuildTool()
