@@ -21263,3 +21263,35 @@ Received Import Request.
 Start importing Assets/Scenes/Level1Scene.unity using Guid(9fc0d4010bbf28b4594072e72b8655ab) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1c7666cbc3d3b2b4dc4ec4bfa70ce43a') in 0.004076 seconds
 Number of updated asset objects reloaded before import = 0
 Number of asset objects unloaded after import = 0
+========================================================================
+Received Import Request.
+  Time since last request: 249.932410 seconds.
+  path: Assets/Scripts/UnlockCard.cs
+  artifactKey: Guid(882d907ab9b777d4fad2a77f8d2519d7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/UnlockCard.cs using Guid(882d907ab9b777d4fad2a77f8d2519d7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'dde125e9cc6dc99c57040748d8ad73de') in 0.001458 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 0
+========================================================================
+Received Import Request.
+  Time since last request: 10.911477 seconds.
+  path: Assets/ScriptableObjects/MGSentry.asset
+  artifactKey: Guid(fd26aec3bd156ff4e8d621e5b206ade0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ScriptableObjects/MGSentry.asset using Guid(fd26aec3bd156ff4e8d621e5b206ade0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7428ad7bb9e8e2061729327c82c5361e') in 0.121326 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 96
+========================================================================
+Received Import Request.
+  Time since last request: 85.134597 seconds.
+  path: Assets/Scripts/UnlockCardSpawner.cs
+  artifactKey: Guid(35ad0468af8eb3c4e99930ec6cf334fb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/UnlockCardSpawner.cs using Guid(35ad0468af8eb3c4e99930ec6cf334fb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c89744670b40095b2365c775d7b017cb') in 0.001134 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 0
+========================================================================
+Received Import Request.
+  Time since last request: 14.180994 seconds.
+  path: Assets/Scripts/UnlockCard.cs
+  artifactKey: Guid(882d907ab9b777d4fad2a77f8d2519d7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/UnlockCard.cs using Guid(882d907ab9b777d4fad2a77f8d2519d7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '60e02aa3eb1e874fc8a108709908322b') in 0.000899 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 0

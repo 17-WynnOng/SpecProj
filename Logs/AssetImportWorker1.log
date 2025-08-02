@@ -20358,3 +20358,11 @@ AssetImportParameters requested are different than current active one (requested
   custom:CustomObjectIndexerAttribute: 3ead1caaecf1c488f20bcfeb224b6af5 -> 
   custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
   custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+========================================================================
+Received Import Request.
+  Time since last request: 819.580255 seconds.
+  path: Assets/ScriptableObjects/Pistol.asset
+  artifactKey: Guid(22e93e8db5f5aa14bafddf87cd6f7528) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ScriptableObjects/Pistol.asset using Guid(22e93e8db5f5aa14bafddf87cd6f7528) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c304f30c6d00e3f78da9b4365ff6b8ad') in 0.094124 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 84
