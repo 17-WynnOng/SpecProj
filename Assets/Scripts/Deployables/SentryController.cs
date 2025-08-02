@@ -95,6 +95,8 @@ public class SentryController : MonoBehaviour
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, sentry.deployableData.range);
+
+        if (sentry.deployableData != null)
+            Gizmos.DrawWireSphere(transform.position, sentry.deployableData.range);
     }
 }

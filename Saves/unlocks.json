@@ -4,6 +4,7 @@
         "pistol_01"
     ],
     "unlockedDeployableIDs": [
-        "mg_sentry"
+        "mg_sentry",
+        "ammo_station"
     ]
 }

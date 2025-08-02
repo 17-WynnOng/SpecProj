@@ -246,7 +246,7 @@ MonoBehaviour:
   buildDistance: 3.5
   buildableLayer:
     serializedVersion: 2
-    m_Bits: 320
+    m_Bits: 2368
   gridSizeHorizontal: 1
   gridSizeVertical: 0.5
   buildMode: 0

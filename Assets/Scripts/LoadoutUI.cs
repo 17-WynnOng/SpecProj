@@ -11,6 +11,8 @@ public class LoadoutUI : MonoBehaviour
     private DeployableData[] selectedDeployables;
 
     [SerializeField] private Transform content;
+
+    [SerializeField] private GameObject loadoutButton;
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -31,14 +33,14 @@ public class LoadoutUI : MonoBehaviour
         {
             if (weapon.slotType == WeaponType.Primary || weapon.slotType == WeaponType.Secondary)
             {
-                GameObject btn = Instantiate(weapon.loadoutButton, content);
+                GameObject btn = Instantiate(loadoutButton, content);
                 btn.GetComponent<Loadout_Btn>().InitializeWeapon(weapon);
             }
         }
 
         foreach (var deployable in LoadoutManager.Instance.unlockedDeployables)
         {
-            GameObject btn = Instantiate(deployable.loadoutButton, content);
+            GameObject btn = Instantiate(loadoutButton, content);
             btn.GetComponent<Loadout_Btn>().InitializeDeployable(deployable);
         }
     }

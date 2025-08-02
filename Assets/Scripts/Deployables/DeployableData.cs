@@ -35,8 +35,5 @@ public class DeployableData : ScriptableObject
     public PlacementType placementType = PlacementType.Ground;
     public Color validPlacement;
     public Color invalidPlacement;
-
-    [Header("Loadout Button")]
-    public GameObject loadoutButton;
 }
 

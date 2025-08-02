@@ -14094,6 +14094,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   content: {fileID: 1930477901988018191}
+  loadoutButton: {fileID: 1590075376193790157, guid: 26942b616a4bb0d4b97a8cabb85e6791, type: 3}
 --- !u!224 &4618781059309748756
 RectTransform:
   m_ObjectHideFlags: 0

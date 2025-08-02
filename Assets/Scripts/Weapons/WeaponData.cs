@@ -36,8 +36,5 @@ public class WeaponData : ScriptableObject
     [Header("Firing Settings")]
     public FireMode fireMode;
     public LayerMask hitLayers; // Layers the weapon can hit
-
-    [Header("Loadout Button")]
-    public GameObject loadoutButton;
 }
 
