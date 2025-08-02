@@ -3,6 +3,13 @@
   "WorkspaceRootPath": "C:\\NYP\\Work File\\SpecProj\\SpecProj\\",
   "Documents": [
     {
+<<<<<<< Updated upstream
+=======
+      "AbsoluteMoniker": "D:0:0:{9EA60DC9-CCA0-CD7F-62A8-9DD1CF7646FC}|Assembly-CSharp.csproj|c:\\nyp\\work file\\specproj\\specproj\\assets\\scripts\\unlockcardspawner.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9EA60DC9-CCA0-CD7F-62A8-9DD1CF7646FC}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\unlockcardspawner.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+>>>>>>> Stashed changes
       "AbsoluteMoniker": "D:0:0:{9EA60DC9-CCA0-CD7F-62A8-9DD1CF7646FC}|Assembly-CSharp.csproj|c:\\nyp\\work file\\specproj\\specproj\\assets\\scripts\\loadoutmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{9EA60DC9-CCA0-CD7F-62A8-9DD1CF7646FC}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\loadoutmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -46,11 +53,11 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 4,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "LoadoutManager.cs",
               "DocumentMoniker": "C:\\NYP\\Work File\\SpecProj\\SpecProj\\Assets\\Scripts\\LoadoutManager.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\LoadoutManager.cs",
@@ -103,15 +110,25 @@
             },
             {
               "$type": "Document",
+<<<<<<< Updated upstream
               "DocumentIndex": 1,
+=======
+              "DocumentIndex": 0,
+>>>>>>> Stashed changes
               "Title": "UnlockCardSpawner.cs",
               "DocumentMoniker": "C:\\NYP\\Work File\\SpecProj\\SpecProj\\Assets\\Scripts\\UnlockCardSpawner.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\UnlockCardSpawner.cs",
               "ToolTip": "C:\\NYP\\Work File\\SpecProj\\SpecProj\\Assets\\Scripts\\UnlockCardSpawner.cs",
               "RelativeToolTip": "Assets\\Scripts\\UnlockCardSpawner.cs",
+<<<<<<< Updated upstream
               "ViewState": "AQIAAAAAAAAAAAAAAAAAABEAAAA2AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-08-02T20:23:05.833Z",
+=======
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABsAAAApAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-02T20:14:27.436Z",
+>>>>>>> Stashed changes
               "EditorCaption": ""
             },
             {

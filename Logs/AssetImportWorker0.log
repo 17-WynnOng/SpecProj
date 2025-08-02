@@ -21549,3 +21549,19 @@ Received Import Request.
 Start importing Assets/Prefab/Card.prefab using Guid(8f94f8fa8b74f9f47acafd762df535b7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a9c40c3c295b826880b6f14ba0bd0d2a') in 0.148069 seconds
 Number of updated asset objects reloaded before import = 0
 Number of asset objects unloaded after import = 32
+========================================================================
+Received Import Request.
+  Time since last request: 82.583965 seconds.
+  path: Assets/Scenes/ModelToImage.unity
+  artifactKey: Guid(4c71c9c4608c1b045a54c57599070dbf) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scenes/ModelToImage.unity using Guid(4c71c9c4608c1b045a54c57599070dbf) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '51bfeb88d26490dd6ad866f574cd2357') in 0.001092 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 0
+========================================================================
+Received Import Request.
+  Time since last request: 1.747305 seconds.
+  path: Assets/Scenes/MainMenu.unity
+  artifactKey: Guid(be29c5b423a64f346abf3f642271a3bb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scenes/MainMenu.unity using Guid(be29c5b423a64f346abf3f642271a3bb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'fc7c0cf6f600771632d751359230cb17') in 0.000765 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 0
