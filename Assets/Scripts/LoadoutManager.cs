@@ -6,7 +6,7 @@ public class LoadoutManager : MonoBehaviour
 {
     public static LoadoutManager Instance;
 
-    [SerializeField] private EquipmentDatabase equipmentDB;
+    public EquipmentDatabase equipmentDB;
 
     public WeaponData primaryWeapon { get; private set; }
     public WeaponData secondaryWeapon { get; private set; }
