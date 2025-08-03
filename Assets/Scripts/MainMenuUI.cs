@@ -47,8 +47,22 @@ public class MainMenuUI : MonoBehaviour
 
     public void StartNewGame()
     {
+        foreach (Transform child in startingLoadoutGroup)
+        {
+            Destroy(child.gameObject);
+        }
+
+        LoadoutManager.Instance.DeleteUnlockedData();
+        LoadoutManager.Instance.ClearUnlocksInMemory();
+
+        LoadoutManager.Instance.UnlockWeapon("assault_rifle_01");
+        LoadoutManager.Instance.UnlockDeployable("mg_sentry");
+
+        LoadoutManager.Instance.LoadUnlockedData();
+
         foreach (var weapon in LoadoutManager.Instance.unlockedWeapons)
         {
+           
             GameObject btn = Instantiate(startingLoadoutUI, startingLoadoutGroup);
             btn.GetComponent<StartingLoadout_UI>().InitializeWeapon(weapon);
         }

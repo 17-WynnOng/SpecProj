@@ -7,6 +7,7 @@ public class UnlockCardSpawner : MonoBehaviour
     [SerializeField] private GameObject unlockCardPrefab;
     [SerializeField] private Transform cardHolder;
     [SerializeField] private int numberOfCards = 3;
+    [SerializeField] private GameObject continueBtn;
 
     private List<UnlockCard> spawnedCards = new List<UnlockCard>();
 
@@ -14,6 +15,7 @@ public class UnlockCardSpawner : MonoBehaviour
     {
         ClearExistingCards();
         spawnedCards.Clear();
+        continueBtn.SetActive(false);
 
         var lockedWeapons = LoadoutManager.Instance.equipmentDB.allWeapons.FindAll(w => !LoadoutManager.Instance.unlockedWeapons.Contains(w));
         var lockedDeployables = LoadoutManager.Instance.equipmentDB.allDeployables.FindAll(d => !LoadoutManager.Instance.unlockedDeployables.Contains(d));
@@ -27,6 +29,7 @@ public class UnlockCardSpawner : MonoBehaviour
             UnlockCard card = cardObj.GetComponent<UnlockCard>();
             card.InitializeSpawner(this);
             spawnedCards.Add(card);
+            card.AssignContinueBtn(continueBtn);
 
             bool pickWeapon = Random.value > 0.5f;
 

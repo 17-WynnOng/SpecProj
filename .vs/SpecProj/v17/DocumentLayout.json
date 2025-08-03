@@ -3,31 +3,39 @@
   "WorkspaceRootPath": "C:\\NYP\\Work File\\SpecProj\\SpecProj\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{9EA60DC9-CCA0-CD7F-62A8-9DD1CF7646FC}|Assembly-CSharp.csproj|c:\\nyp\\work file\\specproj\\specproj\\assets\\player\\scripts\\playerbuild.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9EA60DC9-CCA0-CD7F-62A8-9DD1CF7646FC}|Assembly-CSharp.csproj|solutionrelative:assets\\player\\scripts\\playerbuild.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{9EA60DC9-CCA0-CD7F-62A8-9DD1CF7646FC}|Assembly-CSharp.csproj|c:\\nyp\\work file\\specproj\\specproj\\assets\\scripts\\mainmenuui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9EA60DC9-CCA0-CD7F-62A8-9DD1CF7646FC}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\mainmenuui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{9EA60DC9-CCA0-CD7F-62A8-9DD1CF7646FC}|Assembly-CSharp.csproj|c:\\nyp\\work file\\specproj\\specproj\\assets\\scripts\\deployables\\deployabledata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{9EA60DC9-CCA0-CD7F-62A8-9DD1CF7646FC}|Assembly-CSharp.csproj|C:\\NYP\\Work File\\SpecProj\\SpecProj\\assets\\scripts\\deployables\\sentrycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9EA60DC9-CCA0-CD7F-62A8-9DD1CF7646FC}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\deployables\\sentrycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9EA60DC9-CCA0-CD7F-62A8-9DD1CF7646FC}|Assembly-CSharp.csproj|C:\\NYP\\Work File\\SpecProj\\SpecProj\\assets\\scripts\\deployables\\deployabledata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{9EA60DC9-CCA0-CD7F-62A8-9DD1CF7646FC}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\deployables\\deployabledata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9EA60DC9-CCA0-CD7F-62A8-9DD1CF7646FC}|Assembly-CSharp.csproj|C:\\NYP\\Work File\\SpecProj\\SpecProj\\assets\\scripts\\weapons\\weapondata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9EA60DC9-CCA0-CD7F-62A8-9DD1CF7646FC}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\weapons\\weapondata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9EA60DC9-CCA0-CD7F-62A8-9DD1CF7646FC}|Assembly-CSharp.csproj|c:\\nyp\\work file\\specproj\\specproj\\assets\\scripts\\typewriter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9EA60DC9-CCA0-CD7F-62A8-9DD1CF7646FC}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\typewriter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9EA60DC9-CCA0-CD7F-62A8-9DD1CF7646FC}|Assembly-CSharp.csproj|C:\\NYP\\Work File\\SpecProj\\SpecProj\\assets\\scripts\\unlockcardspawner.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9EA60DC9-CCA0-CD7F-62A8-9DD1CF7646FC}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\unlockcardspawner.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\NYP\\Work File\\SpecProj\\SpecProj\\Library\\PackageCache\\com.unity.render-pipelines.universal@14.0.10\\Runtime\\UniversalRenderPipeline.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Library\\PackageCache\\com.unity.render-pipelines.universal@14.0.10\\Runtime\\UniversalRenderPipeline.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{9EA60DC9-CCA0-CD7F-62A8-9DD1CF7646FC}|Assembly-CSharp.csproj|C:\\NYP\\Work File\\SpecProj\\SpecProj\\assets\\scripts\\loadoutmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{9EA60DC9-CCA0-CD7F-62A8-9DD1CF7646FC}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\loadoutmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{9EA60DC9-CCA0-CD7F-62A8-9DD1CF7646FC}|Assembly-CSharp.csproj|C:\\NYP\\Work File\\SpecProj\\SpecProj\\assets\\scripts\\loadoutui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9EA60DC9-CCA0-CD7F-62A8-9DD1CF7646FC}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\loadoutui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9EA60DC9-CCA0-CD7F-62A8-9DD1CF7646FC}|Assembly-CSharp.csproj|c:\\nyp\\work file\\specproj\\specproj\\assets\\scripts\\weapons\\weapondata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9EA60DC9-CCA0-CD7F-62A8-9DD1CF7646FC}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\weapons\\weapondata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9EA60DC9-CCA0-CD7F-62A8-9DD1CF7646FC}|Assembly-CSharp.csproj|c:\\nyp\\work file\\specproj\\specproj\\assets\\scripts\\deployables\\sentrycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9EA60DC9-CCA0-CD7F-62A8-9DD1CF7646FC}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\deployables\\sentrycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9EA60DC9-CCA0-CD7F-62A8-9DD1CF7646FC}|Assembly-CSharp.csproj|c:\\nyp\\work file\\specproj\\specproj\\assets\\player\\scripts\\playerloadout.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{9EA60DC9-CCA0-CD7F-62A8-9DD1CF7646FC}|Assembly-CSharp.csproj|C:\\NYP\\Work File\\SpecProj\\SpecProj\\assets\\player\\scripts\\playerloadout.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{9EA60DC9-CCA0-CD7F-62A8-9DD1CF7646FC}|Assembly-CSharp.csproj|solutionrelative:assets\\player\\scripts\\playerloadout.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
@@ -35,24 +43,32 @@
       "RelativeMoniker": "D:0:0:{9EA60DC9-CCA0-CD7F-62A8-9DD1CF7646FC}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\uimanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{9EA60DC9-CCA0-CD7F-62A8-9DD1CF7646FC}|Assembly-CSharp.csproj|C:\\NYP\\Work File\\SpecProj\\SpecProj\\assets\\scripts\\unlockcardspawner.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9EA60DC9-CCA0-CD7F-62A8-9DD1CF7646FC}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\unlockcardspawner.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9EA60DC9-CCA0-CD7F-62A8-9DD1CF7646FC}|Assembly-CSharp.csproj|C:\\NYP\\Work File\\SpecProj\\SpecProj\\assets\\scripts\\mainmenuui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9EA60DC9-CCA0-CD7F-62A8-9DD1CF7646FC}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\mainmenuui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{9EA60DC9-CCA0-CD7F-62A8-9DD1CF7646FC}|Assembly-CSharp.csproj|C:\\NYP\\Work File\\SpecProj\\SpecProj\\assets\\scripts\\loadoutui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9EA60DC9-CCA0-CD7F-62A8-9DD1CF7646FC}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\loadoutui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{9EA60DC9-CCA0-CD7F-62A8-9DD1CF7646FC}|Assembly-CSharp.csproj|C:\\NYP\\Work File\\SpecProj\\SpecProj\\assets\\scripts\\loadout_btn.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{9EA60DC9-CCA0-CD7F-62A8-9DD1CF7646FC}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\loadout_btn.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{9EA60DC9-CCA0-CD7F-62A8-9DD1CF7646FC}|Assembly-CSharp.csproj|C:\\NYP\\Work File\\SpecProj\\SpecProj\\assets\\scripts\\loadoutcard.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9EA60DC9-CCA0-CD7F-62A8-9DD1CF7646FC}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\loadoutcard.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{9EA60DC9-CCA0-CD7F-62A8-9DD1CF7646FC}|Assembly-CSharp.csproj|C:\\NYP\\Work File\\SpecProj\\SpecProj\\assets\\scripts\\startingloadout_ui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{9EA60DC9-CCA0-CD7F-62A8-9DD1CF7646FC}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\startingloadout_ui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9EA60DC9-CCA0-CD7F-62A8-9DD1CF7646FC}|Assembly-CSharp.csproj|C:\\NYP\\Work File\\SpecProj\\SpecProj\\assets\\scripts\\unlockcard.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9EA60DC9-CCA0-CD7F-62A8-9DD1CF7646FC}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\unlockcard.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9EA60DC9-CCA0-CD7F-62A8-9DD1CF7646FC}|Assembly-CSharp.csproj|C:\\NYP\\Work File\\SpecProj\\SpecProj\\assets\\scripts\\savesystem\\savesystem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9EA60DC9-CCA0-CD7F-62A8-9DD1CF7646FC}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\savesystem\\savesystem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9EA60DC9-CCA0-CD7F-62A8-9DD1CF7646FC}|Assembly-CSharp.csproj|C:\\NYP\\Work File\\SpecProj\\SpecProj\\assets\\player\\scripts\\playerbuild.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9EA60DC9-CCA0-CD7F-62A8-9DD1CF7646FC}|Assembly-CSharp.csproj|solutionrelative:assets\\player\\scripts\\playerbuild.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9EA60DC9-CCA0-CD7F-62A8-9DD1CF7646FC}|Assembly-CSharp.csproj|C:\\NYP\\Work File\\SpecProj\\SpecProj\\assets\\scripts\\loadoutcard.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9EA60DC9-CCA0-CD7F-62A8-9DD1CF7646FC}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\loadoutcard.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -62,39 +78,37 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 15,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 7,
               "Title": "LoadoutManager.cs",
               "DocumentMoniker": "C:\\NYP\\Work File\\SpecProj\\SpecProj\\Assets\\Scripts\\LoadoutManager.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\LoadoutManager.cs",
               "ToolTip": "C:\\NYP\\Work File\\SpecProj\\SpecProj\\Assets\\Scripts\\LoadoutManager.cs",
               "RelativeToolTip": "Assets\\Scripts\\LoadoutManager.cs",
-              "ViewState": "AQIAADcAAAAAAAAAAAA7wE0AAAByAAAA",
+              "ViewState": "AQIAADgAAAAAAAAAAAAuwFYAAAAkAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-07-14T16:04:16.771Z",
-              "IsPinned": true,
-              "EditorCaption": ""
+              "IsPinned": true
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 8,
               "Title": "PlayerLoadout.cs",
               "DocumentMoniker": "C:\\NYP\\Work File\\SpecProj\\SpecProj\\Assets\\Player\\Scripts\\PlayerLoadout.cs",
               "RelativeDocumentMoniker": "Assets\\Player\\Scripts\\PlayerLoadout.cs",
               "ToolTip": "C:\\NYP\\Work File\\SpecProj\\SpecProj\\Assets\\Player\\Scripts\\PlayerLoadout.cs",
               "RelativeToolTip": "Assets\\Player\\Scripts\\PlayerLoadout.cs",
-              "ViewState": "AQIAABUAAAAAAAAAAAD4vygAAAAAAAAA",
+              "ViewState": "AQIAAGUAAAAAAAAAAAASwCgAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-06-01T16:31:45.654Z",
-              "IsPinned": true,
-              "EditorCaption": ""
+              "IsPinned": true
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 9,
               "Title": "UIManager.cs",
               "DocumentMoniker": "C:\\NYP\\Work File\\SpecProj\\SpecProj\\Assets\\Scripts\\UIManager.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\UIManager.cs",
@@ -107,7 +121,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 10,
               "Title": "LoadoutUI.cs",
               "DocumentMoniker": "C:\\NYP\\Work File\\SpecProj\\SpecProj\\Assets\\Scripts\\LoadoutUI.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\LoadoutUI.cs",
@@ -116,12 +130,74 @@
               "ViewState": "AQIAAAgAAAAAAAAAAAAQwCoAAABBAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-07-31T23:14:44.804Z",
-              "IsPinned": true,
+              "IsPinned": true
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "UniversalRenderPipeline.cs",
+              "DocumentMoniker": "C:\\NYP\\Work File\\SpecProj\\SpecProj\\Library\\PackageCache\\com.unity.render-pipelines.universal@14.0.10\\Runtime\\UniversalRenderPipeline.cs",
+              "RelativeDocumentMoniker": "Library\\PackageCache\\com.unity.render-pipelines.universal@14.0.10\\Runtime\\UniversalRenderPipeline.cs",
+              "ToolTip": "C:\\NYP\\Work File\\SpecProj\\SpecProj\\Library\\PackageCache\\com.unity.render-pipelines.universal@14.0.10\\Runtime\\UniversalRenderPipeline.cs",
+              "RelativeToolTip": "Library\\PackageCache\\com.unity.render-pipelines.universal@14.0.10\\Runtime\\UniversalRenderPipeline.cs",
+              "ViewState": "AQIAAJACAAAAAAAAAAAjwKUCAAARAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-03T10:50:49.262Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 4,
+              "Title": "TypeWriter.cs",
+              "DocumentMoniker": "C:\\NYP\\Work File\\SpecProj\\SpecProj\\Assets\\Scripts\\TypeWriter.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\TypeWriter.cs",
+              "ToolTip": "C:\\NYP\\Work File\\SpecProj\\SpecProj\\Assets\\Scripts\\TypeWriter.cs",
+              "RelativeToolTip": "Assets\\Scripts\\TypeWriter.cs",
+              "ViewState": "AQIAACYAAAAAAAAAAAAwwBUAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-03T10:11:52.884Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "SaveSystem.cs",
+              "DocumentMoniker": "C:\\NYP\\Work File\\SpecProj\\SpecProj\\Assets\\Scripts\\SaveSystem\\SaveSystem.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\SaveSystem\\SaveSystem.cs",
+              "ToolTip": "C:\\NYP\\Work File\\SpecProj\\SpecProj\\Assets\\Scripts\\SaveSystem\\SaveSystem.cs",
+              "RelativeToolTip": "Assets\\Scripts\\SaveSystem\\SaveSystem.cs",
+              "ViewState": "AQIAAA4AAAAAAAAAAAAQwCoAAAASAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-03T09:46:14.225Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "UnlockCard.cs",
+              "DocumentMoniker": "C:\\NYP\\Work File\\SpecProj\\SpecProj\\Assets\\Scripts\\UnlockCard.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\UnlockCard.cs",
+              "ToolTip": "C:\\NYP\\Work File\\SpecProj\\SpecProj\\Assets\\Scripts\\UnlockCard.cs",
+              "RelativeToolTip": "Assets\\Scripts\\UnlockCard.cs",
+              "ViewState": "AQIAACIAAAAAAAAAAAAgwDIAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-02T21:08:44.634Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "UnlockCardSpawner.cs",
+              "DocumentMoniker": "C:\\NYP\\Work File\\SpecProj\\SpecProj\\Assets\\Scripts\\UnlockCardSpawner.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\UnlockCardSpawner.cs",
+              "ToolTip": "C:\\NYP\\Work File\\SpecProj\\SpecProj\\Assets\\Scripts\\UnlockCardSpawner.cs",
+              "RelativeToolTip": "Assets\\Scripts\\UnlockCardSpawner.cs",
+              "ViewState": "AQIAAAUAAAAAAAAAAAAQwB0AAAApAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-02T20:23:05.833Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
               "Title": "PlayerBuild.cs",
               "DocumentMoniker": "C:\\NYP\\Work File\\SpecProj\\SpecProj\\Assets\\Player\\Scripts\\PlayerBuild.cs",
               "RelativeDocumentMoniker": "Assets\\Player\\Scripts\\PlayerBuild.cs",
@@ -129,25 +205,24 @@
               "RelativeToolTip": "Assets\\Player\\Scripts\\PlayerBuild.cs",
               "ViewState": "AQIAAFMAAAAAAAAAAAAIwG4AAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-02T20:55:16.45Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-08-02T20:55:16.45Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 3,
               "Title": "WeaponData.cs",
               "DocumentMoniker": "C:\\NYP\\Work File\\SpecProj\\SpecProj\\Assets\\Scripts\\Weapons\\WeaponData.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Weapons\\WeaponData.cs",
               "ToolTip": "C:\\NYP\\Work File\\SpecProj\\SpecProj\\Assets\\Scripts\\Weapons\\WeaponData.cs",
               "RelativeToolTip": "Assets\\Scripts\\Weapons\\WeaponData.cs",
-              "ViewState": "AQIAAAcAAAAAAAAAAAA1wCUAAAA8AAAA",
+              "ViewState": "AQIAAAgAAAAAAAAAAAAQwCUAAAA8AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-08-02T20:50:32.698Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "DeployableData.cs",
               "DocumentMoniker": "C:\\NYP\\Work File\\SpecProj\\SpecProj\\Assets\\Scripts\\Deployables\\DeployableData.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Deployables\\DeployableData.cs",
@@ -160,7 +235,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 1,
               "Title": "SentryController.cs",
               "DocumentMoniker": "C:\\NYP\\Work File\\SpecProj\\SpecProj\\Assets\\Scripts\\Deployables\\SentryController.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Deployables\\SentryController.cs",
@@ -173,19 +248,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "UnlockCardSpawner.cs",
-              "DocumentMoniker": "C:\\NYP\\Work File\\SpecProj\\SpecProj\\Assets\\Scripts\\UnlockCardSpawner.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\UnlockCardSpawner.cs",
-              "ToolTip": "C:\\NYP\\Work File\\SpecProj\\SpecProj\\Assets\\Scripts\\UnlockCardSpawner.cs",
-              "RelativeToolTip": "Assets\\Scripts\\UnlockCardSpawner.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABEAAAA2AAAA",
-              "Icon": "00000000-0000-0000-0000-000000000000.000000|iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEASURBVDhP7Y8xSwJxGMZ/5/GPkAM/QTiccI5xUG65ieAUgv4dXMTBLxFEtTm4CC1RRPUtHFvERW7I5RqyIZBuEG5S5G0o/4hER7u/6YHn4XmfF3YYxm9jad43xbvyxL1wpXHXkLUXzSPJXeZkWwNYAME0kPpjncJBgdZxi8x\u002Bhslsgj7SVjSPxO/567xB2YrwLLQAaD\u002B1pXJdkTiOTfMmfy1IAYzeR5S8Eo7jfDf\u002BgxTAYrVA2Wrbg5\u002BLfs9nuVqSPc8avbmC2m1NqjfVX\u002BeT8IIFMHwdin7QlPNl9KFG2YrgI6Bz0kl8yQQGLwPpP/cJP0PSe2mKbpHuaTexYAd8AREpdKtYXY\u002BXAAAAAElFTkSuQmCC",
-              "WhenOpened": "2025-08-02T20:23:05.833Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 11,
               "Title": "Loadout_Btn.cs",
               "DocumentMoniker": "C:\\NYP\\Work File\\SpecProj\\SpecProj\\Assets\\Scripts\\Loadout_Btn.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Loadout_Btn.cs",
@@ -197,7 +260,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 16,
               "Title": "LoadoutCard.cs",
               "DocumentMoniker": "C:\\NYP\\Work File\\SpecProj\\SpecProj\\Assets\\Scripts\\LoadoutCard.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\LoadoutCard.cs",
@@ -209,15 +272,16 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 0,
               "Title": "MainMenuUI.cs",
               "DocumentMoniker": "C:\\NYP\\Work File\\SpecProj\\SpecProj\\Assets\\Scripts\\MainMenuUI.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\MainMenuUI.cs",
               "ToolTip": "C:\\NYP\\Work File\\SpecProj\\SpecProj\\Assets\\Scripts\\MainMenuUI.cs",
               "RelativeToolTip": "Assets\\Scripts\\MainMenuUI.cs",
-              "ViewState": "AQIAAAEAAAAAAAAAAAAkwB8AAAAoAAAA",
+              "ViewState": "AQIAACYAAAAAAAAAAAAwwD8AAAAJAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-01T19:23:39.327Z"
+              "WhenOpened": "2025-08-01T19:23:39.327Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",

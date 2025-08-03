@@ -17,7 +17,7 @@ public class UnlockCard : MonoBehaviour
 
     private UnlockCardSpawner spawner;
 
-
+    private GameObject continueBtn;
 
     public void Start()
     {
@@ -41,6 +41,7 @@ public class UnlockCard : MonoBehaviour
     {
         button.onClick.RemoveAllListeners();
         spawner.DisableAllCards(this);
+        continueBtn.SetActive(true);
     }
 
     public void InitializeSpawner(UnlockCardSpawner spawner)
@@ -53,6 +54,11 @@ public class UnlockCard : MonoBehaviour
         assignedData = weapon;
         cardIcon.sprite = weapon.weapon2DIcon;
         cardName.text = weapon.weaponName;
+    }
+
+    public void AssignContinueBtn(GameObject btn)
+    {
+        continueBtn = btn;
     }
 
     public void AssignDeployable(DeployableData deployable)

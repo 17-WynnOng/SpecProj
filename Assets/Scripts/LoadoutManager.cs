@@ -53,7 +53,7 @@ public class LoadoutManager : MonoBehaviour
         }
     }
 
-    private void SaveUnlockedData()
+    public void SaveUnlockedData()
     {
         var saveData = new UnlockSaveData();
 
@@ -82,6 +82,12 @@ public class LoadoutManager : MonoBehaviour
     public void DeleteUnlockedData()
     {
         SaveSystem.Delete("unlocks.json");
+    }
+
+    public void ClearUnlocksInMemory()
+    {
+        unlockedWeapons.Clear();
+        unlockedDeployables.Clear();
     }
 
     public void SetLoadout(WeaponData selectedPrimary, WeaponData selectedSecondary, DeployableData[] selectedDeployables)
