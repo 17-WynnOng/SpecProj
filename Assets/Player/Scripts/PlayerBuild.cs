@@ -141,15 +141,18 @@ public class PlayerBuild : MonoBehaviour
         {
             // Disable ghost and enable sell UI
             if (currentGhostInstance != null)
-                Destroy(currentGhostInstance);
+                currentGhostInstance.SetActive(false);
 
             UIManager.Instance.EnableSellUI();
         }
         else
         {
+
+            if (currentGhostInstance != null)
+                currentGhostInstance.SetActive(true);
+
             // Return to build UI (and restore ghost)
             UIManager.Instance.EnableBuildUI();
-            SwitchGhost(playerLoadout);
         }
     }
 
