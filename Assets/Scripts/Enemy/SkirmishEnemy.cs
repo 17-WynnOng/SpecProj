@@ -37,17 +37,21 @@ public class SkirmishEnemy : EnemyAI
     [Header("Enemy Status")]
     [SerializeField] private bool isAttacking = false;
 
-
+    private float visionTimer = 0f;
+    [SerializeField] private float reactionTime = 0.1f; // how often to run CanSeePlayer
+    private bool savedCanSeePlayer = false;
 
     protected override void Awake()
     {
         base.Awake();
         agent.avoidancePriority = Random.Range(70, 90);
+        visionTimer = Random.Range(0f, reactionTime);
     }
 
     protected override void Update()
     {
         attackCooldownTimer -= Time.deltaTime;
+        visionTimer -= Time.deltaTime;
 
         switch (state)
         {
@@ -72,7 +76,7 @@ public class SkirmishEnemy : EnemyAI
     {
         agent.speed = defaultSpeed;
 
-        if (CanSeePlayer())
+        if (CanSeePlayerOptimised())
         {
             state = EnemyState.Chase;
             return;
@@ -98,7 +102,7 @@ public class SkirmishEnemy : EnemyAI
 
         if (agent.enabled == true)
         {
-            if (CanSeePlayer())
+            if (CanSeePlayerOptimised())
             {
                 lastKnownPlayerPosition = player.position;
 
@@ -133,7 +137,7 @@ public class SkirmishEnemy : EnemyAI
 
         PlaySearchAnim();
 
-        if (CanSeePlayer())
+        if (CanSeePlayerOptimised())
         {
             state = EnemyState.Chase;
             return;
@@ -160,7 +164,7 @@ public class SkirmishEnemy : EnemyAI
     {
         canDash = false;
         isDashing = true;
-        agent.enabled = false;
+        agent.enabled = false;  
 
         float minClearDistance = 2f; // how much space is needed to dash
         float maxDashCheck = dashDistance + 0.6f; //max dash distance
@@ -265,25 +269,46 @@ public class SkirmishEnemy : EnemyAI
         }
     }
 
-
-    private bool CanSeePlayer()
+    private bool CanSeePlayerOptimised()
     {
-        Vector3 origin = transform.position + Vector3.up * 0.5f;
-        Vector3 toPlayer = (player.position - origin);
-        float dist = toPlayer.magnitude;
-        if (dist > viewRadius) return false;
-
-        toPlayer.Normalize();
-        float angleBetween = Vector3.Angle(transform.forward, toPlayer);
-        if (angleBetween > viewAngle * 0.5f) return false;
-
-        if (Physics.Raycast(origin, toPlayer, out var hit, viewRadius, obstacleMask | playerMask, QueryTriggerInteraction.Ignore))
+        if (visionTimer <= 0f)
         {
-            if (hit.collider.transform.root == transform) return false;
-            return ((1 << hit.collider.gameObject.layer) & playerMask) != 0;
+            visionTimer = reactionTime;
+
+            Vector3 origin = transform.position + Vector3.up * 0.5f;
+            Vector3 toPlayer = player.position - origin;
+
+            //Distance check before raycast
+            float dist = toPlayer.magnitude;
+            if (dist > viewRadius)
+            {
+                savedCanSeePlayer = false;
+                return false;
+            }
+
+            //Angle check if player within distance
+            toPlayer.Normalize();
+            float angleBetween = Vector3.Angle(transform.forward, toPlayer);
+            if (angleBetween > viewAngle * 0.5f)
+            {
+                savedCanSeePlayer = false;
+                return false;
+            }
+
+            //Only raycast if distance and angle are valid
+            if (Physics.Raycast(origin, toPlayer, out var hit, viewRadius, obstacleMask | playerMask, QueryTriggerInteraction.Ignore))
+            {
+                if (hit.collider.transform.root == transform)
+                {
+                    savedCanSeePlayer = false;
+                    return false;
+                }
+
+                savedCanSeePlayer = ((1 << hit.collider.gameObject.layer) & playerMask) != 0;
+            }
         }
 
-        return false;
+        return savedCanSeePlayer;
     }
 
     public override void IfDamagedByPlayer()

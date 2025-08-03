@@ -91,7 +91,7 @@ public class PlayerLoadout : MonoBehaviour
 
         if (heldDeployable == null)
         {
-            UIManager.Instance.buildCostText.text = currentScrap + "/0";
+            UIManager.Instance.UpdateDeployableCost(currentScrap, 0);
         }
     }
 
@@ -151,8 +151,8 @@ public class PlayerLoadout : MonoBehaviour
 
         if (heldDeployable != null)
         {
-            UIManager.Instance.buildStatusTxt.text = heldDeployable.deployableName;
             UIManager.Instance.UpdateDeployableCost(currentScrap, heldDeployable.deployCost);
+            UIManager.Instance.UpdateHeldDeployable(heldDeployable.deployableName);
             PlayerBuild.Instance.SwitchGhost(this);
 
             // Hide all indicators

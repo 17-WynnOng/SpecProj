@@ -11,19 +11,39 @@ public class UIManager : MonoBehaviour
     public static UIManager Instance;
 
     [Header("Game UI")]
+
+    [Header("Bottom Left")]
     public RectTransform healthBar;
-    public RectTransform baseHealthBar;
-    public RectTransform waveBar;
+    public TMP_Text scrapAmtTxt;
+
+    [Header("Bottom Right")]
     public TMP_Text magazineTxt;
     public TMP_Text reserveAmmoTxt;
     public TMP_Text gunTxt;
-    public TMP_Text buildStatusTxt;
-    public TMP_Text waveCountDownText;
+
+    [Header("Top Right")]
+    public RectTransform baseHealthBar;
     public TMP_Text waveText;
-    public TMP_Text scrapAmtTxt;
-    public GameObject gameUICanvas;
+
+    [Header("Top Left")]
+    public GameObject topLeftUI;
+    public GameObject[] spawnerUI;
+    public TMP_Text[] spawnerNames;
+    public RectTransform[] waveBars;
+
+    [Header("Middle Left")]
     public GameObject middleLeftUI;
-    public TMP_Text buildCostText;
+    public TMP_Text waveCountDownText;
+
+    [Header("Build Tool")]
+    public TMP_Text heldDeployable;
+    private TMP_Text buildCostText;
+
+    [Header("Enemy Spawner Txt")]
+    public TMP_Text[] enemySpawnerName;
+
+    [Header("Canvas")]
+    public GameObject gameUICanvas;
 
     [Header("Loadout UI")]
     public GameObject loadoutUICanvas;
@@ -51,7 +71,11 @@ public class UIManager : MonoBehaviour
     {
         healthBarMaxWidth = healthBar.sizeDelta.x;
         baseHPBarMaxWidth = baseHealthBar.sizeDelta.x;
-        waveBarMaxWidth = waveBar.sizeDelta.x;
+
+        foreach (RectTransform transform in waveBars)
+        {
+            waveBarMaxWidth = transform.sizeDelta.x;
+        }
     }
 
     public void UpdateSentryList(DeployableData[] deployables)
@@ -92,16 +116,57 @@ public class UIManager : MonoBehaviour
         size.x = percent * baseHPBarMaxWidth;
         baseHealthBar.sizeDelta = size;
     }
-
-    public void UpdateWaveBar(int enemiesLeft, int maxEnemies)
+    public void UpdateSpawnerNames(List<EnemySpawner> activeSpawners)
     {
-        if (waveBar == null)
-            return;
 
-        float percent = Mathf.Clamp01((float)enemiesLeft / maxEnemies);
-        Vector2 size = waveBar.sizeDelta;
-        size.x = percent * waveBarMaxWidth;
-        waveBar.sizeDelta = size;
+        // Clear all UI slots first
+        for (int i = 0; i < spawnerNames.Length; i++)
+        {
+            spawnerNames[i].text = "";
+        }
+
+        // Assign active spawner names to the first few slots
+        for (int i = 0; i < activeSpawners.Count && i < spawnerNames.Length; i++)
+        {
+            spawnerNames[i].text = activeSpawners[i].spawnerName;
+        }
+    }
+
+    public void SpawnerUIState(List<EnemySpawner> activeSpawners)
+    {
+        // Set UI as false first
+        for (int i = 0; i < spawnerUI.Length; i++)
+        {
+            spawnerUI[i].SetActive(false);
+        }
+
+        for (int i = 0; i < activeSpawners.Count && i < spawnerUI.Length; i++)
+        {
+            spawnerUI[i].SetActive(true);
+        }
+    }
+
+    public void UpdateWaveBars(List<EnemySpawner> activeSpawners)
+    {
+        // First hide all bars
+        for (int i = 0; i < waveBars.Length; i++)
+        {
+            waveBars[i].gameObject.SetActive(false);
+        }
+
+        // Then activate and update only the ones for active spawners
+        for (int i = 0; i < activeSpawners.Count && i < waveBars.Length; i++)
+        {
+            waveBars[i].gameObject.SetActive(true);
+
+            int enemiesLeft = activeSpawners[i].GetEnemiesLeft();
+            int maxEnemies = activeSpawners[i].maxEnemies;
+
+            float percent = maxEnemies > 0 ? Mathf.Clamp01((float)enemiesLeft / maxEnemies) : 0f;
+            Vector2 size = waveBars[i].sizeDelta;
+            size.x = percent * waveBarMaxWidth;
+            waveBars[i].sizeDelta = size;
+        }
     }
 
     public void UpdateWaveCount(int currentWave, int winWave)
@@ -117,6 +182,22 @@ public class UIManager : MonoBehaviour
     public void UpdateDeployableCost(int currentScrap, int deployableCost)
     {
         buildCostText.text = currentScrap.ToString() + "/" + deployableCost.ToString();
+    }
+
+    public void UpdateHeldDeployable(string name)
+    {
+        heldDeployable.text = name;
+    }
+
+    public void UpdateEnemySpawnerNames(EnemySpawner[] spawners)
+    {
+        for (int i = 0; i < enemySpawnerName.Length && i < spawners.Length; i++)
+        {
+            if (enemySpawnerName[i] != null && spawners[i] != null)
+            {
+                enemySpawnerName[i].text = spawners[i].spawnerName;
+            }
+        }
     }
 
     public void InitializeBuildToolUI(GameObject buildToolInstance)

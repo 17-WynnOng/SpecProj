@@ -7,7 +7,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
 
     public BaseHealth playerBase;
-    public EnemySpawner enemySpawner;
+    public EnemySpawner[] enemySpawners = new EnemySpawner[4];
     public LevelPath levelPath;
     public bool allowSpawning = false;
 
@@ -20,6 +20,8 @@ public class GameManager : MonoBehaviour
 
     public List<GameObject> aliveEnemies = new List<GameObject>();
 
+    [HideInInspector ]public List<EnemySpawner> activeSpawners = new List<EnemySpawner>();
+
     private void Awake()
     {
         if (Instance == null)
@@ -31,6 +33,9 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         UIManager.Instance.UpdateWaveCount(currentWave, winWave);
+        UIManager.Instance.topLeftUI.SetActive(false);
+        allowSpawning = false;
+        SelectSpawners();
     }
 
     private void Update()
@@ -53,10 +58,16 @@ public class GameManager : MonoBehaviour
 
     public void CheckWaveEnd()
     {
-        if (aliveEnemies.Count == 0 && enemySpawner.GetEnemiesLeft() <= 0)
+        foreach (EnemySpawner spawner in enemySpawners)
         {
-            allowSpawning = false;
-            TryAdvanceWave(); // or Win if last wave
+            if (spawner.isActiveAndEnabled)
+            {
+                if (aliveEnemies.Count == 0 && GetTotalEnemiesLeft() <= 0)
+                {
+                    allowSpawning = false;
+                    TryAdvanceWave(); // or Win if last wave
+                }
+            }
         }
     }
 
@@ -72,37 +83,102 @@ public class GameManager : MonoBehaviour
     {
         countdownActive = false;
         allowSpawning = true;
-        enemySpawner.enemiesLeft = enemySpawner.maxEnemies;
-        UIManager.Instance.middleLeftUI.SetActive(false);
-        UIManager.Instance.UpdateWaveBar(enemySpawner.GetEnemiesLeft(), enemySpawner.maxEnemies);
 
-        if (enemySpawner != null)
+        foreach (EnemySpawner spawner in enemySpawners)
         {
-            enemySpawner.BeginSpawning();
+            spawner.enemiesLeft = spawner.maxEnemies;
+            UIManager.Instance.middleLeftUI.SetActive(false);
+            UIManager.Instance.UpdateWaveBars(activeSpawners);
+        }
+
+        BeginSpawning();
+    }
+
+    private void SelectSpawners()
+    {
+        // Disable all spawners
+        foreach (var spawner in enemySpawners)
+        {
+            spawner.StopSpawning();
+            spawner.gameObject.SetActive(false);
+        }
+
+        activeSpawners.Clear();
+
+        int spawnerCount = enemySpawners.Length;
+        int toEnable = currentWave >= 3 ? 2 : 1;
+        toEnable = Mathf.Min(toEnable, spawnerCount);
+
+        HashSet<int> pickedIndices = new HashSet<int>();
+        while (pickedIndices.Count < toEnable)
+        {
+            int index = Random.Range(0, spawnerCount);
+            pickedIndices.Add(index); //Hashset checks if index is already added, if it already exists it doesn't add
+        }
+
+        foreach (int i in pickedIndices)
+        {
+            var spawner = enemySpawners[i];
+            spawner.gameObject.SetActive(true);
+            activeSpawners.Add(spawner);
+        }
+
+        UIManager.Instance.UpdateSpawnerNames(activeSpawners);
+        UIManager.Instance.SpawnerUIState(activeSpawners);
+    }
+
+    private void BeginSpawning()
+    {
+        foreach (var spawner in activeSpawners)
+        {
+            spawner.enemiesLeft = spawner.maxEnemies;
+            spawner.StartNextWave(currentWave);
+            spawner.BeginSpawning();
+            UIManager.Instance.UpdateWaveBars(activeSpawners);
+            UIManager.Instance.topLeftUI.SetActive(true);
         }
     }
+
     public void TryAdvanceWave()
     {
-        bool noEnemiesLeftToSpawn = enemySpawner.GetEnemiesLeft() <= 0;
         bool allEnemiesDead = aliveEnemies.Count == 0;
+        bool noEnemiesLeftToSpawn = GetTotalEnemiesLeft() <= 0;
 
-        if (noEnemiesLeftToSpawn && allEnemiesDead)
+        if (!noEnemiesLeftToSpawn || !allEnemiesDead)
+            return;
+
+        allowSpawning = false;
+
+        // Stop all active spawners
+        foreach (EnemySpawner spawner in enemySpawners)
         {
-            allowSpawning = false;
-            enemySpawner.StopSpawning();
-
-            if (currentWave < winWave)
-            {
-                currentWave++;
-                enemySpawner.StartNextWave(currentWave);
-                StartWaveCountdown();
-                UIManager.Instance.UpdateWaveCount(currentWave, winWave);
-            }
-            else if (currentWave == winWave)
-            {
-                // Last wave is over, all enemies are dead → Win
-                SceneManagement.Instance.LoadScene("WinScene");
-            }
+            if (spawner.isActiveAndEnabled)
+                spawner.StopSpawning();
         }
+
+        // Handle wave progression
+        if (currentWave < winWave)
+        {
+            currentWave++;
+            StartWaveCountdown();
+            SelectSpawners();
+            UIManager.Instance.topLeftUI.SetActive(false);
+            UIManager.Instance.UpdateWaveCount(currentWave, winWave);
+        }
+        else if (currentWave == winWave)
+        {
+            SceneManagement.Instance.LoadScene("WinScene");
+        }
+    }
+
+    public int GetTotalEnemiesLeft()
+    {
+        int total = 0;
+        foreach (var spawner in activeSpawners)
+        {
+            if (spawner.gameObject.activeInHierarchy)
+                total += spawner.GetEnemiesLeft();
+        }
+        return total;
     }
 }

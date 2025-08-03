@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
+    [Header("Enemy Spawner Name")]
+    public string spawnerName;
+
     [Header("Enemy Settings")]
     [Tooltip("SiegeEnemy = 0\nSkirmishEnemy = 1")]
     [SerializeField] private GameObject[] enemyPrefabs;
@@ -14,7 +17,7 @@ public class EnemySpawner : MonoBehaviour
     [Header("Spawning Settings")]
     public int maxEnemies = 20;
     [SerializeField] private float spawnRateBetweenEnemies = 1f;
-    [SerializeField] private float delayBetweenGroups = 5f;
+    [SerializeField] private int groupSpawnDelayMin, groupSpawnDelayMax;
     [SerializeField] private int enemiesInGroup;
 
     [Header("Siege Settings")]
@@ -33,7 +36,9 @@ public class EnemySpawner : MonoBehaviour
     private void Start()
     {
         enemiesLeft = maxEnemies;
-        spawnLoop = StartCoroutine(SpawnGroupsLoop());
+        //spawnLoop = StartCoroutine(SpawnGroupsLoop());
+
+        UIManager.Instance.UpdateEnemySpawnerNames(GameManager.Instance.enemySpawners);
     }
 
     public int GetEnemiesLeft()
@@ -53,6 +58,8 @@ public class EnemySpawner : MonoBehaviour
 
     private IEnumerator SpawnGroupsLoop()
     {
+        yield return new WaitForSeconds(Random.Range(0f, 3f));
+
         while (enemiesLeft > 0)
         {
             if (!GameManager.Instance.allowSpawning)
@@ -85,7 +92,7 @@ public class EnemySpawner : MonoBehaviour
                     Debug.Log($"Increased group size to {enemiesInGroup} after {groupsSpawned} groups.");
                 }
 
-                yield return new WaitForSeconds(delayBetweenGroups);
+                yield return new WaitForSeconds(Random.Range(groupSpawnDelayMin, groupSpawnDelayMax + 1));
                 spawningGroup = false;
             }
 
@@ -162,7 +169,7 @@ public class EnemySpawner : MonoBehaviour
         debugSpawnedTotal++;
         Debug.Log($"Spawned: {debugSpawnedTotal} / {maxEnemies} | enemiesLeft: {enemiesLeft}");
 
-        UIManager.Instance.UpdateWaveBar(enemiesLeft, maxEnemies);
+        UIManager.Instance.UpdateWaveBars(GameManager.Instance.activeSpawners);
 
         //Add to GameManager's list
         GameManager.Instance.aliveEnemies.Add(enemy);
@@ -194,7 +201,6 @@ public class EnemySpawner : MonoBehaviour
 
     public void StartNextWave(int wave)
     {
-        maxEnemies += 5;
         enemiesInGroup = 3 + wave / 2;
         siegeSpawnChance = Mathf.Min(0.15f + 0.05f, 0.5f);    
 

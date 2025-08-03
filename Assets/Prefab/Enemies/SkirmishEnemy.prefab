@@ -133,9 +133,10 @@ MonoBehaviour:
   defaultSpeed: 3.5
   chaseSpeed: 6
   dashDistance: 3
-  dashCooldown: 2
+  dashCooldown: 3
   dashSpeed: 8
   isAttacking: 0
+  reactionTime: 0.1
 --- !u!95 &1054969480670373612
 Animator:
   serializedVersion: 5
