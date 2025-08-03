@@ -62,7 +62,7 @@ public class PlayerLoadout : MonoBehaviour
         UIManager.Instance.InitializeBuildToolUI(instantiatedBuildTool);
         instantiatedBuildTool.transform.localRotation = Quaternion.identity;
 
-        buildToolCanvas = instantiatedBuildTool.transform.Find("Canvas");
+        buildToolCanvas = instantiatedBuildTool.transform.Find("Canvas/BuildMode_UI");
         if (buildToolCanvas == null)
         {
             Debug.LogWarning("BuildTool canvas not found!");

@@ -37,7 +37,8 @@ public class UIManager : MonoBehaviour
 
     [Header("Build Tool")]
     public TMP_Text heldDeployable;
-    private TMP_Text buildCostText;
+    private TMP_Text buildCostTxt, recycleRefundTxt;
+    private GameObject buildModeUI, sellModeUI;
 
     [Header("Enemy Spawner Txt")]
     public TMP_Text[] enemySpawnerName;
@@ -181,12 +182,35 @@ public class UIManager : MonoBehaviour
 
     public void UpdateDeployableCost(int currentScrap, int deployableCost)
     {
-        buildCostText.text = currentScrap.ToString() + "/" + deployableCost.ToString();
+        buildCostTxt.text = currentScrap.ToString() + "/" + deployableCost.ToString();
     }
 
+    public void UpdateRecycleCost(int deployableCost)
+    {
+        recycleRefundTxt.text = deployableCost.ToString();
+    }
+        
     public void UpdateHeldDeployable(string name)
     {
         heldDeployable.text = name;
+    }
+
+    public void EnableBuildUI()
+    {
+        buildModeUI.SetActive(true);
+        sellModeUI.SetActive(false);
+    }
+
+    public void EnableSellUI()
+    {
+        buildModeUI.SetActive(false);
+        sellModeUI.SetActive(true);
+    }
+
+    public void DisableBuildToolUI()
+    {
+        buildModeUI.SetActive(false);
+        sellModeUI.SetActive(false);
     }
 
     public void UpdateEnemySpawnerNames(EnemySpawner[] spawners)
@@ -202,23 +226,52 @@ public class UIManager : MonoBehaviour
 
     public void InitializeBuildToolUI(GameObject buildToolInstance)
     {
-        Transform txtTransform = buildToolInstance.transform.Find("Canvas/BuildCost_Txt");
+        Transform root = buildToolInstance.transform;
 
-        if (txtTransform != null)
+        // Initialize BuildMode_UI
+        Transform buildModeTransform = root.Find("Canvas/BuildMode_UI");
+        if (buildModeTransform != null)
         {
-            TMP_Text costText = txtTransform.GetComponent<TMP_Text>();
-            if (costText != null)
+            buildModeUI = buildModeTransform.gameObject;
+
+            Transform costTxtTransform = buildModeTransform.Find("BuildCost_Txt");
+            if (costTxtTransform != null)
             {
-                buildCostText = costText;
+                buildCostTxt = costTxtTransform.GetComponent<TMP_Text>();
+                if (buildCostTxt == null)
+                    Debug.LogWarning("BuildCost_Txt found, but TMP_Text component is missing.");
             }
             else
             {
-                Debug.LogWarning("BuildCost_Txt found, but TextMeshProUGUI component is missing.");
+                Debug.LogWarning("BuildCost_Txt not found under BuildMode_UI.");
             }
         }
         else
         {
-            Debug.LogWarning("BuildCost_Txt not found in BuildTool prefab.");
+            Debug.LogWarning("BuildMode_UI not found.");
+        }
+
+        // Initialize SellMode_UI
+        Transform sellModeTransform = root.Find("Canvas/SellMode_UI");
+        if (sellModeTransform != null)
+        {
+            sellModeUI = sellModeTransform.gameObject;
+
+            Transform refundTxtTransform = sellModeTransform.Find("RecycleRefund_Txt");
+            if (refundTxtTransform != null)
+            {
+                recycleRefundTxt = refundTxtTransform.GetComponent<TMP_Text>();
+                if (recycleRefundTxt == null)
+                    Debug.LogWarning("RecycleRefund_Txt found, but TMP_Text component is missing.");
+            }
+            else
+            {
+                Debug.LogWarning("RecycleRefund_Txt not found under SellMode_UI.");
+            }
+        }
+        else
+        {
+            Debug.LogWarning("SellMode_UI not found.");
         }
     }
 }

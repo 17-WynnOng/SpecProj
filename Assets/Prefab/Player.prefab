@@ -247,9 +247,10 @@ MonoBehaviour:
   buildableLayer:
     serializedVersion: 2
     m_Bits: 2368
-  gridSizeHorizontal: 1
+  gridSizeHorizontal: 1.1
   gridSizeVertical: 0.5
   buildMode: 0
+  sellMode: 0
 --- !u!114 &1683883515830330731
 MonoBehaviour:
   m_ObjectHideFlags: 0

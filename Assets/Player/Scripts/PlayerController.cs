@@ -61,6 +61,7 @@ public class PlayerController : MonoBehaviour
     private InputAction reloadAction;
     private InputAction enterAction;
     private InputAction interactAction;
+    private InputAction rmbAction;
 
     //Camera
     private InputAction lookAction;
@@ -93,6 +94,7 @@ public class PlayerController : MonoBehaviour
         lookAction = playerInput.actions["Look"];
         jumpAction = playerInput.actions["Jump"];
         lmbAction = playerInput.actions["LeftMouse"];
+        rmbAction = playerInput.actions["RightMouse"];
         mouseWheelAction = playerInput.actions["MouseWheel"];
         buildAction = playerInput.actions["Build"];
         reloadAction = playerInput.actions["Reload"];
@@ -112,6 +114,7 @@ public class PlayerController : MonoBehaviour
         if (!controlsEnabled)
             return;
         HandleBuildModeToggle();
+        HandleSecondaryAction();
 
         // Always allow movement/look/jump
         Gravity();
@@ -131,9 +134,8 @@ public class PlayerController : MonoBehaviour
         HandleShoot();
         HandleReload();
 
-        // Still let the player place turrets when in build mode
-        if (PlayerBuild.Instance.buildMode)
-            HandleBuildMode();
+
+        HandleBuildMode();
     }
 
     private void FixedUpdate()
@@ -316,20 +318,46 @@ public class PlayerController : MonoBehaviour
     {
         if (buildAction.WasPressedThisFrame())
         {
-            PlayerBuild.Instance.TryBuildToggle(playerLoadout);
+            if (PlayerBuild.Instance.buildMode)
+            {
+                PlayerBuild.Instance.sellMode = false;
+            }
+
+            PlayerBuild.Instance.ToggleBuildMode(playerLoadout);
         }
     }
 
     private void HandleBuildMode()
     {
-        if (playerCamera != null)
+        if (playerCamera == null) return;
+
+        if (PlayerBuild.Instance.sellMode)
+        {
+            PlayerBuild.Instance.UpdateSellTarget(playerCamera);
+
+            if (lmbAction.WasPressedThisFrame())
+            {
+                PlayerBuild.Instance.TrySellDeployable(playerCamera, playerLoadout);
+            }
+        }
+        else
         {
             PlayerBuild.Instance.UpdateGhostPosition(playerCamera, playerLoadout);
 
-            // On left click, place the turret
             if (lmbAction.WasPressedThisFrame())
             {
                 PlayerBuild.Instance.TryPlaceDeployable(playerCamera, playerLoadout);
+            }
+        }
+    }
+
+    private void HandleSecondaryAction()
+    {
+        if (PlayerBuild.Instance.buildMode)
+        {
+            if (rmbAction.WasPressedThisFrame())
+            {
+                PlayerBuild.Instance.ToggleSellMode(playerLoadout);
             }
         }
     }

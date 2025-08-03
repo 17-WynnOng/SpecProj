@@ -42,6 +42,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "RightMouse",
+                    "type": "Button",
+                    "id": "bc70e05f-b25e-4566-bea6-4b303d6e2f9b",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "MouseWheel",
                     "type": "Value",
                     "id": "50154878-422b-47bc-9c30-1748a4923276",
@@ -248,6 +257,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Enter",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "cd093ff0-1af1-4657-b9a5-4440117a4ae9",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "RightMouse",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

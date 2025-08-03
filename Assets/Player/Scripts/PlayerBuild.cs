@@ -16,6 +16,7 @@ public class PlayerBuild : MonoBehaviour
     [SerializeField] private float gridSizeVertical = 0.5f; // used for walls
 
     public bool buildMode = false;
+    public bool sellMode = false;
 
     private GameObject currentGhostInstance;
 
@@ -51,31 +52,104 @@ public class PlayerBuild : MonoBehaviour
         UIManager.Instance.UpdateDeployableCost(loadout.currentScrap, loadout.heldDeployable.deployCost);
     }
 
-    public void TryBuildToggle(PlayerLoadout playerLoadout)
+    public void TrySellDeployable(Camera playerCamera, PlayerLoadout loadout)
+    {
+        Ray ray = playerCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
+        if (Physics.Raycast(ray, out RaycastHit hit, buildDistance))
+        {
+            GameObject hitObj = hit.collider.gameObject;
+
+            if (hitObj.CompareTag("Deployable"))
+            {
+                Deployable deployable = hitObj.GetComponent<Deployable>();
+                if (deployable != null)
+                {
+                    // Refund scrap to player
+                    int refundAmount = deployable.deployableData.deployCost;
+                    loadout.currentScrap += refundAmount;
+
+                    UIManager.Instance.UpdateScrapCount(loadout.currentScrap);
+                    Destroy(hitObj);
+                }
+            }
+        }
+    }
+
+    public void UpdateSellTarget(Camera cam)
+    {
+        if (!sellMode) return;
+
+        Ray ray = cam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
+        if (Physics.Raycast(ray, out RaycastHit hit, buildDistance))
+        {
+            GameObject hitObj = hit.collider.gameObject;
+            if (hitObj.CompareTag("Deployable"))
+            {
+                Deployable deployable = hitObj.GetComponent<Deployable>();
+                if (deployable != null)
+                {
+                    UIManager.Instance.UpdateRecycleCost(deployable.deployableData.deployCost);
+                    return;
+                }
+            }
+        }
+
+        // No valid deployable found
+        UIManager.Instance.UpdateRecycleCost(0);
+    }
+
+    public void ToggleBuildMode(PlayerLoadout playerLoadout)
     {
         buildMode = !buildMode;
 
         if (buildMode)
         {
-            // disable current weapon
+            UIManager.Instance.DisableBuildToolUI();
+
             if (playerLoadout.heldWeapon != null)
             {
                 playerLoadout.heldWeapon.gameObject.SetActive(false);
                 playerLoadout.heldWeapon = null;
-                playerLoadout.SwitchToDeployable(playerLoadout.currentDeployableIndex);
             }
 
+            UIManager.Instance.EnableBuildUI();
+            playerLoadout.SwitchToDeployable(playerLoadout.currentDeployableIndex);
             SwitchGhost(playerLoadout);
+
+            if (playerLoadout.heldDeployable != null)
+            {
+                UIManager.Instance.UpdateHeldDeployable(playerLoadout.heldDeployable.deployableName);
+                UIManager.Instance.UpdateDeployableCost(playerLoadout.currentScrap, playerLoadout.heldDeployable.deployCost);
+            }
         }
         else
         {
             if (currentGhostInstance != null)
-            {
                 Destroy(currentGhostInstance);
-            }
+
             // re-equip last weapon slot
             playerLoadout.SwitchToWeapon(playerLoadout.currentWeaponIndex);
             playerLoadout.HideBuildTool();
+        }
+    }
+
+    public void ToggleSellMode(PlayerLoadout playerLoadout)
+    {
+        sellMode = !sellMode;
+
+        if (sellMode)
+        {
+            // Disable ghost and enable sell UI
+            if (currentGhostInstance != null)
+                Destroy(currentGhostInstance);
+
+            UIManager.Instance.EnableSellUI();
+        }
+        else
+        {
+            // Return to build UI (and restore ghost)
+            UIManager.Instance.EnableBuildUI();
+            SwitchGhost(playerLoadout);
         }
     }
 
