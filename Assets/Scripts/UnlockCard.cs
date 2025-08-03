@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,6 +9,7 @@ public class UnlockCard : MonoBehaviour
     [SerializeField] private GameObject front;
     [SerializeField] private GameObject back;
 
+    [SerializeField] private Animator animator;
     [SerializeField] private Button button;
     [SerializeField] private TMP_Text cardName, cardDesc;
     [SerializeField] private Image cardIcon;
@@ -18,6 +19,8 @@ public class UnlockCard : MonoBehaviour
     private UnlockCardSpawner spawner;
 
     private GameObject continueBtn;
+
+    private bool hasFlipped = false;
 
     public void Start()
     {
@@ -39,7 +42,11 @@ public class UnlockCard : MonoBehaviour
 
     public void OnClick()
     {
-        button.onClick.RemoveAllListeners();
+        if (hasFlipped) return;
+        hasFlipped = true;
+
+        button.interactable = false;
+        animator.SetTrigger("Flip");
         spawner.DisableAllCards(this);
         continueBtn.SetActive(true);
     }

@@ -697,6 +697,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   front: {fileID: 7742307186617726150}
   back: {fileID: 9141687216277135896}
+  animator: {fileID: 7120163622755888820}
   button: {fileID: 4574578307550422667}
   cardName: {fileID: 5715158527692037464}
   cardDesc: {fileID: 8247991968134422476}
