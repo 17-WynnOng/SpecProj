@@ -7,7 +7,7 @@ public class PlayerController : MonoBehaviour
 {
     [Header("Player Config (Important)")]
     [SerializeField] private float moveSpeed = 5f;
-    [SerializeField] private float mouseSensitivity;
+    [SerializeField, Range(0f, 0.1f)] private float mouseSensitivity = 0.1f;
     [SerializeField] private Transform cameraHolder;
     [SerializeField] private float verticalClampAngle = 80f;
     [SerializeField] private float jumpHeight = 2f;
@@ -175,26 +175,30 @@ public class PlayerController : MonoBehaviour
 
     private void HandleLook()
     {
+        
         mouseDelta = lookAction.ReadValue<Vector2>();
 
-        float mouseX = mouseDelta.x * mouseSensitivity * Time.deltaTime;
-        float mouseY = mouseDelta.y * mouseSensitivity * Time.deltaTime;
+        // Scaled sensitivity
+        float mouseX = mouseDelta.x * mouseSensitivity;
+        float mouseY = mouseDelta.y * mouseSensitivity;
 
-        // Rotate player body (horizontal look)
-        transform.Rotate(Vector3.up * mouseX);
+        // Horizontal Look
+        transform.Rotate(Vector3.up * mouseX); // yaw
 
-        // Recoil logic
+        // Recoil
         currentRecoilX = Mathf.Lerp(currentRecoilX, targetRecoilX, recoilSnapSpeed * Time.deltaTime);
         currentRecoilY = Mathf.Lerp(currentRecoilY, targetRecoilY, recoilSnapSpeed * Time.deltaTime);
 
-        // Rotate camera root (vertical look)
-        verticalRotation -= mouseY;
-        //Recoil pitch
-        verticalRotation += currentRecoilX;
+        // Vertical Look
+        verticalRotation -= mouseY;            // normal mouse input
+        verticalRotation += currentRecoilX;    // pitch recoil
         verticalRotation = Mathf.Clamp(verticalRotation, -verticalClampAngle, verticalClampAngle);
 
+        // Camera Rotation
         Quaternion currentRotation = cameraHolder.localRotation;
         float currentRoll = currentRotation.eulerAngles.z;
+
+        // Apply pitch and roll (roll is preserved)
         cameraHolder.localRotation = Quaternion.Euler(verticalRotation, 0f, currentRoll);
     }
 
