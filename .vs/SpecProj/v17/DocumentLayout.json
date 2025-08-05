@@ -3,11 +3,11 @@
   "WorkspaceRootPath": "C:\\NYP\\Work File\\SpecProj\\SpecProj\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{9EA60DC9-CCA0-CD7F-62A8-9DD1CF7646FC}|Assembly-CSharp.csproj|C:\\NYP\\Work File\\SpecProj\\SpecProj\\assets\\player\\scripts\\playercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{9EA60DC9-CCA0-CD7F-62A8-9DD1CF7646FC}|Assembly-CSharp.csproj|c:\\nyp\\work file\\specproj\\specproj\\assets\\player\\scripts\\playercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{9EA60DC9-CCA0-CD7F-62A8-9DD1CF7646FC}|Assembly-CSharp.csproj|solutionrelative:assets\\player\\scripts\\playercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{9EA60DC9-CCA0-CD7F-62A8-9DD1CF7646FC}|Assembly-CSharp.csproj|c:\\nyp\\work file\\specproj\\specproj\\assets\\scripts\\unlockcard.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{9EA60DC9-CCA0-CD7F-62A8-9DD1CF7646FC}|Assembly-CSharp.csproj|C:\\NYP\\Work File\\SpecProj\\SpecProj\\assets\\scripts\\unlockcard.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{9EA60DC9-CCA0-CD7F-62A8-9DD1CF7646FC}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\unlockcard.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
@@ -109,7 +109,8 @@
               "RelativeToolTip": "Library\\PackageCache\\com.unity.ugui@1.0.0\\Runtime\\UI\\Core\\Selectable.cs",
               "ViewState": "AQIAAEAEAAAAAAAAAAASwFYEAABHAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-03T19:50:32.231Z"
+              "WhenOpened": "2025-08-03T19:50:32.231Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -121,8 +122,7 @@
               "RelativeToolTip": "Assets\\Scripts\\UnlockCard.cs",
               "ViewState": "AQIAABEAAAAAAAAAAAAQwC4AAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-03T18:22:28.099Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-08-03T18:22:28.099Z"
             },
             {
               "$type": "Document",
@@ -144,7 +144,7 @@
               "RelativeDocumentMoniker": "Assets\\Player\\Scripts\\PlayerController.cs",
               "ToolTip": "C:\\NYP\\Work File\\SpecProj\\SpecProj\\Assets\\Player\\Scripts\\PlayerController.cs",
               "RelativeToolTip": "Assets\\Player\\Scripts\\PlayerController.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAACEAAAA5AAAA",
+              "ViewState": "AQIAAKgAAAAAAAAAAAAAAL8AAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-08-03T15:40:53.438Z",
               "EditorCaption": ""

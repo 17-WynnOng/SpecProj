@@ -7,7 +7,8 @@ public class PlayerController : MonoBehaviour
 {
     [Header("Player Config (Important)")]
     [SerializeField] private float moveSpeed = 5f;
-    [SerializeField, Range(0f, 0.1f)] private float mouseSensitivity = 0.1f;
+    [SerializeField, Range(0f, 10f)] private float horizontalSensitivity, verticalSensitivity;
+
     [SerializeField] private Transform cameraHolder;
     [SerializeField] private float verticalClampAngle = 80f;
     [SerializeField] private float jumpHeight = 2f;
@@ -175,31 +176,47 @@ public class PlayerController : MonoBehaviour
 
     private void HandleLook()
     {
-        
-        mouseDelta = lookAction.ReadValue<Vector2>();
+        // Step 1: Read and clamp mouse input
+        Vector2 rawMouseDelta = lookAction.ReadValue<Vector2>();
+        Vector2 clampedDelta = Vector2.ClampMagnitude(rawMouseDelta, 10f);
 
-        // Scaled sensitivity
-        float mouseX = mouseDelta.x * mouseSensitivity;
-        float mouseY = mouseDelta.y * mouseSensitivity;
+        if (clampedDelta.magnitude > 5f)
+            clampedDelta = clampedDelta.normalized * 5f;
 
-        // Horizontal Look
-        transform.Rotate(Vector3.up * mouseX); // yaw
+        float mouseX = clampedDelta.x * horizontalSensitivity;
+        float mouseY = clampedDelta.y * verticalSensitivity;
 
-        // Recoil
-        currentRecoilX = Mathf.Lerp(currentRecoilX, targetRecoilX, recoilSnapSpeed * Time.deltaTime);
-        currentRecoilY = Mathf.Lerp(currentRecoilY, targetRecoilY, recoilSnapSpeed * Time.deltaTime);
-
-        // Vertical Look
-        verticalRotation -= mouseY;            // normal mouse input
-        verticalRotation += currentRecoilX;    // pitch recoil
+        // Step 2: Update base vertical rotation from mouse input
+        verticalRotation -= mouseY;
         verticalRotation = Mathf.Clamp(verticalRotation, -verticalClampAngle, verticalClampAngle);
 
-        // Camera Rotation
+        // Step 3: Smooth recoil over time
+        float decayFactor = 1f - Mathf.Exp(-recoilSnapSpeed * Time.deltaTime);
+        currentRecoilX = Mathf.Lerp(currentRecoilX, targetRecoilX, decayFactor);
+        currentRecoilY = Mathf.Lerp(currentRecoilY, targetRecoilY, decayFactor);
+
+        // Step 4: Slowly return target to zero (so recoil recovers over time)
+        targetRecoilX = Mathf.Lerp(targetRecoilX, 0f, decayFactor);
+        targetRecoilY = Mathf.Lerp(targetRecoilY, 0f, decayFactor);
+
+        // Step 5: Apply rotations
+        float finalPitch = verticalRotation + currentRecoilX;
+        float finalYaw = mouseX + currentRecoilY;
+
+        // Horizontal (yaw)
+        transform.Rotate(Vector3.up * finalYaw);
+
+        // Vertical (pitch)
         Quaternion currentRotation = cameraHolder.localRotation;
         float currentRoll = currentRotation.eulerAngles.z;
+        cameraHolder.localRotation = Quaternion.Euler(finalPitch, 0f, currentRoll);
+    }
 
-        // Apply pitch and roll (roll is preserved)
-        cameraHolder.localRotation = Quaternion.Euler(verticalRotation, 0f, currentRoll);
+
+    public void ApplyRecoil(float recoilAmount)
+    {
+        targetRecoilX -= recoilAmount; // Pitch (upward)
+        //currentRecoilY += Random.Range(-recoilAmount * 0.5f, recoilAmount * 0.5f);
     }
 
     private void HandleMove()
@@ -400,11 +417,5 @@ public class PlayerController : MonoBehaviour
                 collectible.StartFlyingToPlayer(transform); // Make this method public in Collectible
             }
         }
-    }
-
-    public void ApplyRecoil(float recoilAmount)
-    {
-        currentRecoilX -= recoilAmount; // Pitch (upward)
-        currentRecoilY += Random.Range(-recoilAmount * 0.5f, recoilAmount * 0.5f); // Optional yaw sway
     }
 }

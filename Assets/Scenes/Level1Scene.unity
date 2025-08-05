@@ -15604,6 +15604,30 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 3048455195814099336, guid: e93980672e8e2e24e9f0631a8fc5a9d3, type: 3}
+      propertyPath: recoilSnapSpeed
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3048455195814099336, guid: e93980672e8e2e24e9f0631a8fc5a9d3, type: 3}
+      propertyPath: mouseSensitivity
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3048455195814099336, guid: e93980672e8e2e24e9f0631a8fc5a9d3, type: 3}
+      propertyPath: mouseSensitivityX
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3048455195814099336, guid: e93980672e8e2e24e9f0631a8fc5a9d3, type: 3}
+      propertyPath: mouseSensitivityY
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3048455195814099336, guid: e93980672e8e2e24e9f0631a8fc5a9d3, type: 3}
+      propertyPath: verticalSensitivity
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3048455195814099336, guid: e93980672e8e2e24e9f0631a8fc5a9d3, type: 3}
+      propertyPath: horizontalSensitivity
+      value: 0.4
+      objectReference: {fileID: 0}
     - target: {fileID: 7732240769833466712, guid: e93980672e8e2e24e9f0631a8fc5a9d3, type: 3}
       propertyPath: m_LocalPosition.x
       value: 18.59

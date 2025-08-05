@@ -24,9 +24,8 @@ MonoBehaviour:
   magazineSize: 32
   maxAmmo: 150
   reloadTime: 1.5
-  recoil: 0.16
+  recoil: 3
   fireMode: 1
   hitLayers:
     serializedVersion: 2
     m_Bits: 512
-  loadoutButton: {fileID: 1590075376193790157, guid: 26942b616a4bb0d4b97a8cabb85e6791, type: 3}
