@@ -94,9 +94,10 @@ public class SentryController : MonoBehaviour
     // visualize detection radius in Scene view
     void OnDrawGizmosSelected()
     {
-        Gizmos.color = Color.yellow;
-
         if (sentry.deployableData != null)
+        {
+            Gizmos.color = Color.yellow;
             Gizmos.DrawWireSphere(transform.position, sentry.deployableData.range);
+        }
     }
 }

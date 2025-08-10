@@ -3,8 +3,72 @@
   "WorkspaceRootPath": "C:\\NYP\\Work File\\SpecProj\\SpecProj\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{9EA60DC9-CCA0-CD7F-62A8-9DD1CF7646FC}|Assembly-CSharp.csproj|c:\\nyp\\work file\\specproj\\specproj\\assets\\scripts\\deployables\\sentrycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9EA60DC9-CCA0-CD7F-62A8-9DD1CF7646FC}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\deployables\\sentrycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9EA60DC9-CCA0-CD7F-62A8-9DD1CF7646FC}|Assembly-CSharp.csproj|c:\\nyp\\work file\\specproj\\specproj\\assets\\scripts\\deployables\\sentries.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9EA60DC9-CCA0-CD7F-62A8-9DD1CF7646FC}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\deployables\\sentries.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9EA60DC9-CCA0-CD7F-62A8-9DD1CF7646FC}|Assembly-CSharp.csproj|c:\\nyp\\work file\\specproj\\specproj\\assets\\scripts\\deployables\\deployable.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9EA60DC9-CCA0-CD7F-62A8-9DD1CF7646FC}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\deployables\\deployable.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9EA60DC9-CCA0-CD7F-62A8-9DD1CF7646FC}|Assembly-CSharp.csproj|c:\\nyp\\work file\\specproj\\specproj\\assets\\scripts\\deployables\\deployabledata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9EA60DC9-CCA0-CD7F-62A8-9DD1CF7646FC}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\deployables\\deployabledata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9EA60DC9-CCA0-CD7F-62A8-9DD1CF7646FC}|Assembly-CSharp.csproj|c:\\nyp\\work file\\specproj\\specproj\\assets\\scripts\\weapons\\weapondata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9EA60DC9-CCA0-CD7F-62A8-9DD1CF7646FC}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\weapons\\weapondata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9EA60DC9-CCA0-CD7F-62A8-9DD1CF7646FC}|Assembly-CSharp.csproj|c:\\nyp\\work file\\specproj\\specproj\\assets\\scripts\\weapons\\raycastweapon.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9EA60DC9-CCA0-CD7F-62A8-9DD1CF7646FC}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\weapons\\raycastweapon.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9EA60DC9-CCA0-CD7F-62A8-9DD1CF7646FC}|Assembly-CSharp.csproj|c:\\nyp\\work file\\specproj\\specproj\\assets\\scripts\\weapons\\weapon.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9EA60DC9-CCA0-CD7F-62A8-9DD1CF7646FC}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\weapons\\weapon.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{9EA60DC9-CCA0-CD7F-62A8-9DD1CF7646FC}|Assembly-CSharp.csproj|c:\\nyp\\work file\\specproj\\specproj\\assets\\player\\scripts\\playercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{9EA60DC9-CCA0-CD7F-62A8-9DD1CF7646FC}|Assembly-CSharp.csproj|solutionrelative:assets\\player\\scripts\\playercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9EA60DC9-CCA0-CD7F-62A8-9DD1CF7646FC}|Assembly-CSharp.csproj|C:\\NYP\\Work File\\SpecProj\\SpecProj\\assets\\scripts\\enemyspawner.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9EA60DC9-CCA0-CD7F-62A8-9DD1CF7646FC}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\enemyspawner.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9EA60DC9-CCA0-CD7F-62A8-9DD1CF7646FC}|Assembly-CSharp.csproj|c:\\nyp\\work file\\specproj\\specproj\\assets\\player\\scripts\\playerhealth.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9EA60DC9-CCA0-CD7F-62A8-9DD1CF7646FC}|Assembly-CSharp.csproj|solutionrelative:assets\\player\\scripts\\playerhealth.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9EA60DC9-CCA0-CD7F-62A8-9DD1CF7646FC}|Assembly-CSharp.csproj|C:\\NYP\\Work File\\SpecProj\\SpecProj\\assets\\player\\scripts\\playerloadout.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9EA60DC9-CCA0-CD7F-62A8-9DD1CF7646FC}|Assembly-CSharp.csproj|solutionrelative:assets\\player\\scripts\\playerloadout.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9EA60DC9-CCA0-CD7F-62A8-9DD1CF7646FC}|Assembly-CSharp.csproj|c:\\nyp\\work file\\specproj\\specproj\\assets\\scripts\\collectibles\\ammocollectible.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9EA60DC9-CCA0-CD7F-62A8-9DD1CF7646FC}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\collectibles\\ammocollectible.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9EA60DC9-CCA0-CD7F-62A8-9DD1CF7646FC}|Assembly-CSharp.csproj|C:\\NYP\\Work File\\SpecProj\\SpecProj\\assets\\scripts\\uimanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9EA60DC9-CCA0-CD7F-62A8-9DD1CF7646FC}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\uimanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9EA60DC9-CCA0-CD7F-62A8-9DD1CF7646FC}|Assembly-CSharp.csproj|C:\\NYP\\Work File\\SpecProj\\SpecProj\\assets\\player\\scripts\\playerbuild.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9EA60DC9-CCA0-CD7F-62A8-9DD1CF7646FC}|Assembly-CSharp.csproj|solutionrelative:assets\\player\\scripts\\playerbuild.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9EA60DC9-CCA0-CD7F-62A8-9DD1CF7646FC}|Assembly-CSharp.csproj|C:\\NYP\\Work File\\SpecProj\\SpecProj\\assets\\scripts\\enemy\\skirmishenemy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9EA60DC9-CCA0-CD7F-62A8-9DD1CF7646FC}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\enemy\\skirmishenemy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9EA60DC9-CCA0-CD7F-62A8-9DD1CF7646FC}|Assembly-CSharp.csproj|C:\\NYP\\Work File\\SpecProj\\SpecProj\\assets\\scripts\\enemy\\enemyai.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9EA60DC9-CCA0-CD7F-62A8-9DD1CF7646FC}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\enemy\\enemyai.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9EA60DC9-CCA0-CD7F-62A8-9DD1CF7646FC}|Assembly-CSharp.csproj|C:\\NYP\\Work File\\SpecProj\\SpecProj\\assets\\scripts\\gamemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9EA60DC9-CCA0-CD7F-62A8-9DD1CF7646FC}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\gamemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{9EA60DC9-CCA0-CD7F-62A8-9DD1CF7646FC}|Assembly-CSharp.csproj|C:\\NYP\\Work File\\SpecProj\\SpecProj\\assets\\scripts\\unlockcard.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -17,38 +81,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{9EA60DC9-CCA0-CD7F-62A8-9DD1CF7646FC}|Assembly-CSharp.csproj|C:\\NYP\\Work File\\SpecProj\\SpecProj\\assets\\scripts\\mainmenuui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{9EA60DC9-CCA0-CD7F-62A8-9DD1CF7646FC}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\mainmenuui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9EA60DC9-CCA0-CD7F-62A8-9DD1CF7646FC}|Assembly-CSharp.csproj|C:\\NYP\\Work File\\SpecProj\\SpecProj\\assets\\player\\scripts\\playerbuild.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9EA60DC9-CCA0-CD7F-62A8-9DD1CF7646FC}|Assembly-CSharp.csproj|solutionrelative:assets\\player\\scripts\\playerbuild.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9EA60DC9-CCA0-CD7F-62A8-9DD1CF7646FC}|Assembly-CSharp.csproj|C:\\NYP\\Work File\\SpecProj\\SpecProj\\assets\\scripts\\weapons\\raycastweapon.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9EA60DC9-CCA0-CD7F-62A8-9DD1CF7646FC}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\weapons\\raycastweapon.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9EA60DC9-CCA0-CD7F-62A8-9DD1CF7646FC}|Assembly-CSharp.csproj|C:\\NYP\\Work File\\SpecProj\\SpecProj\\assets\\scripts\\enemy\\skirmishenemy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9EA60DC9-CCA0-CD7F-62A8-9DD1CF7646FC}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\enemy\\skirmishenemy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9EA60DC9-CCA0-CD7F-62A8-9DD1CF7646FC}|Assembly-CSharp.csproj|C:\\NYP\\Work File\\SpecProj\\SpecProj\\assets\\player\\scripts\\playerloadout.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9EA60DC9-CCA0-CD7F-62A8-9DD1CF7646FC}|Assembly-CSharp.csproj|solutionrelative:assets\\player\\scripts\\playerloadout.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9EA60DC9-CCA0-CD7F-62A8-9DD1CF7646FC}|Assembly-CSharp.csproj|C:\\NYP\\Work File\\SpecProj\\SpecProj\\assets\\scripts\\uimanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9EA60DC9-CCA0-CD7F-62A8-9DD1CF7646FC}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\uimanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9EA60DC9-CCA0-CD7F-62A8-9DD1CF7646FC}|Assembly-CSharp.csproj|C:\\NYP\\Work File\\SpecProj\\SpecProj\\assets\\scripts\\gamemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9EA60DC9-CCA0-CD7F-62A8-9DD1CF7646FC}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\gamemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9EA60DC9-CCA0-CD7F-62A8-9DD1CF7646FC}|Assembly-CSharp.csproj|C:\\NYP\\Work File\\SpecProj\\SpecProj\\assets\\scripts\\enemyspawner.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9EA60DC9-CCA0-CD7F-62A8-9DD1CF7646FC}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\enemyspawner.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9EA60DC9-CCA0-CD7F-62A8-9DD1CF7646FC}|Assembly-CSharp.csproj|C:\\NYP\\Work File\\SpecProj\\SpecProj\\assets\\scripts\\enemy\\enemyai.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9EA60DC9-CCA0-CD7F-62A8-9DD1CF7646FC}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\enemy\\enemyai.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -58,11 +90,11 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 6,
+          "SelectedChildIndex": 7,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 15,
               "Title": "EnemyAI.cs",
               "DocumentMoniker": "C:\\NYP\\Work File\\SpecProj\\SpecProj\\Assets\\Scripts\\Enemy\\EnemyAI.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Enemy\\EnemyAI.cs",
@@ -75,7 +107,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 16,
               "Title": "GameManager.cs",
               "DocumentMoniker": "C:\\NYP\\Work File\\SpecProj\\SpecProj\\Assets\\Scripts\\GameManager.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\GameManager.cs",
@@ -88,7 +120,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 8,
               "Title": "EnemySpawner.cs",
               "DocumentMoniker": "C:\\NYP\\Work File\\SpecProj\\SpecProj\\Assets\\Scripts\\EnemySpawner.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\EnemySpawner.cs",
@@ -97,11 +129,142 @@
               "ViewState": "AQIAAA4AAAAAAAAAAAAQwCsAAAAfAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-08-03T11:26:19.113Z",
-              "IsPinned": true
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "DeployableData.cs",
+              "DocumentMoniker": "C:\\NYP\\Work File\\SpecProj\\SpecProj\\Assets\\Scripts\\Deployables\\DeployableData.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Deployables\\DeployableData.cs",
+              "ToolTip": "C:\\NYP\\Work File\\SpecProj\\SpecProj\\Assets\\Scripts\\Deployables\\DeployableData.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Deployables\\DeployableData.cs",
+              "ViewState": "AQIAAAMAAAAAAAAAAAAvwBsAAAAcAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-10T16:51:29.117Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "WeaponData.cs",
+              "DocumentMoniker": "C:\\NYP\\Work File\\SpecProj\\SpecProj\\Assets\\Scripts\\Weapons\\WeaponData.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Weapons\\WeaponData.cs",
+              "ToolTip": "C:\\NYP\\Work File\\SpecProj\\SpecProj\\Assets\\Scripts\\Weapons\\WeaponData.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Weapons\\WeaponData.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABgAAAAfAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-10T16:51:52.621Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
+              "Title": "Deployable.cs",
+              "DocumentMoniker": "C:\\NYP\\Work File\\SpecProj\\SpecProj\\Assets\\Scripts\\Deployables\\Deployable.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Deployables\\Deployable.cs",
+              "ToolTip": "C:\\NYP\\Work File\\SpecProj\\SpecProj\\Assets\\Scripts\\Deployables\\Deployable.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Deployables\\Deployable.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-10T16:44:35.116Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Sentries.cs",
+              "DocumentMoniker": "C:\\NYP\\Work File\\SpecProj\\SpecProj\\Assets\\Scripts\\Deployables\\Sentries.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Deployables\\Sentries.cs",
+              "ToolTip": "C:\\NYP\\Work File\\SpecProj\\SpecProj\\Assets\\Scripts\\Deployables\\Sentries.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Deployables\\Sentries.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABUAAAAoAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-10T15:49:10.37Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "SentryController.cs",
+              "DocumentMoniker": "C:\\NYP\\Work File\\SpecProj\\SpecProj\\Assets\\Scripts\\Deployables\\SentryController.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Deployables\\SentryController.cs",
+              "ToolTip": "C:\\NYP\\Work File\\SpecProj\\SpecProj\\Assets\\Scripts\\Deployables\\SentryController.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Deployables\\SentryController.cs",
+              "ViewState": "AQIAAAUAAAAAAAAAAAAQwBkAAAAxAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-10T15:49:11.701Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "RaycastWeapon.cs",
+              "DocumentMoniker": "C:\\NYP\\Work File\\SpecProj\\SpecProj\\Assets\\Scripts\\Weapons\\RaycastWeapon.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Weapons\\RaycastWeapon.cs",
+              "ToolTip": "C:\\NYP\\Work File\\SpecProj\\SpecProj\\Assets\\Scripts\\Weapons\\RaycastWeapon.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Weapons\\RaycastWeapon.cs",
+              "ViewState": "AQIAABAAAAAAAAAAAAAgwC4AAAAHAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-10T14:14:30.286Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Weapon.cs",
+              "DocumentMoniker": "C:\\NYP\\Work File\\SpecProj\\SpecProj\\Assets\\Scripts\\Weapons\\Weapon.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Weapons\\Weapon.cs",
+              "ToolTip": "C:\\NYP\\Work File\\SpecProj\\SpecProj\\Assets\\Scripts\\Weapons\\Weapon.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Weapons\\Weapon.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAACEAAAAeAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-10T14:14:17.411Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "PlayerHealth.cs",
+              "DocumentMoniker": "C:\\NYP\\Work File\\SpecProj\\SpecProj\\Assets\\Player\\Scripts\\PlayerHealth.cs",
+              "RelativeDocumentMoniker": "Assets\\Player\\Scripts\\PlayerHealth.cs",
+              "ToolTip": "C:\\NYP\\Work File\\SpecProj\\SpecProj\\Assets\\Player\\Scripts\\PlayerHealth.cs",
+              "RelativeToolTip": "Assets\\Player\\Scripts\\PlayerHealth.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABAAAAAgAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-10T14:14:01.05Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "PlayerController.cs",
+              "DocumentMoniker": "C:\\NYP\\Work File\\SpecProj\\SpecProj\\Assets\\Player\\Scripts\\PlayerController.cs",
+              "RelativeDocumentMoniker": "Assets\\Player\\Scripts\\PlayerController.cs",
+              "ToolTip": "C:\\NYP\\Work File\\SpecProj\\SpecProj\\Assets\\Player\\Scripts\\PlayerController.cs",
+              "RelativeToolTip": "Assets\\Player\\Scripts\\PlayerController.cs",
+              "ViewState": "AQIAANsAAAAAAAAAAADgv/gAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-10T14:09:23.711Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "AmmoCollectible.cs",
+              "DocumentMoniker": "C:\\NYP\\Work File\\SpecProj\\SpecProj\\Assets\\Scripts\\Collectibles\\AmmoCollectible.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Collectibles\\AmmoCollectible.cs",
+              "ToolTip": "C:\\NYP\\Work File\\SpecProj\\SpecProj\\Assets\\Scripts\\Collectibles\\AmmoCollectible.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Collectibles\\AmmoCollectible.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAcAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-10T14:08:37.716Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
               "Title": "Selectable.cs",
               "DocumentMoniker": "C:\\NYP\\Work File\\SpecProj\\SpecProj\\Library\\PackageCache\\com.unity.ugui@1.0.0\\Runtime\\UI\\Core\\Selectable.cs",
               "RelativeDocumentMoniker": "Library\\PackageCache\\com.unity.ugui@1.0.0\\Runtime\\UI\\Core\\Selectable.cs",
@@ -114,7 +277,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 17,
               "Title": "UnlockCard.cs",
               "DocumentMoniker": "C:\\NYP\\Work File\\SpecProj\\SpecProj\\Assets\\Scripts\\UnlockCard.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\UnlockCard.cs",
@@ -126,7 +289,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 19,
               "Title": "MainMenuUI.cs",
               "DocumentMoniker": "C:\\NYP\\Work File\\SpecProj\\SpecProj\\Assets\\Scripts\\MainMenuUI.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\MainMenuUI.cs",
@@ -138,44 +301,19 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "PlayerController.cs",
-              "DocumentMoniker": "C:\\NYP\\Work File\\SpecProj\\SpecProj\\Assets\\Player\\Scripts\\PlayerController.cs",
-              "RelativeDocumentMoniker": "Assets\\Player\\Scripts\\PlayerController.cs",
-              "ToolTip": "C:\\NYP\\Work File\\SpecProj\\SpecProj\\Assets\\Player\\Scripts\\PlayerController.cs",
-              "RelativeToolTip": "Assets\\Player\\Scripts\\PlayerController.cs",
-              "ViewState": "AQIAAKgAAAAAAAAAAAAAAL8AAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-03T15:40:53.438Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 14,
               "Title": "SkirmishEnemy.cs",
               "DocumentMoniker": "C:\\NYP\\Work File\\SpecProj\\SpecProj\\Assets\\Scripts\\Enemy\\SkirmishEnemy.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Enemy\\SkirmishEnemy.cs",
               "ToolTip": "C:\\NYP\\Work File\\SpecProj\\SpecProj\\Assets\\Scripts\\Enemy\\SkirmishEnemy.cs",
               "RelativeToolTip": "Assets\\Scripts\\Enemy\\SkirmishEnemy.cs",
-              "ViewState": "AQIAAA8BAAAAAAAAAAAzwDcBAAAFAAAA",
+              "ViewState": "AQIAABABAAAAAAAAAAAAwDcBAAAFAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-08-03T13:05:10.057Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "RaycastWeapon.cs",
-              "DocumentMoniker": "C:\\NYP\\Work File\\SpecProj\\SpecProj\\Assets\\Scripts\\Weapons\\RaycastWeapon.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\Weapons\\RaycastWeapon.cs",
-              "ToolTip": "C:\\NYP\\Work File\\SpecProj\\SpecProj\\Assets\\Scripts\\Weapons\\RaycastWeapon.cs",
-              "RelativeToolTip": "Assets\\Scripts\\Weapons\\RaycastWeapon.cs",
-              "ViewState": "AQIAAA0AAAAAAAAAAAAgwBcAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-03T12:53:28.281Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 10,
               "Title": "PlayerLoadout.cs",
               "DocumentMoniker": "C:\\NYP\\Work File\\SpecProj\\SpecProj\\Assets\\Player\\Scripts\\PlayerLoadout.cs",
               "RelativeDocumentMoniker": "Assets\\Player\\Scripts\\PlayerLoadout.cs",
@@ -183,11 +321,12 @@
               "RelativeToolTip": "Assets\\Player\\Scripts\\PlayerLoadout.cs",
               "ViewState": "AQIAAJgAAAAAAAAAAAApwK8AAAAZAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-03T12:07:13.295Z"
+              "WhenOpened": "2025-08-03T12:07:13.295Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 12,
               "Title": "UIManager.cs",
               "DocumentMoniker": "C:\\NYP\\Work File\\SpecProj\\SpecProj\\Assets\\Scripts\\UIManager.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\UIManager.cs",
@@ -199,13 +338,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 13,
               "Title": "PlayerBuild.cs",
               "DocumentMoniker": "C:\\NYP\\Work File\\SpecProj\\SpecProj\\Assets\\Player\\Scripts\\PlayerBuild.cs",
               "RelativeDocumentMoniker": "Assets\\Player\\Scripts\\PlayerBuild.cs",
               "ToolTip": "C:\\NYP\\Work File\\SpecProj\\SpecProj\\Assets\\Player\\Scripts\\PlayerBuild.cs",
               "RelativeToolTip": "Assets\\Player\\Scripts\\PlayerBuild.cs",
-              "ViewState": "AQIAAIgAAAAAAAAAAAAQwKIAAAA2AAAA",
+              "ViewState": "AQIAAIAAAAAAAAAAAAAAAKIAAAA2AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-08-02T20:55:16.45Z"
             }

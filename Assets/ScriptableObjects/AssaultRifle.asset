@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponName: Assault Rifle
   weaponPrefab: {fileID: 4082824778660106895, guid: 33744929a806ac644a70ed1ec5a124c0, type: 3}
-  damage: 10
+  damage: 20
   range: 30
   fireRate: 0.125
   weaponID: assault_rifle_01
@@ -24,7 +24,7 @@ MonoBehaviour:
   magazineSize: 32
   maxAmmo: 150
   reloadTime: 1.5
-  recoil: 3
+  recoil: 300
   fireMode: 1
   hitLayers:
     serializedVersion: 2

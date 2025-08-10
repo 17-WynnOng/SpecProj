@@ -25,7 +25,7 @@ public class DeployableData : ScriptableObject
     [Header("Sentries")]
     public int magazineSize;
     public int maxAmmo;
-    public int reloadTime;
+    public float reloadTime;
     public float range = 100f;
     public float fireRate = 0.1f;
     public LayerMask hitLayers; // Layers the sentry can hit

@@ -52,6 +52,9 @@ MonoBehaviour:
   currentReserve: 0
   isReloading: 0
   animator: {fileID: 6235004990588639685}
+  firePoint: {fileID: 8928834295434198909}
+  trailPrefab: {fileID: 5692523098029617758, guid: f195d39a68122454990029d44051b250, type: 3}
+  shotsForTracer: 4
 --- !u!95 &6235004990588639685
 Animator:
   serializedVersion: 5
@@ -213,5 +216,10 @@ PrefabInstance:
 --- !u!4 &5014819533902258668 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: bc81591eb6a9af241ab481f3d06442a7, type: 3}
+  m_PrefabInstance: {fileID: 4761024671041865223}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &8928834295434198909 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -5045410599849395846, guid: bc81591eb6a9af241ab481f3d06442a7, type: 3}
   m_PrefabInstance: {fileID: 4761024671041865223}
   m_PrefabAsset: {fileID: 0}

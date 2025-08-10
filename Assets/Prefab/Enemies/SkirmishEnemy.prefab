@@ -104,7 +104,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b254b6b0f2769247b696486e848c333, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 50
+  maxHealth: 100
   currentHealth: 0
   damageColor: {r: 1, g: 1, b: 1, a: 1}
   damageEffectDuration: 0.1
@@ -113,7 +113,7 @@ MonoBehaviour:
   tolerance: 1
   dropPrefab: {fileID: 8643705582974806828, guid: ce55e7aa10235ea42889a9612c235f5b, type: 3}
   minDrops: 0
-  maxDrops: 3
+  maxDrops: 2
   animator: {fileID: 1054969480670373612}
   healthBar: {fileID: 6301804331997321479}
   viewRadius: 12

@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -36,7 +36,10 @@ public class PlayerController : MonoBehaviour
     private float nextScrollTime = 0f;
 
     [Header("Recoil Recovery")]
-    [SerializeField] private float recoilSnapSpeed = 15f;
+    [SerializeField] private float recoilSnapSpeed = 15f;     // how fast recoil applies while firing
+    [SerializeField] private float recoilRecoverySpeed = 8f;
+    [SerializeField] private float maxRecoilPitch = 30f;      // how far up/down recoil can push
+    [SerializeField] private float maxRecoilYaw = 10f;        // how far side-to-side recoil can push
 
     [Header("Weapon Sway")]
     [SerializeField] private Transform weaponHolder; // Assign in inspector (usually the weapon parent)
@@ -71,6 +74,8 @@ public class PlayerController : MonoBehaviour
 
     //Walking
     private bool isWalking;
+
+    private bool isFiring;
 
     //Gravity
     private Vector3 velocity;
@@ -176,47 +181,70 @@ public class PlayerController : MonoBehaviour
 
     private void HandleLook()
     {
-        // Step 1: Read and clamp mouse input
-        Vector2 rawMouseDelta = lookAction.ReadValue<Vector2>();
-        Vector2 clampedDelta = Vector2.ClampMagnitude(rawMouseDelta, 10f);
+        // 1) Mouse input (clamped)
+        Vector2 raw = lookAction.ReadValue<Vector2>();
+        Vector2 clamped = Vector2.ClampMagnitude(raw, 10f);
+        if (clamped.magnitude > 5f) clamped = clamped.normalized * 5f;
 
-        if (clampedDelta.magnitude > 5f)
-            clampedDelta = clampedDelta.normalized * 5f;
+        float mouseX = clamped.x * horizontalSensitivity;
+        float mouseY = clamped.y * verticalSensitivity;
 
-        float mouseX = clampedDelta.x * horizontalSensitivity;
-        float mouseY = clampedDelta.y * verticalSensitivity;
-
-        // Step 2: Update base vertical rotation from mouse input
+        // 2) Base vertical aim from mouse
         verticalRotation -= mouseY;
         verticalRotation = Mathf.Clamp(verticalRotation, -verticalClampAngle, verticalClampAngle);
 
-        // Step 3: Smooth recoil over time
-        float decayFactor = 1f - Mathf.Exp(-recoilSnapSpeed * Time.deltaTime);
-        currentRecoilX = Mathf.Lerp(currentRecoilX, targetRecoilX, decayFactor);
-        currentRecoilY = Mathf.Lerp(currentRecoilY, targetRecoilY, decayFactor);
+        // 3) Recoil smoothing
+        float snapLerp = 1f - Mathf.Exp(-recoilSnapSpeed * Time.deltaTime);
+        float recoveryLerp = 1f - Mathf.Exp(-recoilRecoverySpeed * Time.deltaTime);
 
-        // Step 4: Slowly return target to zero (so recoil recovers over time)
-        targetRecoilX = Mathf.Lerp(targetRecoilX, 0f, decayFactor);
-        targetRecoilY = Mathf.Lerp(targetRecoilY, 0f, decayFactor);
+        // Save previous recoil so we can compensate recovery
+        float prevRecoilX = currentRecoilX;
+        float prevRecoilY = currentRecoilY;
 
-        // Step 5: Apply rotations
-        float finalPitch = verticalRotation + currentRecoilX;
-        float finalYaw = mouseX + currentRecoilY;
+        // Snap toward target while firing
+        currentRecoilX = Mathf.Lerp(currentRecoilX, targetRecoilX, snapLerp);
+        currentRecoilY = Mathf.Lerp(currentRecoilY, targetRecoilY, snapLerp);
 
-        // Horizontal (yaw)
-        transform.Rotate(Vector3.up * finalYaw);
+        // If not firing, target eases to 0 and current follows it
+        if (!isFiring)
+        {
+            targetRecoilX = Mathf.Lerp(targetRecoilX, 0f, recoveryLerp);
+            targetRecoilY = Mathf.Lerp(targetRecoilY, 0f, recoveryLerp);
 
-        // Vertical (pitch)
-        Quaternion currentRotation = cameraHolder.localRotation;
-        float currentRoll = currentRotation.eulerAngles.z;
+            currentRecoilX = Mathf.Lerp(currentRecoilX, targetRecoilX, recoveryLerp);
+            currentRecoilY = Mathf.Lerp(currentRecoilY, targetRecoilY, recoveryLerp);
+
+            // ===== Compensation so crosshair stays put =====
+            // How much recoil changed this frame:
+            float dPitch = currentRecoilX - prevRecoilX; // + means recoil pitched further this frame
+            float dYaw = currentRecoilY - prevRecoilY; // + means recoil yawed further this frame
+
+            // Adjust base aim by the inverse so (aim + recoil) stays constant
+            verticalRotation -= dPitch;              // keep pitch steady
+            transform.Rotate(Vector3.up * -dYaw);    // keep yaw steady
+        }
+
+        // 4) Apply final rotations
+        float finalPitch = Mathf.Clamp(verticalRotation + currentRecoilX,
+                                       -verticalClampAngle, verticalClampAngle);
+
+        // Yaw: mouse + horizontal recoil (compensation already applied above during recovery)
+        transform.Rotate(Vector3.up * (mouseX + currentRecoilY));
+
+        // Keep your roll from strafe tilt
+        float currentRoll = cameraHolder.localRotation.eulerAngles.z;
         cameraHolder.localRotation = Quaternion.Euler(finalPitch, 0f, currentRoll);
     }
 
-
-    public void ApplyRecoil(float recoilAmount)
+    public void ApplyRecoil(float amount)
     {
-        targetRecoilX -= recoilAmount; // Pitch (upward)
-        //currentRecoilY += Random.Range(-recoilAmount * 0.5f, recoilAmount * 0.5f);
+        // Vertical (pitch) recoil
+        targetRecoilX = Mathf.Max(targetRecoilX - amount, -maxRecoilPitch);
+
+        // Horizontal (yaw) recoil
+        // Randomly choose left or right kick for variation
+        float yawKick = Random.Range(-amount * 0.05f, amount * 0.05f);
+        targetRecoilY = Mathf.Clamp(targetRecoilY + yawKick, -maxRecoilYaw, maxRecoilYaw);
     }
 
     private void HandleMove()
@@ -257,36 +285,35 @@ public class PlayerController : MonoBehaviour
 
     private void HandleShoot()
     {
-        // don’t ever shoot if we’re in build mode
+        // donâ€™t ever shoot if weâ€™re in build mode
         if (PlayerBuild.Instance.buildMode || playerLoadout.heldWeapon.isReloading)
             return;
 
         if (playerLoadout.heldWeapon == null)
             return;
 
-        bool shot = false;
+        isFiring = false;
 
         switch (playerLoadout.heldWeapon.weaponData.fireMode)
         {
             case FireMode.FullAuto:
                 if (lmbAction.IsPressed())
                 {
-                    shot = playerLoadout.heldWeapon.Shoot();
+                    isFiring = playerLoadout.heldWeapon.Shoot();
                 }
                 break;
 
             case FireMode.SemiAuto:
                 if (lmbAction.WasPressedThisFrame())
                 {
-                    shot = playerLoadout.heldWeapon.Shoot();
+                    isFiring = playerLoadout.heldWeapon.Shoot();
                 }
                 break;
         }
 
-        if (shot)
+        if (isFiring)
         {
             ApplyRecoil(playerLoadout.heldWeapon.weaponData.recoil);
-
         }
     }
 
@@ -300,7 +327,7 @@ public class PlayerController : MonoBehaviour
 
     private void HandleScrollSwitch()
     {
-        // don’t scroll if we’re still on cooldown
+        // donâ€™t scroll if weâ€™re still on cooldown
         if (Time.time < nextScrollTime)
             return;
 
@@ -322,7 +349,7 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            // in build mode, switch which sentry you’ll place
+            // in build mode, switch which sentry youâ€™ll place
             if (scrollY > 0f)
                 playerLoadout.SwitchToNextDeployable();
             else

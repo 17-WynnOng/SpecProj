@@ -18,7 +18,7 @@ MonoBehaviour:
   deployableIconPrefab: {fileID: 5880565730583321862, guid: 140bb3d95403bc447bfdc2e38dcdd011, type: 3}
   deployableGhost: {fileID: 6528960764385774299, guid: 3e019b4d199c85243be08b0bd3ea66fd, type: 3}
   deployableID: ammo_station
-  deployable2DIcon: {fileID: 21300000, guid: 1154ecff72a5e02439a60e80a3f9a14d, type: 3}
+  deployable2DIcon: {fileID: 21300000, guid: 59a64fc9855accc438de97e98f2f78ea, type: 3}
   damage: 0
   magazineSize: 0
   maxAmmo: 0

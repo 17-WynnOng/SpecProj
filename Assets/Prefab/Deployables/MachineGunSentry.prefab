@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 2342457110318994355}
   - component: {fileID: 7465329134040126951}
   - component: {fileID: 7910162343667005437}
-  - component: {fileID: 6284754576396755153}
   m_Layer: 0
   m_Name: TurretBase
   m_TagString: Untagged
@@ -1172,28 +1171,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 489254023798604897}
   m_Mesh: {fileID: 0}
---- !u!64 &6284754576396755153
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 489254023798604897}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 0}
 --- !u!1 &6528960764385774299
 GameObject:
   m_ObjectHideFlags: 0
@@ -1206,6 +1183,7 @@ GameObject:
   - component: {fileID: 8218184342491288786}
   - component: {fileID: 1499400855721733932}
   - component: {fileID: 5164574916045532762}
+  - component: {fileID: 8255771587135338522}
   m_Layer: 0
   m_Name: MachineGunSentry
   m_TagString: Deployable
@@ -1263,7 +1241,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationPivot: {fileID: 7018240475709001042}
-  rotationSpeed: 25
+  rotationSpeed: 15
 --- !u!114 &5164574916045532762
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1278,6 +1256,30 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   deployableData: {fileID: 11400000, guid: fd26aec3bd156ff4e8d621e5b206ade0, type: 2}
   firePoint: {fileID: 1568685582970001773}
+  trailPrefab: {fileID: 5692523098029617758, guid: f195d39a68122454990029d44051b250, type: 3}
+  shotsForTracer: 2
+  tintRenderer: {fileID: 6904580810854042646}
+--- !u!95 &8255771587135338522
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6528960764385774299}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 651b142773ea8a84c91ac84bd4f24ede, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &7163351627012606805
 GameObject:
   m_ObjectHideFlags: 0
@@ -1291,7 +1293,6 @@ GameObject:
   - component: {fileID: 4983749729056230867}
   - component: {fileID: 9135786258295075388}
   - component: {fileID: 5052810539753048943}
-  - component: {fileID: 256045965098019181}
   m_Layer: 0
   m_Name: Gunmount
   m_TagString: Untagged
@@ -2450,28 +2451,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7163351627012606805}
   m_Mesh: {fileID: 0}
---- !u!64 &256045965098019181
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7163351627012606805}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 0}
 --- !u!1 &7238707495863447055
 GameObject:
   m_ObjectHideFlags: 0
@@ -2485,7 +2464,6 @@ GameObject:
   - component: {fileID: 6664570258757241540}
   - component: {fileID: 6904580810854042646}
   - component: {fileID: 8025123763266293070}
-  - component: {fileID: 7274448965097629694}
   m_Layer: 0
   m_Name: Turret
   m_TagString: Untagged
@@ -2502,7 +2480,7 @@ Transform:
   m_GameObject: {fileID: 7238707495863447055}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.012000084, y: 0.032999992, z: -0.069000244}
+  m_LocalPosition: {x: 0.01200008, y: 0.032999992, z: -0.069000244}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3162,26 +3140,4 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7238707495863447055}
-  m_Mesh: {fileID: 0}
---- !u!64 &7274448965097629694
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7238707495863447055}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
   m_Mesh: {fileID: 0}

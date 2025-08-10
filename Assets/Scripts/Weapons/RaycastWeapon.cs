@@ -6,6 +6,7 @@ public class RaycastWeapon : Weapon
     [SerializeField] private Transform firePoint; // assign this to the barrel of the gun
     [SerializeField] private TrailRenderer trailPrefab;
     [SerializeField] private int shotsForTracer = 4;
+
     public override bool Shoot()
     {
         if (isReloading || currentMag <= 0 || Time.time < nextFireTime)
@@ -13,12 +14,13 @@ public class RaycastWeapon : Weapon
 
         nextFireTime = Time.time + weaponData.fireRate;
 
-        PerformRaycast(); // damage logic here
+        PerformRaycast();
         if (animator != null)
             animator.SetTrigger("Shoot");
 
         currentMag--;
-        UIManager.Instance.UpdateAmmoUI(currentMag, currentReserve); // optional
+        UIManager.Instance.UpdateAmmoUI(currentMag, currentReserve);
+
         return true;
     }
 
