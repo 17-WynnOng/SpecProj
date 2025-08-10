@@ -8,7 +8,6 @@ public class GameManager : MonoBehaviour
 
     public BaseHealth playerBase;
     public EnemySpawner[] enemySpawners = new EnemySpawner[4];
-    public LevelPath levelPath;
     public bool allowSpawning = false;
 
     [SerializeField] private float waveCountdownDuration = 60f;
@@ -33,7 +32,6 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         UIManager.Instance.UpdateWaveCount(currentWave, winWave);
-        UIManager.Instance.topLeftUI.SetActive(false);
         allowSpawning = false;
         SelectSpawners();
     }
@@ -135,7 +133,6 @@ public class GameManager : MonoBehaviour
             spawner.StartNextWave(currentWave);
             spawner.BeginSpawning();
             UIManager.Instance.UpdateWaveBars(activeSpawners);
-            UIManager.Instance.topLeftUI.SetActive(true);
         }
     }
 
@@ -162,7 +159,6 @@ public class GameManager : MonoBehaviour
             currentWave++;
             StartWaveCountdown();
             SelectSpawners();
-            UIManager.Instance.topLeftUI.SetActive(false);
             UIManager.Instance.UpdateWaveCount(currentWave, winWave);
         }
         else if (currentWave == winWave)

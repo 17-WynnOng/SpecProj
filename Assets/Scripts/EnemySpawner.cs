@@ -19,6 +19,7 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private float spawnRateBetweenEnemies = 1f;
     [SerializeField] private int groupSpawnDelayMin, groupSpawnDelayMax;
     [SerializeField] private int enemiesInGroup;
+    [SerializeField] private LevelPath levelPath;
 
     [Header("Siege Settings")]
     [Range(0f, 1f)]
@@ -170,6 +171,12 @@ public class EnemySpawner : MonoBehaviour
         Debug.Log($"Spawned: {debugSpawnedTotal} / {maxEnemies} | enemiesLeft: {enemiesLeft}");
 
         UIManager.Instance.UpdateWaveBars(GameManager.Instance.activeSpawners);
+
+        // Check for EnemyAI and assign path
+        if (enemy.TryGetComponent<EnemyAI>(out var ai))
+        {
+            ai.path = levelPath.waypoints;
+        }
 
         //Add to GameManager's list
         GameManager.Instance.aliveEnemies.Add(enemy);

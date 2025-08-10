@@ -14,7 +14,7 @@ public abstract class EnemyAI : Damageable
     protected NavMeshAgent agent;
 
     [Header("Path Finding")]
-    [SerializeField] protected Transform[] path;
+    [SerializeField] public Transform[] path;
     [SerializeField] protected Transform player;
     [SerializeField] protected float tolerance = 0.3f;
     protected int currentIndex;
@@ -48,7 +48,6 @@ public abstract class EnemyAI : Damageable
     protected override void Start()
     {
         base.Start();
-        path = GameManager.Instance.levelPath.waypoints;
         currentIndex = 0;
         if (path.Length > 0)
             agent.SetDestination(path[0].position);

@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 2342457110318994355}
   - component: {fileID: 7465329134040126951}
   - component: {fileID: 7910162343667005437}
-  - component: {fileID: 6284754576396755153}
   m_Layer: 2
   m_Name: TurretBase
   m_TagString: Untagged
@@ -1172,28 +1171,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 489254023798604897}
   m_Mesh: {fileID: 0}
---- !u!64 &6284754576396755153
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 489254023798604897}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 0}
 --- !u!1 &6528960764385774299
 GameObject:
   m_ObjectHideFlags: 0
@@ -1261,7 +1238,6 @@ GameObject:
   - component: {fileID: 4983749729056230867}
   - component: {fileID: 9135786258295075388}
   - component: {fileID: 5052810539753048943}
-  - component: {fileID: 256045965098019181}
   m_Layer: 2
   m_Name: Gunmount
   m_TagString: Untagged
@@ -2420,28 +2396,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7163351627012606805}
   m_Mesh: {fileID: 0}
---- !u!64 &256045965098019181
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7163351627012606805}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 0}
 --- !u!1 &7238707495863447055
 GameObject:
   m_ObjectHideFlags: 0
@@ -2455,7 +2409,6 @@ GameObject:
   - component: {fileID: 6664570258757241540}
   - component: {fileID: 6904580810854042646}
   - component: {fileID: 8025123763266293070}
-  - component: {fileID: 7274448965097629694}
   m_Layer: 2
   m_Name: Turret
   m_TagString: Untagged
@@ -3492,26 +3445,4 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7238707495863447055}
-  m_Mesh: {fileID: 0}
---- !u!64 &7274448965097629694
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7238707495863447055}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
   m_Mesh: {fileID: 0}

@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Scanlines
+  m_Name: Core
   m_Shader: {fileID: -6465566751694194690, guid: 95cd37d56eb12bb4e84ce2f34c4b2d33, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -41,15 +41,15 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Opacity: 0.906
+    - _Opacity: 1
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ScanlineAmount: 8
     - _ScanlineStrength: 0.5
     - _Speed: 0.5
     m_Colors:
-    - _GapColor: {r: 0, g: 0, b: 0, a: 0}
-    - _ScanLineColor: {r: 0.46226418, g: 0.46226418, b: 0.46226418, a: 0}
+    - _GapColor: {r: 0.029746654, g: 0.4716981, b: 0, a: 0}
+    - _ScanLineColor: {r: 0.073831074, g: 0.7924528, b: 0, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &8709096532987306000
 MonoBehaviour:
