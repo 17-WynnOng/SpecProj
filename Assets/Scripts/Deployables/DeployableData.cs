@@ -10,13 +10,14 @@ public enum PlacementType
 "Deployable/DeployableData")]
 public class DeployableData : ScriptableObject
 {
-    [Header("All deployables")]
-    public int deployCost;
+    [Header("General Deployable Settings")]
     public string deployableName;
+    public string deployableID;
+    public string deployableDesc;
+    public int deployCost;
     public GameObject deployablePrefab;
     public GameObject deployableIconPrefab;
     public GameObject deployableGhost;
-    public string deployableID;
     public Sprite deployable2DIcon;
 
     [Header("Defensive/Offensive deployables")]

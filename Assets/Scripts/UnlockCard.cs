@@ -61,6 +61,7 @@ public class UnlockCard : MonoBehaviour
         assignedData = weapon;
         cardIcon.sprite = weapon.weapon2DIcon;
         cardName.text = weapon.weaponName;
+        cardDesc.text = weapon.weaponDesc;
     }
 
     public void AssignContinueBtn(GameObject btn)
@@ -73,6 +74,7 @@ public class UnlockCard : MonoBehaviour
         assignedData = deployable;
         cardIcon.sprite = deployable.deployable2DIcon;
         cardName.text = deployable.deployableName;
+        cardDesc.text = deployable.deployableDesc;
     }
 
     public string GetName()

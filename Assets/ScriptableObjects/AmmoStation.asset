@@ -12,12 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75f48caa9be2cc242995568a5aeed342, type: 3}
   m_Name: AmmoStation
   m_EditorClassIdentifier: 
-  deployCost: 80
   deployableName: Ammo Station
+  deployableID: ammo_station
+  deployableDesc: A wall mounted frabricator that dispenses ammo.
+  deployCost: 80
   deployablePrefab: {fileID: 6528960764385774299, guid: 1f31f1d8beb415f47a831ba668d5231a, type: 3}
   deployableIconPrefab: {fileID: 5880565730583321862, guid: 140bb3d95403bc447bfdc2e38dcdd011, type: 3}
   deployableGhost: {fileID: 6528960764385774299, guid: 3e019b4d199c85243be08b0bd3ea66fd, type: 3}
-  deployableID: ammo_station
   deployable2DIcon: {fileID: 21300000, guid: 59a64fc9855accc438de97e98f2f78ea, type: 3}
   damage: 0
   magazineSize: 0

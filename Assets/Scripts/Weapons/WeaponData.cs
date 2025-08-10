@@ -15,17 +15,17 @@ public enum WeaponType
 "Weapons/WeaponData")]
 public class WeaponData : ScriptableObject
 {
-    [Header("All weapons")]
+    [Header("General Weapoons settings")]
     public string weaponName;
-    public GameObject weaponPrefab;
+    public string weaponID;
+    public string weaponDesc;
     public float damage = 10f;
     public float range = 100f;
     public float fireRate = 0.1f;
-    public string weaponID;
-    public WeaponType slotType;
     public Sprite weapon2DIcon;
     public GameObject weapon3DModel;
-    
+    public GameObject weaponPrefab;
+    public WeaponType slotType;
 
     [Header("Weapon")]
     public int magazineSize;

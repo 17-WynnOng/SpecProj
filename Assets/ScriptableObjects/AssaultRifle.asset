@@ -13,14 +13,15 @@ MonoBehaviour:
   m_Name: AssaultRifle
   m_EditorClassIdentifier: 
   weaponName: Assault Rifle
-  weaponPrefab: {fileID: 4082824778660106895, guid: 33744929a806ac644a70ed1ec5a124c0, type: 3}
+  weaponID: assault_rifle_01
+  weaponDesc: Standard issue assault rifle, good fire rate, moderate damage
   damage: 20
   range: 30
   fireRate: 0.125
-  weaponID: assault_rifle_01
-  slotType: 0
   weapon2DIcon: {fileID: 21300000, guid: cadc520d3e0e3c542819388e0fe8defc, type: 3}
   weapon3DModel: {fileID: 919132149155446097, guid: ac2267d298559bd41a2e8d0530454409, type: 3}
+  weaponPrefab: {fileID: 4082824778660106895, guid: 33744929a806ac644a70ed1ec5a124c0, type: 3}
+  slotType: 0
   magazineSize: 32
   maxAmmo: 150
   reloadTime: 1.5
