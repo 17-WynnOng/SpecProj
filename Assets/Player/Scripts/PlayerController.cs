@@ -182,12 +182,11 @@ public class PlayerController : MonoBehaviour
 
     private void HandleLook()
     {
-        // 1) Mouse input
+        // 1) Mouse input (use a single clamp, remove extra normalize-to-5 cap)
         Vector2 raw = lookAction.ReadValue<Vector2>();
-        Vector2 clamped = Vector2.ClampMagnitude(raw, 10f);
 
-        float mouseX = clamped.x * horizontalSensitivity;
-        float mouseY = clamped.y * verticalSensitivity;
+        float mouseX = raw.x * horizontalSensitivity;
+        float mouseY = raw.y * verticalSensitivity;
 
         // 2) Base aim from mouse (explicit yaw angle instead of Rotate)
         yawAngle += mouseX;
@@ -206,7 +205,7 @@ public class PlayerController : MonoBehaviour
         currentRecoilX = Mathf.Lerp(currentRecoilX, targetRecoilX, snapLerp);
         currentRecoilY = Mathf.Lerp(currentRecoilY, targetRecoilY, snapLerp);
 
-        // 
+        // Not firing → targets go to 0 and current follows
         if (!isFiring)
         {
             targetRecoilX = Mathf.Lerp(targetRecoilX, 0f, recoveryLerp);
@@ -215,6 +214,7 @@ public class PlayerController : MonoBehaviour
             currentRecoilX = Mathf.Lerp(currentRecoilX, targetRecoilX, recoveryLerp);
             currentRecoilY = Mathf.Lerp(currentRecoilY, targetRecoilY, recoveryLerp);
 
+            // Compensation so crosshair stays put during recovery
             float dPitch = currentRecoilX - prevRecoilX;
             float dYaw = currentRecoilY - prevRecoilY;
 
@@ -240,7 +240,7 @@ public class PlayerController : MonoBehaviour
 
         // Horizontal (yaw) recoil
         // Randomly choose left or right kick for variation
-        float yawKick = Random.Range(-amount * 0.05f, amount * 0.05f);
+        float yawKick = Random.Range(-amount * 0.15f, amount * 0.15f);
         targetRecoilY = Mathf.Clamp(targetRecoilY + yawKick, -maxRecoilYaw, maxRecoilYaw);
     }
 
