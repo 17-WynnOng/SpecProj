@@ -25,7 +25,7 @@ MonoBehaviour:
   magazineSize: 32
   maxAmmo: 150
   reloadTime: 1.5
-  recoil: 300
+  recoil: 100
   fireMode: 1
   hitLayers:
     serializedVersion: 2
