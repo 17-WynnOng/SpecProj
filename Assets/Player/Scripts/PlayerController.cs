@@ -89,6 +89,7 @@ public class PlayerController : MonoBehaviour
     private float currentRecoilX = 0f;
     private float currentRecoilY = 0f;
 
+    private float yawAngle = 0f;
 
     // Start is called before the first frame update
     void Awake()
@@ -181,15 +182,16 @@ public class PlayerController : MonoBehaviour
 
     private void HandleLook()
     {
-        // 1) Mouse input (clamped)
+        // 1) Mouse input
         Vector2 raw = lookAction.ReadValue<Vector2>();
         Vector2 clamped = Vector2.ClampMagnitude(raw, 10f);
-        if (clamped.magnitude > 5f) clamped = clamped.normalized * 5f;
 
         float mouseX = clamped.x * horizontalSensitivity;
         float mouseY = clamped.y * verticalSensitivity;
 
-        // 2) Base vertical aim from mouse
+        // 2) Base aim from mouse (explicit yaw angle instead of Rotate)
+        yawAngle += mouseX;
+
         verticalRotation -= mouseY;
         verticalRotation = Mathf.Clamp(verticalRotation, -verticalClampAngle, verticalClampAngle);
 
@@ -197,7 +199,6 @@ public class PlayerController : MonoBehaviour
         float snapLerp = 1f - Mathf.Exp(-recoilSnapSpeed * Time.deltaTime);
         float recoveryLerp = 1f - Mathf.Exp(-recoilRecoverySpeed * Time.deltaTime);
 
-        // Save previous recoil so we can compensate recovery
         float prevRecoilX = currentRecoilX;
         float prevRecoilY = currentRecoilY;
 
@@ -205,7 +206,7 @@ public class PlayerController : MonoBehaviour
         currentRecoilX = Mathf.Lerp(currentRecoilX, targetRecoilX, snapLerp);
         currentRecoilY = Mathf.Lerp(currentRecoilY, targetRecoilY, snapLerp);
 
-        // If not firing, target eases to 0 and current follows it
+        // 
         if (!isFiring)
         {
             targetRecoilX = Mathf.Lerp(targetRecoilX, 0f, recoveryLerp);
@@ -214,25 +215,21 @@ public class PlayerController : MonoBehaviour
             currentRecoilX = Mathf.Lerp(currentRecoilX, targetRecoilX, recoveryLerp);
             currentRecoilY = Mathf.Lerp(currentRecoilY, targetRecoilY, recoveryLerp);
 
-            // ===== Compensation so crosshair stays put =====
-            // How much recoil changed this frame:
-            float dPitch = currentRecoilX - prevRecoilX; // + means recoil pitched further this frame
-            float dYaw = currentRecoilY - prevRecoilY; // + means recoil yawed further this frame
+            float dPitch = currentRecoilX - prevRecoilX;
+            float dYaw = currentRecoilY - prevRecoilY;
 
-            // Adjust base aim by the inverse so (aim + recoil) stays constant
-            verticalRotation -= dPitch;              // keep pitch steady
-            transform.Rotate(Vector3.up * -dYaw);    // keep yaw steady
+            verticalRotation -= dPitch;  // pitch compensation
+            yawAngle -= dYaw;    // yaw compensation (no extra Rotate calls)
         }
 
-        // 4) Apply final rotations
+        // 4) Apply final rotations ONCE (no transform.Rotate)
         float finalPitch = Mathf.Clamp(verticalRotation + currentRecoilX,
                                        -verticalClampAngle, verticalClampAngle);
 
-        // Yaw: mouse + horizontal recoil (compensation already applied above during recovery)
-        transform.Rotate(Vector3.up * (mouseX + currentRecoilY));
+        // Yaw on the body, pitch on the camera
+        transform.localRotation = Quaternion.Euler(0f, yawAngle + currentRecoilY, 0f);
 
-        // Keep your roll from strafe tilt
-        float currentRoll = cameraHolder.localRotation.eulerAngles.z;
+        float currentRoll = cameraHolder.localRotation.eulerAngles.z; // keep strafe tilt roll
         cameraHolder.localRotation = Quaternion.Euler(finalPitch, 0f, currentRoll);
     }
 
