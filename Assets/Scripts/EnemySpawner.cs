@@ -34,12 +34,24 @@ public class EnemySpawner : MonoBehaviour
 
     private int debugSpawnedTotal = 0;
 
+    [Header("Canvas")]
+    [SerializeField]private GameObject canvas;
+
     private void Start()
     {
         enemiesLeft = maxEnemies;
         //spawnLoop = StartCoroutine(SpawnGroupsLoop());
 
         UIManager.Instance.UpdateEnemySpawnerNames(GameManager.Instance.enemySpawners);
+        canvas.SetActive(true);
+    }
+
+    private void Update()
+    {
+        if(GameManager.Instance.isSectorClear)
+        {
+            canvas.SetActive(false);
+        }
     }
 
     public int GetEnemiesLeft()

@@ -17,6 +17,9 @@ public class GameManager : MonoBehaviour
     public int winWave = 4;
     public int currentWave = 1;
 
+    public bool isSectorClear;
+    public bool isExtracted;
+
     public List<GameObject> aliveEnemies = new List<GameObject>();
 
     [HideInInspector ]public List<EnemySpawner> activeSpawners = new List<EnemySpawner>();
@@ -32,7 +35,9 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         UIManager.Instance.UpdateWaveCount(currentWave, winWave);
+        isSectorClear = false;
         allowSpawning = false;
+        isExtracted = false;
         SelectSpawners();
     }
 
@@ -40,7 +45,15 @@ public class GameManager : MonoBehaviour
     {
         CheckWaveEnd();
 
-        if (!countdownActive) return;
+        if (isSectorClear)
+        {
+            allowSpawning = false;
+            ClearAllEnemies();
+            UIManager.Instance.gameUICanvas.SetActive(false);
+            UIManager.Instance.sectorClearCanvas.SetActive(true);
+        }
+
+        if (!countdownActive || isSectorClear) return;
 
         countdownRemaining -= Time.deltaTime;
 
@@ -163,7 +176,7 @@ public class GameManager : MonoBehaviour
         }
         else if (currentWave == winWave)
         {
-            SceneManagement.Instance.LoadScene("WinScene");
+            isSectorClear = true;
         }
     }
 
@@ -176,5 +189,20 @@ public class GameManager : MonoBehaviour
                 total += spawner.GetEnemiesLeft();
         }
         return total;
+    }
+
+    private void ClearAllEnemies()
+    {
+        // Destroy each enemy GameObject in the list
+        for (int i = aliveEnemies.Count - 1; i >= 0; i--)
+        {
+            if (aliveEnemies[i] != null)
+            {
+                Destroy(aliveEnemies[i]);
+            }
+        }
+
+        // Empty the list
+        aliveEnemies.Clear();
     }
 }

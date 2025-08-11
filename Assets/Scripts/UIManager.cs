@@ -52,6 +52,11 @@ public class UIManager : MonoBehaviour
     public TMP_Text selectedSecondaryTxt;
     public TMP_Text[] selectedSentriesTxt;
 
+    [Header("Game End")]
+    public GameObject sectorClearCanvas;
+    public GameObject cardSelectionCanvas;
+    public GameObject extractCanvas;
+
     private float healthBarMaxWidth;
     private float baseHPBarMaxWidth;
     private float waveBarMaxWidth;
@@ -61,6 +66,9 @@ public class UIManager : MonoBehaviour
         middleLeftUI.SetActive(false);
         gameUICanvas.SetActive(false);
         loadoutUICanvas.SetActive(true);
+        sectorClearCanvas.SetActive(false);
+        cardSelectionCanvas.SetActive(false);
+        extractCanvas.SetActive(false);
 
         if (Instance == null)
             Instance = this;

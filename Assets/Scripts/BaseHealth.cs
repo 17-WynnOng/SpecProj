@@ -6,10 +6,19 @@ public class BaseHealth : MonoBehaviour
 {
     [SerializeField] private float baseMaxHealth = 100f;
     [SerializeField] private float baseCurrentHealth;
-
+    [SerializeField] private GameObject canvas;
     private void Awake()
     {
         baseCurrentHealth = baseMaxHealth;
+        canvas.SetActive(true);
+    }
+
+    private void Update()
+    {
+        if(GameManager.Instance.isSectorClear)
+        {
+            canvas.SetActive(false);
+        }
     }
 
     public void TakeDamage(float damage)

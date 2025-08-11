@@ -24,7 +24,7 @@ MonoBehaviour:
   damage: 50
   magazineSize: 6
   maxAmmo: 0
-  reloadTime: 10
+  reloadTime: 15
   range: 50
   fireRate: 2
   hitLayers:
