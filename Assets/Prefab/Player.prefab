@@ -148,7 +148,7 @@ MonoBehaviour:
   interactRange: 4
   scrollCooldown: 0.2
   recoilSnapSpeed: 15
-  recoilRecoverySpeed: 10
+  recoilRecoverySpeed: 12
   maxRecoilPitch: 20
   maxRecoilYaw: 15
   weaponHolder: {fileID: 7150644935232864533}

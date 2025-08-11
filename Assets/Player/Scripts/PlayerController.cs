@@ -232,7 +232,7 @@ public class PlayerController : MonoBehaviour
         float currentRoll = cameraHolder.localRotation.eulerAngles.z; // keep strafe tilt roll
         cameraHolder.localRotation = Quaternion.Euler(finalPitch, 0f, currentRoll);
     }
-
+    
     public void ApplyRecoil(float amount)
     {
         // Vertical (pitch) recoil
@@ -240,7 +240,7 @@ public class PlayerController : MonoBehaviour
 
         // Horizontal (yaw) recoil
         // Randomly choose left or right kick for variation
-        float yawKick = Random.Range(-amount * 0.15f, amount * 0.15f);
+        float yawKick = Random.Range(-amount * 0.1f, amount * 0.1f);
         targetRecoilY = Mathf.Clamp(targetRecoilY + yawKick, -maxRecoilYaw, maxRecoilYaw);
     }
 

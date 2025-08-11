@@ -153,6 +153,7 @@ public class PlayerBuild : MonoBehaviour
 
             // Return to build UI (and restore ghost)
             UIManager.Instance.EnableBuildUI();
+            UIManager.Instance.UpdateDeployableCost(playerLoadout.currentScrap, playerLoadout.heldDeployable.deployCost);
         }
     }
 
