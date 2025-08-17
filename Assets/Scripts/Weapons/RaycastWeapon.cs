@@ -20,6 +20,7 @@ public class RaycastWeapon : Weapon
 
         currentMag--;
         UIManager.Instance.UpdateAmmoUI(currentMag, currentReserve);
+        AudioManager.Instance.PlayOneShotSFXByName("arFire");
 
         return true;
     }

@@ -39,6 +39,8 @@ public class EnemySpawner : MonoBehaviour
 
     private void Start()
     {
+        maxEnemies += GameManager.Instance.sectorsCleared * 2;
+
         enemiesLeft = maxEnemies;
         //spawnLoop = StartCoroutine(SpawnGroupsLoop());
 

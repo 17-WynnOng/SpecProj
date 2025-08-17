@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerHealth : Damageable
 {
+    public bool isDead;
     protected override void Die()
     {
         Debug.Log("No health, dead");
@@ -14,7 +15,13 @@ public class PlayerHealth : Damageable
 
     public override void TakeDamage(float damage)
     {
-        base.TakeDamage(damage);
+        currentHealth -= damage;
+
+        if (currentHealth <= 0f)
+        {
+            Die();
+            currentHealth = 0f;
+        }
 
         UIManager.Instance.UpdatePlayerHealthBar(currentHealth, maxHealth);
     }

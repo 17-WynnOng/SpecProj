@@ -47,6 +47,7 @@ public class PlayerBuild : MonoBehaviour
 
         loadout.currentScrap -= loadout.heldDeployable.deployCost;
         UIManager.Instance.UpdateScrapCount(loadout.currentScrap);
+        AudioManager.Instance.PlayOneShotSFXByName("build");
 
         Deployable.PlaceDeployable(cachedPlacementPos, cachedPlacementNormal, loadout.heldDeployable);
         UIManager.Instance.UpdateDeployableCost(loadout.currentScrap, loadout.heldDeployable.deployCost);
@@ -67,7 +68,7 @@ public class PlayerBuild : MonoBehaviour
                     // Refund scrap to player
                     int refundAmount = deployable.deployableData.deployCost;
                     loadout.currentScrap += refundAmount;
-
+                    AudioManager.Instance.PlayOneShotSFXByName("sell");
                     UIManager.Instance.UpdateScrapCount(loadout.currentScrap);
                     Destroy(hitObj);
                 }

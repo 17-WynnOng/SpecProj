@@ -21,6 +21,8 @@ public class Sentries : Deployable
     private Color baseColor;
     private Coroutine reloadTintRoutine;
 
+    [SerializeField] private AudioSource audiosource;
+
 
     protected virtual void Start()
     {
@@ -68,6 +70,7 @@ public class Sentries : Deployable
             nextFireTime = Time.time + deployableData.fireRate;
             currentMag--;
             PerformRaycast();
+            audiosource.PlayOneShot(AudioManager.Instance.sfxClips[0]);
             SetTintFromAmmo();
         }
     }

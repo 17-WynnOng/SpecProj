@@ -9,6 +9,7 @@ public class AmmoCollectible : Collectible
     protected override void Collect(PlayerController player)
     {
         player.playerLoadout.AddAmmo(AddAmmo);
+        AudioManager.Instance.PlayOneShotSFXByName("collectibles");
         Destroy(this.gameObject);
     }
 }

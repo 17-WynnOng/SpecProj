@@ -30,9 +30,22 @@ public class MainMenuUI : MonoBehaviour
             {
                 // Example: Load saved unlocks and go to the next scene
                 LoadoutManager.Instance.LoadUnlockedData();
-                SceneManagement.Instance.LoadScene("Level1Scene");
+                ContinueScene();
             });
         }
+    }
+
+    public void ContinueScene()
+    {
+        if (!SaveSystem.Exists("gameStage.json"))
+        {
+            Debug.Log("No gameStage save found.");
+            return;
+        }
+
+        WinSaveData data = SaveSystem.Load<WinSaveData>("gameStage.json");
+        string name = data.levelName;
+        SceneManagement.Instance.LoadScene(name);
     }
 
     public void ViewPanel(GameObject open)
@@ -51,6 +64,8 @@ public class MainMenuUI : MonoBehaviour
         {
             Destroy(child.gameObject);
         }
+
+        SaveSystem.Delete("gameStage.json");
 
         LoadoutManager.Instance.DeleteUnlockedData();
         LoadoutManager.Instance.ClearUnlocksInMemory();

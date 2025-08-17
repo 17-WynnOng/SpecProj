@@ -24,6 +24,7 @@ public class UIManager : MonoBehaviour
     [Header("Top Right")]
     public RectTransform baseHealthBar;
     public TMP_Text waveText;
+    public TMP_Text sectorNumber;
 
     [Header("Top Left")]
     public GameObject topLeftUI;
@@ -45,6 +46,7 @@ public class UIManager : MonoBehaviour
 
     [Header("Canvas")]
     public GameObject gameUICanvas;
+    public GameObject pauseMenu;
 
     [Header("Loadout UI")]
     public GameObject loadoutUICanvas;
@@ -54,8 +56,9 @@ public class UIManager : MonoBehaviour
 
     [Header("Game End")]
     public GameObject sectorClearCanvas;
-    public GameObject cardSelectionCanvas;
+    public GameObject cardSelectionUI;
     public GameObject extractCanvas;
+    public GameObject postMissionBriefUI;
 
     private float healthBarMaxWidth;
     private float baseHPBarMaxWidth;
@@ -63,13 +66,6 @@ public class UIManager : MonoBehaviour
 
     private void Awake()
     {
-        middleLeftUI.SetActive(false);
-        gameUICanvas.SetActive(false);
-        loadoutUICanvas.SetActive(true);
-        sectorClearCanvas.SetActive(false);
-        cardSelectionCanvas.SetActive(false);
-        extractCanvas.SetActive(false);
-
         if (Instance == null)
             Instance = this;
         else
@@ -78,6 +74,15 @@ public class UIManager : MonoBehaviour
 
     private void Start()
     {
+        middleLeftUI.SetActive(false);
+        gameUICanvas.SetActive(false);
+        loadoutUICanvas.SetActive(true);
+        sectorClearCanvas.SetActive(false);
+        cardSelectionUI.SetActive(false);
+        extractCanvas.SetActive(false);
+        postMissionBriefUI.SetActive(false);
+        pauseMenu.SetActive(false);
+
         healthBarMaxWidth = healthBar.sizeDelta.x;
         baseHPBarMaxWidth = baseHealthBar.sizeDelta.x;
 
@@ -221,6 +226,13 @@ public class UIManager : MonoBehaviour
         sellModeUI.SetActive(false);
     }
 
+    public void EnableCardSelectionUI()
+    {
+        postMissionBriefUI.SetActive(false);
+        cardSelectionUI.SetActive(true);
+        GameManager.Instance.cardSpawner.SpawnUnlockCards();
+    }
+
     public void UpdateEnemySpawnerNames(EnemySpawner[] spawners)
     {
         for (int i = 0; i < enemySpawnerName.Length && i < spawners.Length; i++)
@@ -230,6 +242,11 @@ public class UIManager : MonoBehaviour
                 enemySpawnerName[i].text = spawners[i].spawnerName;
             }
         }
+    }
+
+    public void UpdateSectorNumber(string number)
+    {
+        sectorNumber.text = number;
     }
 
     public void InitializeBuildToolUI(GameObject buildToolInstance)

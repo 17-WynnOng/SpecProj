@@ -2966,7 +2966,6 @@ RectTransform:
   - {fileID: 6580163978500827243}
   - {fileID: 6980564159148944704}
   - {fileID: 8273433726394025794}
-  - {fileID: 3298131898403253543}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -3103,6 +3102,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 3298131898403253543}
   - {fileID: 6414510540131553186}
   - {fileID: 4358831980979502720}
   - {fileID: 317001701057933837}
@@ -3261,7 +3261,7 @@ GameObject:
   - component: {fileID: 8922020689627008251}
   - component: {fileID: 6642431537031653949}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: SectorNumber
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3274,16 +3274,16 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6560700328708099885}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 6299171931477260886}
+  m_Father: {fileID: 6580163978500827243}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 645, y: 504}
+  m_AnchoredPosition: {x: -167.50006, y: 111.66666}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8922020689627008251
@@ -3927,7 +3927,7 @@ GameObject:
   - component: {fileID: 6094192324234751069}
   - component: {fileID: 1787047220162426398}
   m_Layer: 5
-  m_Name: Section
+  m_Name: Divider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

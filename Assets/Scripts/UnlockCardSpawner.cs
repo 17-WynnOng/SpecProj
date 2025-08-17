@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UnlockCardSpawner : MonoBehaviour
 {
@@ -11,45 +12,88 @@ public class UnlockCardSpawner : MonoBehaviour
 
     private List<UnlockCard> spawnedCards = new List<UnlockCard>();
 
+    private void Start()
+    {
+        if (SceneManagement.Instance != null)
+        {
+            if (continueBtn == null) 
+                return;
+
+            var btn = continueBtn.GetComponent<Button>();
+            if (btn == null) 
+                return;
+
+            btn.onClick.RemoveAllListeners();
+
+            if (SceneManagement.Instance != null)
+            {
+                btn.onClick.AddListener(SceneManagement.Instance.LoadRandomScene);
+                btn.onClick.AddListener(LoadoutManager.Instance.SaveUnlockedData);
+
+                if (GameManager.Instance != null)
+                {
+                    btn.onClick.AddListener(GameManager.Instance.AddSectorsCleared);
+                    btn.onClick.AddListener(GameManager.Instance.SaveWinData);
+                }
+            }
+        }
+    }
+
     public void SpawnUnlockCards()
     {
         ClearExistingCards();
         spawnedCards.Clear();
         continueBtn.SetActive(false);
 
-        var lockedWeapons = LoadoutManager.Instance.equipmentDB.allWeapons.FindAll(w => !LoadoutManager.Instance.unlockedWeapons.Contains(w));
-        var lockedDeployables = LoadoutManager.Instance.equipmentDB.allDeployables.FindAll(d => !LoadoutManager.Instance.unlockedDeployables.Contains(d));
+        //store unique hashset, prevents duplicates
+        var unlockedWeaponIDs = new HashSet<string>(
+            LoadoutManager.Instance.unlockedWeapons.ConvertAll(w => w.weaponID));
+
+        var unlockedDeployableIDs = new HashSet<string>(
+            LoadoutManager.Instance.unlockedDeployables.ConvertAll(d => d.deployableID));
+
+        // Filter by ID (not reference)
+        var lockedWeapons = LoadoutManager.Instance.equipmentDB.allWeapons
+            .FindAll(w => !unlockedWeaponIDs.Contains(w.weaponID));
+
+        var lockedDeployables = LoadoutManager.Instance.equipmentDB.allDeployables
+            .FindAll(d => !unlockedDeployableIDs.Contains(d.deployableID));
 
         int totalLocked = lockedWeapons.Count + lockedDeployables.Count;
         int spawnCount = Mathf.Min(numberOfCards, totalLocked);
 
         for (int i = 0; i < spawnCount; i++)
         {
-            GameObject cardObj = Instantiate(unlockCardPrefab, cardHolder);
-            UnlockCard card = cardObj.GetComponent<UnlockCard>();
+            var cardObj = Instantiate(unlockCardPrefab, cardHolder);
+            var card = cardObj.GetComponent<UnlockCard>();
             card.InitializeSpawner(this);
-            spawnedCards.Add(card);
             card.AssignContinueBtn(continueBtn);
+            spawnedCards.Add(card);
 
-            bool pickWeapon = Random.value > 0.5f;
+            bool canPickWeapon = lockedWeapons.Count > 0;
+            bool canPickDeploy = lockedDeployables.Count > 0;
 
-            if (pickWeapon && lockedWeapons.Count > 0)
+            // pick from whichever list still has items
+            bool pickWeapon = (canPickWeapon && (!canPickDeploy || Random.value > 0.5f));
+
+            if (pickWeapon)
             {
-                WeaponData w = lockedWeapons[Random.Range(0, lockedWeapons.Count)];
-                lockedWeapons.Remove(w); // avoid duplicates
+                int idx = Random.Range(0, lockedWeapons.Count);
+                var w = lockedWeapons[idx];
+                lockedWeapons.RemoveAt(idx);
                 card.AssignWeapon(w);
-            }
-            else if (lockedDeployables.Count > 0)
-            {
-                DeployableData d = lockedDeployables[Random.Range(0, lockedDeployables.Count)];
-                lockedDeployables.Remove(d); // avoid duplicates
-                card.AssignDeployable(d);
             }
             else
             {
-                card.gameObject.SetActive(false); // fallback: hide empty card
+                int idx = Random.Range(0, lockedDeployables.Count);
+                var d = lockedDeployables[idx];
+                lockedDeployables.RemoveAt(idx);
+                card.AssignDeployable(d);
             }
         }
+
+        // If nothing left to unlock, show continue immediately
+        continueBtn.SetActive(totalLocked == 0);
     }
 
     public void DisableAllCards(UnlockCard selected)

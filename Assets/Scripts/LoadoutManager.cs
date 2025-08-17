@@ -16,6 +16,8 @@ public class LoadoutManager : MonoBehaviour
     public List<WeaponData> unlockedWeapons = new List<WeaponData>();
     public List<DeployableData> unlockedDeployables = new List<DeployableData>();
 
+    public AudioSource myAudioSource;
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -31,6 +33,9 @@ public class LoadoutManager : MonoBehaviour
             deployables = new DeployableData[4];
 
         LoadUnlockedData();
+
+        AudioManager.Instance.bgmSource = myAudioSource;
+        AudioManager.Instance.PlayBGM(0, true);
     }
 
     public void UnlockWeapon(string weaponID)
@@ -39,7 +44,6 @@ public class LoadoutManager : MonoBehaviour
         if (weapon != null && !unlockedWeapons.Contains(weapon))
         {
             unlockedWeapons.Add(weapon);
-            SaveUnlockedData();
         }
     }
 
@@ -49,13 +53,12 @@ public class LoadoutManager : MonoBehaviour
         if (deployable != null && !unlockedDeployables.Contains(deployable))
         {
             unlockedDeployables.Add(deployable);
-            SaveUnlockedData();
         }
     }
 
     public void SaveUnlockedData()
     {
-        var saveData = new UnlockSaveData();
+        var saveData = new UnlockSaveData();    
 
         saveData.unlockedWeaponIDs = unlockedWeapons.ConvertAll(w => w.weaponID);
         saveData.unlockedDeployableIDs = unlockedDeployables.ConvertAll(d => d.deployableID);

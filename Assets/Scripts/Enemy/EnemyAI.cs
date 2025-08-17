@@ -37,6 +37,8 @@ public abstract class EnemyAI : Damageable
     public delegate void OnDeath();
     public event OnDeath onDeath;
 
+    [SerializeField] private AudioSource audioSource;
+
     protected virtual void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -146,6 +148,8 @@ public abstract class EnemyAI : Damageable
     public override void TakeDamage(float damage)
     {
         base.TakeDamage(damage);
+
+        audioSource.PlayOneShot(AudioManager.Instance.sfxClips[1]);
 
         if (healthBar != null)
             healthBar.UpdateEnemyHealthBar(currentHealth, maxHealth);

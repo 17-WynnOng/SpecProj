@@ -8,6 +8,7 @@ public class ScrapCollectible : Collectible
     {
         player.playerLoadout.AddScrap(5);
         UIManager.Instance.UpdateScrapCount(player.playerLoadout.currentScrap);
+        AudioManager.Instance.PlayOneShotSFXByName("collectibles");
         Destroy(this.gameObject);
     }
 }

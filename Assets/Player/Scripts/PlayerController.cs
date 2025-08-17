@@ -16,7 +16,7 @@ public class PlayerController : MonoBehaviour
 
 
     [Header("PlayerLoadout (Important)")]
-    [SerializeField] public PlayerLoadout playerLoadout;
+    public PlayerLoadout playerLoadout;
 
     [Header("Gravity")]
     [SerializeField] private float gravity = -9.81f;
@@ -54,6 +54,7 @@ public class PlayerController : MonoBehaviour
 
     private PlayerInput playerInput;
     private CharacterController characterController;
+    private PlayerHealth playerHealth;
 
     //Input Actions
     private Vector2 moveInput;
@@ -66,6 +67,8 @@ public class PlayerController : MonoBehaviour
     private InputAction enterAction;
     private InputAction interactAction;
     private InputAction rmbAction;
+    private InputAction escAction;
+    private InputAction skipAction;
 
     //Camera
     private InputAction lookAction;
@@ -89,13 +92,19 @@ public class PlayerController : MonoBehaviour
     private float currentRecoilX = 0f;
     private float currentRecoilY = 0f;
 
+    //Yaw
     private float yawAngle = 0f;
+    
+    //Pause
+    private bool isPaused;
+    private GameObject pauseMenu;
 
     // Start is called before the first frame update
     void Awake()
     {
         characterController = GetComponent<CharacterController>();
         playerInput = GetComponent<PlayerInput>();
+        playerHealth = GetComponent<PlayerHealth>();
 
         moveAction = playerInput.actions["Movement"];
         lookAction = playerInput.actions["Look"];
@@ -107,24 +116,31 @@ public class PlayerController : MonoBehaviour
         reloadAction = playerInput.actions["Reload"];
         enterAction = playerInput.actions["Enter"];
         interactAction = playerInput.actions["EKey"];
+        escAction = playerInput.actions["Esc"];
+        skipAction = playerInput.actions["Skip"];
 
     }
 
     void Start()
     {
         initialWeaponPos = weaponHolder.localPosition;
+        pauseMenu = UIManager.Instance.pauseMenu;
     }
 
     // Update is called once per frame
     void Update()
     {
+        HandlePause();
+
         if (GameManager.Instance.isExtracted)
             return;
 
-        if (!controlsEnabled)
+        if (!controlsEnabled || isPaused)
             return;
+
         HandleBuildModeToggle();
         HandleSecondaryAction();
+        HandleSkip();
 
         // Always allow movement/look/jump
         Gravity();
@@ -181,6 +197,14 @@ public class PlayerController : MonoBehaviour
         Vector3 currentEuler = cameraHolder.localRotation.eulerAngles;
         Quaternion targetRotation = Quaternion.Euler(verticalRotation, 0f, targetZRotation);
         cameraHolder.localRotation = Quaternion.Slerp(cameraHolder.localRotation, targetRotation, Time.deltaTime * strafeTiltSpeed);
+    }
+
+    private void HandleSkip()
+    {
+        if (skipAction.WasPressedThisFrame())
+        {
+            GameManager.Instance.isSectorClear = true;
+        }
     }
 
     private void HandleLook()
@@ -254,7 +278,7 @@ public class PlayerController : MonoBehaviour
         Vector3 move = transform.right * moveInput.x + transform.forward * moveInput.y;
         characterController.Move(move * moveSpeed * Time.deltaTime);
 
-        if (playerLoadout.heldWeapon != null && playerLoadout.heldWeapon.animator != null)
+        if (playerLoadout.heldWeapon != null && playerLoadout.heldWeapon.animator != null && isGrounded)
         {
             playerLoadout.heldWeapon.animator.SetBool("Walking", isWalking);
         }
@@ -434,6 +458,17 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void HandlePause()
+    {
+        if (escAction.WasPressedThisFrame())
+        {
+            if (isPaused) 
+                ResumeGame();
+            else 
+                PauseGame();
+        }
+    }
+
     private void AttractNearbyCollectibles()
     {
         Collider[] collision = Physics.OverlapSphere(transform.position, attractRadius, collectibleLayer);
@@ -443,6 +478,42 @@ public class PlayerController : MonoBehaviour
             {
                 collectible.StartFlyingToPlayer(transform); // Make this method public in Collectible
             }
+        }
+    }
+
+    public void PauseGame()
+    {
+        isPaused = true;
+
+        // Stop game time & audio
+        Time.timeScale = 0f;
+
+        // Show cursor + menu
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+        if (pauseMenu) pauseMenu.SetActive(true);
+    }
+
+    public void ResumeGame()
+    {
+        isPaused = false;
+
+        // Restore time & audio
+        Time.timeScale = 1f;
+
+        // Hide cursor + menu
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+        if (pauseMenu) pauseMenu.SetActive(false);
+    }
+
+    // Safety: if this object gets disabled while paused, unpause time.
+    private void OnDisable()
+    {
+        if (isPaused)
+        {
+            Time.timeScale = 1f;
+            AudioListener.pause = false;
         }
     }
 }

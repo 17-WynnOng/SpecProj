@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -20,9 +21,17 @@ public class GameManager : MonoBehaviour
     public bool isSectorClear;
     public bool isExtracted;
 
+    [Header("Win Conditions")]
+    public int sectorsCleared;
+    [Tooltip("How many sectors to clear to win")]
+    public int winObjective;
+
+
     public List<GameObject> aliveEnemies = new List<GameObject>();
 
     [HideInInspector ]public List<EnemySpawner> activeSpawners = new List<EnemySpawner>();
+
+    public UnlockCardSpawner cardSpawner;
 
     private void Awake()
     {
@@ -30,10 +39,14 @@ public class GameManager : MonoBehaviour
             Instance = this;
         else
             Destroy(gameObject);
+        
+        LoadWinData();
+        SaveWinData();
     }
 
     private void Start()
     {
+        UIManager.Instance.UpdateSectorNumber("SECTOR "+ sectorsCleared.ToString());
         UIManager.Instance.UpdateWaveCount(currentWave, winWave);
         isSectorClear = false;
         allowSpawning = false;
@@ -45,10 +58,9 @@ public class GameManager : MonoBehaviour
     {
         CheckWaveEnd();
 
-        if (isSectorClear)
+        //Change this to physical button later on for cheat code
+        if (isSectorClear && !isExtracted)
         {
-            allowSpawning = false;
-            ClearAllEnemies();
             UIManager.Instance.gameUICanvas.SetActive(false);
             UIManager.Instance.sectorClearCanvas.SetActive(true);
         }
@@ -191,7 +203,7 @@ public class GameManager : MonoBehaviour
         return total;
     }
 
-    private void ClearAllEnemies()
+    public void ClearAllEnemies()
     {
         // Destroy each enemy GameObject in the list
         for (int i = aliveEnemies.Count - 1; i >= 0; i--)
@@ -204,5 +216,40 @@ public class GameManager : MonoBehaviour
 
         // Empty the list
         aliveEnemies.Clear();
+    }
+
+    public void SaveWinData()
+    {
+        WinSaveData data = new WinSaveData
+        {
+            sectorsCleared = this.sectorsCleared,
+            winObjective = this.winObjective,
+            levelName = SceneManagement.Instance.GetSceneName()
+        };
+
+        SaveSystem.Save("gameStage.json", data);
+    }
+
+    public void LoadWinData()
+    {
+        if (!SaveSystem.Exists("gameStage.json"))
+        {
+            Debug.Log("No gameStage save found.");
+            return;
+        }
+        
+        WinSaveData data = SaveSystem.Load<WinSaveData>("gameStage.json");
+        sectorsCleared = data.sectorsCleared;
+        winObjective = data.winObjective;
+    }
+
+    public void AddSectorsCleared()
+    {
+        GameManager.Instance.sectorsCleared++;
+    }
+
+    public void SkipLevel()
+    {
+        isSectorClear = true;
     }
 }

@@ -9,11 +9,12 @@ public class ChamberScript : MonoBehaviour
     {
         if (GameManager.Instance.isSectorClear)
         {
-            Time.timeScale = 0;
-            GameManager.Instance.isExtracted = true;
-            Cursor.lockState = CursorLockMode.None;
             UIManager.Instance.extractCanvas.SetActive(true);
             UIManager.Instance.sectorClearCanvas.SetActive(false);
+            UIManager.Instance.postMissionBriefUI.SetActive(true);
+            GameManager.Instance.isExtracted = true;
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
         }
     }
 
